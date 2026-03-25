@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+        stages: [pre-commit]
+      - id: ruff-format
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: pytest-unit
+        name: unit tests
+        entry: poetry run pytest tests/unit/ -q --no-header
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]

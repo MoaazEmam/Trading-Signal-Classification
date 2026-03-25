@@ -1,0 +1,78 @@
+[tool.poetry]
+name = "cyber-attack-classification"
+version = "0.1.0"
+description = ""
+authors = ["MoaazEmam <moaaz.emam06@eng-st.cu.edu.eg>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.13,<3.14"
+requests = "^2.33.0"
+pydantic = "^2.12.5"
+pydantic-settings = "^2.13.1"
+scikit-learn = "^1.8.0"
+kaggle = "^2.0.0"
+mlflow = "^3.10.1"
+great-expectations = "^1.15.1"
+numpy = "^2.4.3"
+imbalanced-learn = "^0.14.1"
+matplotlib = "^3.10.8"
+seaborn = "^0.13.2"
+boto3 = "^1.42.76"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.1.0"
+ruff = "^0.15.7"
+black = "^26.3.1"
+pre-commit = "^4.5.1"
+ipykernel = "^7.2.0"
+jupyter = "^1.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+exclude = ["notebooks/"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.black]
+line-length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--cov-fail-under=60",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "src/data/ingestion.py",
+    "src/serving/api.py",
+    "src/config.py",
+    "src/**/__init__.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "pass",
+]
