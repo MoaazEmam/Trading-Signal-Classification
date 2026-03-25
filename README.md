@@ -13,7 +13,6 @@ A machine-learning pipeline for detecting and classifying network intrusions. Th
 - [Running the Pipeline](#running-the-pipeline)
 - [Testing](#testing)
 - [Code Quality](#code-quality)
-- [CI/CD](#cicd)
 - [MLflow Tracking](#mlflow-tracking)
 
 ---
@@ -193,23 +192,6 @@ make clean
 ```
 
 The project uses **ruff** for linting and import sorting, and **black** for formatting (both set to 88-char line length). Notebooks in `notebooks/` are excluded from linting.
-
----
-
-## CI/CD
-
-GitHub Actions runs on every push to `main` or `develop`, and on all pull requests targeting `main`.
-
-The pipeline (`.github/workflows/ci.yml`) does the following in order:
-
-1. Checks out the code and sets up Python 3.13
-2. Installs Poetry and all dependencies
-3. Runs `ruff` linting
-4. Runs the unit test suite
-5. Runs the full test suite with a 60% coverage gate
-6. Uploads `coverage.xml` to Codecov (non-blocking)
-
-> **Note:** The CI uses Python 3.13 while local development uses 3.13 (as pinned in `pyproject.toml`). If you hit compatibility issues in CI, ensure no 3.13-only syntax is used.
 
 ---
 
