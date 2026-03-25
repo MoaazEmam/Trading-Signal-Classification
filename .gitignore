@@ -229,3 +229,4 @@ mlartifacts/
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+notebooks/*
