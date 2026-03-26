@@ -1,12 +1,18 @@
+from pathlib import Path
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+PARENT_DIR = Path(__file__).resolve().parent.parent
+ENV_FILE_PATH = PARENT_DIR / ".env"
 
 
 class Settings(BaseSettings):
     kaggle_username: str = Field(default="kaggle_your_username")
-    kaggle_key: str = Field(default="kaggle_your_key")
+    kaggle_api_token: str = Field(default="kaggle_your_key")
+    fred_api_key: str = Field(default="fred-api-key")
     mlflow_tracking_uri: str = Field(default="mlflow_uri")
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=ENV_FILE_PATH)
 
 
 settings = Settings()
