@@ -68,8 +68,8 @@ cyberattack-detection/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/MoaazEmam/Cyber-Attack-Classification.git
-cd Cyber-Attack-Classification
+git clone https://github.com/MoaazEmam/Trading-Signal-Classification.git
+cd Trading-Signal-Classification
 ```
 
 ### 2. Install dependencies
