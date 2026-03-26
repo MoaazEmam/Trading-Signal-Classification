@@ -1,6 +1,6 @@
-# Cyber-Attack-Classification
+# Trading-Signal-Classification
 
-A machine-learning pipeline for detecting and classifying network intrusions. The project covers the full ML lifecycle: data ingestion from Kaggle, validation, preprocessing, feature engineering, model training, and evaluation — with MLflow experiment tracking, CI via GitHub Actions, and a serving layer via FastAPI.
+A machine-learning pipeline for classifying trading signals into buy/sell/hold. The project covers the full ML lifecycle: data ingestion from Kaggle, validation, preprocessing, feature engineering, model training, and evaluation — with MLflow experiment tracking, CI via GitHub Actions, and a serving layer via FastAPI.
 
 ---
 
