@@ -19,6 +19,9 @@ test-integration:
 ingest:
 	poetry run python -m src.data.ingestion
 
+label:
+	poetry run python -m src.data.labeling
+
 validate:
 	poetry run python -m src.data.validation
 

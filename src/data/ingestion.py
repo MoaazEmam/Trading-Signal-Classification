@@ -9,7 +9,9 @@ import requests
 from fredapi import Fred
 from kagglehub import KaggleDatasetAdapter
 
+
 from src.config import settings
+
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
@@ -116,5 +118,7 @@ def run_ingestion():
     print("Ingestion Complete.")
 
 
+
 if __name__ == "__main__":
     run_ingestion()
+
