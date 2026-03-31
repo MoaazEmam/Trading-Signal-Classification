@@ -7,11 +7,8 @@ import kagglehub
 import pandas as pd
 import requests
 from fredapi import Fred
-from kagglehub import KaggleDatasetAdapter
-
 
 from src.config import settings
-
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
@@ -27,11 +24,9 @@ fred = Fred(api_key=settings.fred_api_key)
 
 def _fetch_kaggle_dataset() -> pd.DataFrame:
     print("Fetching kaggle dataset.....")
-    df = kagglehub.dataset_load(
-        KaggleDatasetAdapter.PANDAS,
-        "iveeaten3223times/massive-yahoo-finance-dataset",
-        "stock_details_5_years.csv",
-    )
+    path = kagglehub.dataset_download("iveeaten3223times/massive-yahoo-finance-dataset")
+    csv_path = Path(path) / "stock_details_5_years.csv"
+    df = pd.read_csv(csv_path, compression="infer")
     df["Date"] = (
         pd.to_datetime(df["Date"], utc=True).dt.tz_localize(None).dt.normalize()
     )
@@ -118,7 +113,5 @@ def run_ingestion():
     print("Ingestion Complete.")
 
 
-
 if __name__ == "__main__":
     run_ingestion()
-
