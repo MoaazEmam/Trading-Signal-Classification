@@ -232,3 +232,4 @@ mlartifacts/
 notebooks/*
 /.idea/.name
 /.idea/Trading-Signal-Classification.iml
+/data/validation_report.txt
