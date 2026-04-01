@@ -3,8 +3,11 @@ import pandas as pd
 # Triple barrier algorithm
 
 
-def label(N=10, M=2):
-    df = pd.read_csv("data/raw/market_data_merged.csv")
+def load_dataset() -> pd.DataFrame:
+    return pd.read_csv("data/raw/market_data_merged.csv")
+
+
+def label(df, N=10, M=2):
     labels = pd.Series(index=df.index, dtype="object")
     for Company, group in df.groupby("Company"):
         group = group.sort_values(by=["Date"], ascending=True).copy()
@@ -43,6 +46,7 @@ def label(N=10, M=2):
 
 
 if __name__ == "__main__":
-    df = label(N=10, M=2)
+    dataset = load_dataset()
+    df = label(dataset, N=10, M=2)
     df.to_csv("data/raw/market_data_merged.csv", index=False)
     print(df["label"].value_counts())
