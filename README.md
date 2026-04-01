@@ -24,7 +24,6 @@ cyberattack-detection/
 ├── .github/workflows/       # GitHub Actions CI config
 ├── data/
 │   ├── raw/                 # Downloaded raw data (gitignored)
-│   ├── interim/             # Intermediate transformed data (gitignored)
 │   ├── processed/           # Final model-ready data (gitignored)
 │   └── samples/             # Tiny committed CSVs used only in tests
 ├── notebooks/               # Exploratory & phase notebooks (not used in pipeline)
@@ -57,9 +56,10 @@ cyberattack-detection/
 | Python | 3.13.x | [python.org](https://www.python.org/downloads/) |
 | Poetry | ≥ 1.8 | `pip install poetry` |
 | Git | any | [git-scm.com](https://git-scm.com/) |
-| Kaggle account | — | [kaggle.com](https://www.kaggle.com/) — needed for data ingestion |
+| Kaggle account | — | [kaggle](https://www.kaggle.com/) — needed for data ingestion |
+| FRED account | — | [fred](https://fred.stlouisfed.org/) — needed for data ingestion |
 
-> **Python version note:** `pyproject.toml` pins `python = ">=3.13,<3.14"`. Make sure `python --version` returns `3.13.x` before proceeding. Tools like [pyenv](https://github.com/pyenv/pyenv) make managing this easy.
+> **Python version note:** `pyproject.toml` pins `python = ">=3.13,<3.14"`.
 
 ---
 
@@ -68,7 +68,7 @@ cyberattack-detection/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/MoaazEmam/Cyber-Attack-Classification.git
+git clone https://github.com/MoaazEmam/Trading-Signal-Classification.git
 cd Trading-Signal-Classification
 ```
 
