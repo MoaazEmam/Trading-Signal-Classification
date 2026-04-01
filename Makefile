@@ -19,10 +19,13 @@ test-integration:
 ingest:
 	poetry run python -m src.data.ingestion
 
+label:
+	poetry run python -m src.data.labeling
+
 validate:
 	poetry run python -m src.data.validation
 
-phase2: ingest validate
+phase2: ingest label validate
 	@echo "Phase 2 pipeline complete — check reports/"
 
 preprocess:

@@ -230,3 +230,5 @@ mlartifacts/
 /.idea/vcs.xml
 /.idea/workspace.xml
 notebooks/*
+/.idea/.name
+/.idea/Trading-Signal-Classification.iml
