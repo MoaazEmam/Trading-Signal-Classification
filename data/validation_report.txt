@@ -34,35 +34,42 @@ fear_greed_label         object          602962           0
 
 Status: Initializing Validator...
 Status: Running all automated checks (Nulls, Outliers, Sanity)...
-Status: Complete. 21 potential issues flagged.
+Status: Complete. 28 potential issues flagged.
 
 ======================================================================
   3. Quality issues summary
 ======================================================================
 
-Found 21 issue(s):
+Found 28 issue(s):
 
    1. missing: 'fed_funds_rate' missing 96.82% — HIGH ⚠️
    2. missing: 'treasury_10y' missing 0.72% — LOW ⚠️
    3. missing: 'label' missing 2.52% — LOW ⚠️
-   4. Balance: Class imbalance detected — ratio 1.7x.
-   5. Date coverage; 1204 dates have inconsistent company coverage.
-   6. Date gaps: 47 missing business days.
+   4. Date coverage; 1204 dates have inconsistent company coverage.
+   5. Date gaps: 47 missing business days.
+   6. Balance: Class imbalance detected — ratio 1.7x.
    7. Outliers: 'Open' has 6.99% outliers.
    8. Outliers: 'High' has 7.01% outliers.
    9. Outliers: 'Low' has 6.99% outliers.
   10. Outliers: 'Close' has 6.99% outliers.
   11. Outliers: 'Volume' has 11.02% outliers.
-  12. Sanity:5 rows where Close is outside High/Low.
-  13. Sanity:331 rows where 'Volume' outside [1,inf]
-  14. Sanity:7211 Fear/Greed score-label mismatches.
-  15. Correlation: Open ↔ High : r = 0.9999096557113086
-  16. Correlation: Open ↔ Low : r = 0.9998981736313357
-  17. Correlation: Open ↔ Close : r = 0.999807297435176
-  18. Correlation: High ↔ Low : r = 0.9998675201824802
-  19. Correlation: High ↔ Close : r = 0.9999067959653279
-  20. Correlation: Low ↔ Close : r = 0.9999107082785814
-  21. Correlation: fed_funds_rate ↔ treasury_10y : r = 0.9130220542985047
+  12. Sanity: 12 suspicious price jumps >50% without a stock split.
+  13. Sanity:5 rows where Close is outside High/Low.
+  14. Sanity:331 rows where 'Volume' outside [1,inf]
+  15. Sanity:7211 Fear/Greed score-label mismatches.
+  16. Sanity: 328 'stale' rows found (Price frozen + 0 Volume).
+  17. Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
+  18. Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
+  19. Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
+  20. Correlation divergence: Open ↔ Volume — Pearson=-0.096 vs Spearman=-0.397
+  21. Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
+  22. Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
+  23. Correlation divergence: High ↔ Volume — Pearson=-0.096 vs Spearman=-0.395
+  24. Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
+  25. Correlation divergence: Low ↔ Volume — Pearson=-0.097 vs Spearman=-0.399
+  26. Correlation divergence: Close ↔ Volume — Pearson=-0.096 vs Spearman=-0.397
+  27. Correlation divergence: vix ↔ sp500_level — Pearson=-0.221 vs Spearman=-0.106
+  28. Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.913, Spearman=0.888
 
 ----------------------------------------------------------------------
 Report saved to: data\validation_report.txt
