@@ -15,7 +15,7 @@ os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
 os.environ["KAGGLE_API_KEY"] = settings.kaggle_api_token
 FRED_TICKER_MAP = {
     "VIXCLS": "vix",
-    "FEDFUNDS": "fed_funds_rate",
+    "DFF": "fed_funds_rate",
     "DGS10": "treasury_10y",
     "SP500": "sp500_level",
 }
