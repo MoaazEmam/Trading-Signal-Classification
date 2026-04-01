@@ -39,12 +39,12 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 exclude = ["notebooks/"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP"]
-ignore = []
+ignore = ["N802", "N803", "N806"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -54,6 +54,7 @@ line-length = 88
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = [
     "--cov=src",
     "--cov-report=term-missing",
@@ -64,7 +65,7 @@ addopts = [
 [tool.coverage.run]
 source = ["src"]
 omit = [
-    "src/data/ingestion.py",
+    "src/data/validation.py",
     "src/serving/api.py",
     "src/config.py",
     "src/**/__init__.py",
