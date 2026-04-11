@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$/../Trading-Signal-Classification">
-      <excludeFolder url="file://$MODULE_DIR$/../Trading-Signal-Classification/data/processed" />
-      <excludeFolder url="file://$MODULE_DIR$/../Trading-Signal-Classification/data/raw" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/data/processed" />
+      <excludeFolder url="file://$MODULE_DIR$/data/raw" />
     </content>
-    <orderEntry type="jdk" jdkName="Poetry (Trading-Signal-Classification)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Poetry (Trading-Signal-Classification) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

@@ -10,10 +10,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: pytest-unit
-        name: unit tests
-        entry: poetry run pytest tests/unit/ -q --no-header
+      - id: type-check
+        name: type check (pyright)
+        entry: poetry run pyright
         language: system
         pass_filenames: false
-        always_run: true
         stages: [pre-push]

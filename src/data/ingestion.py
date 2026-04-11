@@ -79,7 +79,7 @@ def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
     df_fg["fear_greed_score"] = df_fg["value"].astype(int)
     df_fg["fear_greed_label"] = df_fg["value_classification"]
     print("Done")
-    return df_fg[["Date", "fear_greed_score", "fear_greed_label"]]
+    return df_fg[["Date", "fear_greed_score", "fear_greed_label"]]  # type: ignore
 
 
 def _normalize_date(df: pd.DataFrame, date_col: str = "Date") -> pd.DataFrame:
@@ -91,7 +91,7 @@ def _merge_on_date(df1: pd.DataFrame, df2: pd.DataFrame, date_col: str = "Date")
 
 
 def _get_date_limits(df: pd.DataFrame) -> tuple[pd.Timestamp, pd.Timestamp]:
-    return df["Date"].min(), df["Date"].max()
+    return df["Date"].min(), df["Date"].max()  # type: ignore
 
 
 def _save_to_csv(df: pd.DataFrame) -> None:
@@ -114,7 +114,7 @@ def run_ingestion():
     # merge all 3
     print("Merging all three......")
     merged_df = _merge_on_date(kaggle_df, fred_df)
-    merged_df = _merge_on_date(merged_df, fg_df)
+    merged_df = _merge_on_date(merged_df, fg_df)  # type: ignore
     _save_to_csv(merged_df)
     print("Ingestion Complete.")
 

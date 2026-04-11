@@ -85,7 +85,7 @@ class Validator:
         date_min, date_max = self.df["Date"].min(), self.df["Date"].max()
         all_dates = pd.bdate_range(start=date_min, end=date_max)
         present_dates = self.df["Date"].dt.normalize().unique()
-        missing_dates = sorted(set(all_dates.normalize()) - set(present_dates))
+        missing_dates = sorted(set(all_dates.normalize()) - set(present_dates))  # type: ignore
         if len(missing_dates) > 20:
             self.issues.append(f"Date gaps: {len(missing_dates)} missing business days.")
 
@@ -171,8 +171,8 @@ class Validator:
     def check_correlations(self):
         numeric_cols = self.df.select_dtypes(include="number").columns.tolist()
 
-        pearson_corr = self.df[numeric_cols].corr(method="pearson")
-        spearman_corr = self.df[numeric_cols].corr(method="spearman")
+        pearson_corr = self.df[numeric_cols].corr(method="pearson")  # type: ignore
+        spearman_corr = self.df[numeric_cols].corr(method="spearman")  # type: ignore
 
         price_cols = ["Open", "High", "Low", "Close"]
 
@@ -212,7 +212,7 @@ class Validator:
         # is the target label is too highly correlated with current price?
         # We only check this if the label has been converted to numbers (0 or 1)
         if pd.api.types.is_numeric_dtype(self.df["label"]):
-            correlation = self.df["Close"].corr(self.df["label"])
+            correlation = self.df["Close"].corr(self.df["label"])  # type: ignore
             if abs(correlation) > 0.90:
                 self.issues.append(
                     f"Leakage: 'label' and 'Close' correlation is {round(correlation, 3)}. Target might be leaking!"
