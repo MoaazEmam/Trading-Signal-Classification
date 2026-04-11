@@ -49,9 +49,10 @@ def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame
     try:
         start = last_date + pd.Timedelta(days=1)
         ticker_df = yf.download(ticker, start=start, end=today, auto_adjust=True, progress=False)
-        if ticker_df.empty:
+        if ticker_df is None or ticker_df.empty:
             # the prints will be replaced with log calls once logger is implemented
             print(f"{ticker}: no new data since {start.date()}, skipping")
+            return pd.DataFrame()
         else:
             ticker_df.columns = [col[0] for col in ticker_df.columns]  # flatten df
             for col in ["Dividends", "Stock Splits"]:
@@ -62,7 +63,7 @@ def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame
         return ticker_df
     except Exception as e:
         print(f"Skipped {ticker} due to errors: {e}")
-        return pd.DataFrame({})
+        return pd.DataFrame()
 
 
 def _fetch_yfinance_data(tickers: pd.Series, last_date: pd.Timestamp) -> pd.DataFrame:
