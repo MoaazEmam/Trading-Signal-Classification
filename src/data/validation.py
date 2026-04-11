@@ -5,7 +5,7 @@ import pandas as pd
 from .validation_helper import Validator
 
 DATA_PATH = os.path.join("data", "raw", "market_data_merged.csv")
-REPORT_PATH = os.path.join("data", "validation_report.txt")
+REPORT_PATH = os.path.join("reports", "validation_report.txt")
 
 
 # helper functions

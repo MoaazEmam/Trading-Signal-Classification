@@ -1,10 +1,12 @@
 import os
+from datetime import date
 from functools import reduce
 from pathlib import Path
 
 import kagglehub
 import pandas as pd
 import requests
+import yfinance as yf
 from fredapi import Fred
 
 from src.config import settings
@@ -40,6 +42,38 @@ def save_sample(
 
     print(f"Sample saved → {sample_path}  ({sample.shape[0]:,} rows × {sample.shape[1]} cols)")
     return sample_path
+
+
+def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame:
+    today = date.today().strftime("%Y-%m-%d")
+    try:
+        start = last_date + pd.Timedelta(days=1)
+        ticker_df = yf.download(ticker, start=start, end=today, auto_adjust=True, progress=False)
+        if ticker_df is None or ticker_df.empty:
+            # the prints will be replaced with log calls once logger is implemented
+            print(f"{ticker}: no new data since {start.date()}, skipping")
+            return pd.DataFrame()
+        else:
+            ticker_df.columns = [col[0] for col in ticker_df.columns]  # flatten df
+            for col in ["Dividends", "Stock Splits"]:
+                if col not in ticker_df.columns:
+                    ticker_df[col] = 0.0
+            ticker_df["Company"] = ticker
+            ticker_df = ticker_df.reset_index()
+        return ticker_df
+    except Exception as e:
+        print(f"Skipped {ticker} due to errors: {e}")
+        return pd.DataFrame()
+
+
+def _fetch_yfinance_data(tickers: pd.Series, last_date: pd.Timestamp) -> pd.DataFrame:
+    print("fetching new yfinance data")
+    dfs = tickers.map(lambda ticker: _fetch_yfinance_ticker(ticker, last_date))
+    valid_dfs = [df for df in dfs.tolist() if not df.empty]
+    if not valid_dfs:
+        print("No data fetched for any ticker")
+        return pd.DataFrame()
+    return pd.concat(valid_dfs, ignore_index=True)
 
 
 def _fetch_kaggle_dataset() -> pd.DataFrame:
@@ -104,6 +138,12 @@ def _save_to_csv(df: pd.DataFrame) -> None:
 def run_ingestion():
     kaggle_df = _fetch_kaggle_dataset()
     # get date limits incase dataset dynamically incase dataset is updated
+    start, end = _get_date_limits(kaggle_df)
+    tickers = pd.Series(kaggle_df["Company"].unique())
+    # enriching dataset with new data
+    yfinance_df = _fetch_yfinance_data(tickers, end)
+    kaggle_df = pd.concat([kaggle_df, yfinance_df], ignore_index=True).sort_values("Date")
+    # get dates again
     start, end = _get_date_limits(kaggle_df)
 
     fred_df = _fetch_fred_macros(start, end)
