@@ -1,7 +1,6 @@
 import os
 from functools import reduce
 from pathlib import Path
-from typing import cast
 
 import kagglehub
 import pandas as pd
@@ -34,7 +33,7 @@ def save_sample(
     print(f"Reading full dataset from {raw_path} …")
     df = pd.read_csv(raw_path, parse_dates=["Date"])
 
-    sample = df.sort_values(["Company", "Date"]).groupby("Company", group_keys=False).head(n_rows)
+    sample = df.sort_values(["Company", "Date"]).groupby("Company", group_keys=False).apply(lambda g: g.head(n_rows))
 
     sample_path.parent.mkdir(parents=True, exist_ok=True)
     sample.to_csv(sample_path, index=False)
@@ -80,7 +79,7 @@ def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
     df_fg["fear_greed_score"] = df_fg["value"].astype(int)
     df_fg["fear_greed_label"] = df_fg["value_classification"]
     print("Done")
-    return cast(pd.DataFrame, df_fg[["Date", "fear_greed_score", "fear_greed_label"]])
+    return df_fg[["Date", "fear_greed_score", "fear_greed_label"]]
 
 
 def _normalize_date(df: pd.DataFrame, date_col: str = "Date") -> pd.DataFrame:
@@ -92,10 +91,7 @@ def _merge_on_date(df1: pd.DataFrame, df2: pd.DataFrame, date_col: str = "Date")
 
 
 def _get_date_limits(df: pd.DataFrame) -> tuple[pd.Timestamp, pd.Timestamp]:
-    start = df["Date"].min()
-    end = df["Date"].max()
-    assert isinstance(start, pd.Timestamp) and isinstance(end, pd.Timestamp)
-    return start, end
+    return df["Date"].min(), df["Date"].max()
 
 
 def _save_to_csv(df: pd.DataFrame) -> None:
@@ -114,7 +110,6 @@ def run_ingestion():
 
     fg_df = _fetch_fear_greed()
     fg_df = fg_df[(fg_df["Date"] >= start) & (fg_df["Date"] <= end)]  # cap fg_df
-    assert isinstance(fg_df, pd.DataFrame)
 
     # merge all 3
     print("Merging all three......")
