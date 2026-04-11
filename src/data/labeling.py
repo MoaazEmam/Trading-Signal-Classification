@@ -7,7 +7,7 @@ def load_dataset() -> pd.DataFrame:
     return pd.read_csv("data/raw/market_data_merged.csv")
 
 
-def label(df, N=10, M=2):
+def label(df, N: float = 10, M: float = 2):
     labels = pd.Series(index=df.index, dtype="object")
     for Company, group in df.groupby("Company"):
         group = group.sort_values(by=["Date"], ascending=True).copy()

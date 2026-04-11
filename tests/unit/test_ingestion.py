@@ -60,7 +60,7 @@ class TestMergeOnDate:
     def test_missing_dates_produce_nan(self, raw_kaggle_df):
         empty_fred = pd.DataFrame({"Date": pd.Series(dtype="datetime64[ns]"), "vix": []})
         merged = _merge_on_date(raw_kaggle_df, empty_fred)
-        assert merged["vix"].isna().all()
+        assert merged["vix"].isna().all()  # type: ignore
 
     def test_correct_value_joined(self):
         left = pd.DataFrame({"Date": pd.to_datetime(["2020-01-02"]), "Close": [100.0]})

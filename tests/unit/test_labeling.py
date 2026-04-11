@@ -4,7 +4,7 @@ from src.data.labeling import label
 
 
 def _labeled(df: pd.DataFrame) -> pd.DataFrame:
-    return df[df["label"].notna()]
+    return df[df["label"].notna()]  # type: ignore
 
 
 #
