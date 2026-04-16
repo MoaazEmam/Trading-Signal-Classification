@@ -233,3 +233,53 @@ def wrong_dtypes_df(clean_validation_df) -> pd.DataFrame:
     df = clean_validation_df.copy()
     df["Close"] = df["Close"].astype(str)
     return df
+
+
+# ---------------------------------------------------------------------------
+# Splitting fixtures
+# ---------------------------------------------------------------------------
+
+N_SPLIT_DAYS = 100  # enough for lookahead buffer (LOOKAHEAD_DAYS=10) to kick in
+
+
+@pytest.fixture()
+def splitting_labeled_df() -> pd.DataFrame:
+    """
+    100 business-day range, two companies, all rows labeled.
+    Suitable for temporal_split / save_splits tests.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=N_SPLIT_DAYS)
+    rows = []
+    for company in COMPANIES:
+        for date in dates:
+            rows.append(
+                {
+                    "Date": date,
+                    "Close": 100.0,
+                    "Company": company,
+                    "label": "Hold",
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+@pytest.fixture()
+def splitting_unlabeled_df(splitting_labeled_df) -> pd.DataFrame:
+    """Same shape as splitting_labeled_df but every label is NaN."""
+    df = splitting_labeled_df.copy()
+    df["label"] = np.nan
+    return df
+
+
+@pytest.fixture()
+def splitting_few_dates_df() -> pd.DataFrame:
+    """
+    Only 12 business days — after an 80/20 split, train_val has ~9 unique dates,
+    which is <= LOOKAHEAD_DAYS (10).  Used to test that the lookahead buffer is
+    skipped gracefully when there are not enough training dates.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=12)
+    rows = []
+    for date in dates:
+        rows.append({"Date": date, "Close": 100.0, "Company": "AAPL", "label": "Hold"})
+    return pd.DataFrame(rows)
