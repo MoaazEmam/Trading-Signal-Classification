@@ -114,8 +114,8 @@ class TestTemporalSplitOutput:
         df = splitting_labeled_df.copy()
         df.loc[df.index[:5], "label"] = np.nan
         train_val, test = temporal_split(df)
-        assert train_val["label"].notna().all()
-        assert test["label"].notna().all()
+        assert bool(train_val["label"].notna().all())
+        assert bool(test["label"].notna().all())
 
     def test_approximate_test_size_fraction(self, splitting_labeled_df):
         """

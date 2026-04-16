@@ -72,8 +72,8 @@ def temporal_split(
         raise ValueError("DataFrame is empty after dropping unlabeled rows.")
 
     cutoff = compute_test_cutoff(df, test_size=test_size, date_col=date_col)
-    train_val = df[df[date_col] < cutoff].copy()
-    test = df[df[date_col] >= cutoff].copy()
+    train_val = pd.DataFrame(df[df[date_col] < cutoff])
+    test = pd.DataFrame(df[df[date_col] >= cutoff])
 
     if train_val.empty:
         raise ValueError(
@@ -87,11 +87,11 @@ def temporal_split(
         )
 
     if apply_lookahead_buffer:
-        unique_train_dates = sorted(train_val[date_col].unique())
+        unique_train_dates = sorted(train_val[date_col].dt.normalize().unique().tolist())
         if len(unique_train_dates) > LOOKAHEAD_DAYS:
             buffer_cutoff = unique_train_dates[-LOOKAHEAD_DAYS - 1]
             rows_before = len(train_val)
-            train_val = train_val[train_val[date_col] <= buffer_cutoff].copy()
+            train_val = pd.DataFrame(train_val[train_val[date_col] <= buffer_cutoff])
             rows_dropped = rows_before - len(train_val)
             print(f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val).")
 
