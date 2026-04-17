@@ -12,6 +12,8 @@ test:
 
 test-unit:
 	poetry run pytest tests/unit/ -v
+type-check:
+	poetry run pyright
 
 test-integration:
 	poetry run pytest tests/integration/ -v
