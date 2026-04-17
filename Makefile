@@ -29,6 +29,8 @@ phase2: ingest label validate
 	@echo "Phase 2 pipeline complete — check reports/"
 split:
 	poetry run python -m src.data.splitting
+data_clean:	
+	poetry run python -m src.data.cleaning
 
 preprocess:
 	poetry run python -m src.data.preprocessing
