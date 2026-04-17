@@ -116,7 +116,7 @@ def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
     return df_fg[["Date", "fear_greed_score", "fear_greed_label"]]  # type: ignore
 
 
-def _normalize_date(df: pd.DataFrame, date_col: str = "Date") -> pd.DataFrame:
+def _normalize_date(df: pd.DataFrame, date_col: str = "Date") -> pd.Series:
     return df[date_col].dt.tz_localize(None).dt.normalize()
 
 

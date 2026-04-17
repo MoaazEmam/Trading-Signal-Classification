@@ -180,6 +180,8 @@ class Validator:
             for col2 in pearson_corr.columns[i + 1 :]:
                 p = pearson_corr.loc[col1, col2]
                 s = spearman_corr.loc[col1, col2]
+                assert isinstance(p, float)
+                assert isinstance(s, float)
 
                 # Handle price columns separately-expected
                 if col1 in price_cols and col2 in price_cols:

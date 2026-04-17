@@ -1,0 +1,45 @@
+CLEANING DECISION LOG
+======================================================================
+
+Rows before cleaning: 887,372
+Rows after cleaning:  865,573
+Rows removed:         21,799
+
+======================================================================
+
+  - fix_dtypes: replaced implicit missing values with NaN
+  - drop_missing: 15221 rows missing critical fields removed
+  - drop_missing: 'treasury_10y' had 0.72% missing (MCAR) — 6241 rows removed
+  - drop_duplicates: Dropped 0 duplicate rows
+  - drop_duplicates: Dropped 0 duplicate (Date, Company) rows
+  - drop_invalid_prices: Dropped 10 rows where Close outside High/Low
+  - drop_stale_rows: 327 stale rows removed — price frozen + volume 0
+  - _save_quarantine: 21799 total rows saved to data\processed\quarantine.csv
+
+======================================================================
+POST-CLEANING VALIDATION
+======================================================================
+
+  22 issues still flagged:
+  - Date coverage; 1787 dates have inconsistent company coverage.
+  - Date gaps: 85 missing business days.
+  - Balance: Class imbalance detected — ratio 1.67x.
+  - Outliers: 'Open' has 7.21% outliers.
+  - Outliers: 'High' has 7.21% outliers.
+  - Outliers: 'Low' has 7.2% outliers.
+  - Outliers: 'Close' has 7.2% outliers.
+  - Outliers: 'Volume' has 10.84% outliers.
+  - Sanity: 37 suspicious price jumps >50% without a stock split.
+  - Sanity:2 rows where 'Volume' outside [1,inf]
+  - Sanity:8642 Fear/Greed score-label mismatches.
+  - Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
+  - Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
+  - Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
+  - Correlation divergence: Open ↔ Volume — Pearson=-0.081 vs Spearman=-0.395
+  - Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
+  - Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
+  - Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.393
+  - Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
+  - Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.397
+  - Correlation divergence: Close ↔ Volume — Pearson=-0.081 vs Spearman=-0.395
+  - Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.917, Spearman=0.856

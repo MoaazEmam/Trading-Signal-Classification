@@ -13,6 +13,9 @@ test:
 test-unit:
 	poetry run pytest tests/unit/ -v
 
+type-check:
+	poetry run pyright
+
 test-integration:
 	poetry run pytest tests/integration/ -v
 
@@ -29,6 +32,8 @@ phase2: ingest label validate
 	@echo "Phase 2 pipeline complete — check reports/"
 split:
 	poetry run python -m src.data.splitting
+data-clean:
+	poetry run python -m src.data.cleaning
 
 preprocess:
 	poetry run python -m src.data.preprocessing

@@ -120,7 +120,7 @@ def save_splits(
 
 
 def run_splitting(
-    input_path: str = "data/raw/market_data_merged.csv",  # TODO: change to use cleaned data set
+    input_path: str = "data/processed/market_data_cleaned.csv",
     output_dir: str = str(PROCESSED_PATH),
     test_size: float = TEST_SIZE,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
