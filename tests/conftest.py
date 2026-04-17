@@ -283,3 +283,179 @@ def splitting_few_dates_df() -> pd.DataFrame:
     for date in dates:
         rows.append({"Date": date, "Close": 100.0, "Company": "AAPL", "label": "Hold"})
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Cleaning fixtures
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture()
+def cleaning_base_df() -> pd.DataFrame:
+    """Base valid DataFrame for cleaning tests."""
+    dates = _base_dates(30)
+    rows = []
+    for company in COMPANIES:
+        for date in dates:
+            rows.append(
+                {
+                    "Date": date,
+                    "Open": 100.0,
+                    "High": 105.0,
+                    "Low": 95.0,
+                    "Close": 102.0,
+                    "Volume": 1_000_000,
+                    "Dividends": 0.0,
+                    "Stock Splits": 0.0,
+                    "Company": company,
+                    "vix": 20.0,
+                    "fed_funds_rate": 1.0,
+                    "treasury_10y": 2.0,
+                    "sp500_level": 3200.0,
+                    "fear_greed_score": 50,
+                    "fear_greed_label": "Neutral",
+                    "label": "Hold",
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+@pytest.fixture()
+def cleaning_high_low_invalid_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with rows where High < Low."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "High"] = 90.0  # Make High < Low
+    df.loc[df.index[1], "Low"] = 110.0  # Make High < Low
+    return df
+
+
+@pytest.fixture()
+def cleaning_close_outside_range_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with Close outside High/Low range."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "Close"] = 110.0  # Close > High
+    df.loc[df.index[1], "Close"] = 90.0  # Close < Low
+    return df
+
+
+@pytest.fixture()
+def cleaning_negative_prices_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with negative or zero prices."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "Open"] = -10.0
+    df.loc[df.index[1], "Close"] = 0.0
+    df.loc[df.index[2], "High"] = -5.0
+    return df
+
+
+@pytest.fixture()
+def cleaning_implicit_missing_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with implicit missing values (N/A, null, etc)."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "vix"] = "N/A"
+    df.loc[df.index[1], "fed_funds_rate"] = "null"
+    df.loc[df.index[2], "treasury_10y"] = ""
+    df.loc[df.index[3], "sp500_level"] = "NaN"
+    return df
+
+
+@pytest.fixture()
+def cleaning_missing_critical_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with missing values in critical columns."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "Date"] = pd.NaT
+    df.loc[df.index[1], "Company"] = np.nan
+    df.loc[df.index[2], "Close"] = np.nan
+    df.loc[df.index[3], "label"] = np.nan
+    return df
+
+
+@pytest.fixture()
+def cleaning_missing_noncritical_low_pct_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with <5% missing in non-critical columns (should be dropped)."""
+    df = cleaning_base_df.copy()
+    # Set 2 out of 60 rows (~3.3%) to missing
+    df.loc[df.index[0], "vix"] = np.nan
+    df.loc[df.index[1], "fed_funds_rate"] = np.nan
+    return df
+
+
+@pytest.fixture()
+def cleaning_missing_noncritical_high_pct_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with >=5% missing in non-critical columns (should be kept)."""
+    df = cleaning_base_df.copy()
+    # Set 3 out of 60 rows (5%) to missing
+    df.loc[df.index[0:3], "treasury_10y"] = np.nan
+    return df
+
+
+@pytest.fixture()
+def cleaning_full_duplicates_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with fully duplicate rows."""
+    df = cleaning_base_df.copy()
+    duplicates = df.iloc[:5].copy()
+    return pd.concat([df, duplicates], ignore_index=True)
+
+
+@pytest.fixture()
+def cleaning_date_company_duplicates_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with duplicate (Date, Company) pairs."""
+    df = cleaning_base_df.copy()
+    # Change Close for duplicate rows to make them not full duplicates
+    duplicate = df.iloc[:5].copy()
+    duplicate["Close"] = 999.0
+    return pd.concat([df, duplicate], ignore_index=True)
+
+
+@pytest.fixture()
+def cleaning_stale_flat_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with flat prices (Open=High=Low=Close) and 0 volume."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0:3], ["Open", "High", "Low", "Close"]] = 100.0
+    df.loc[df.index[0:3], "Volume"] = 0
+    return df
+
+
+@pytest.fixture()
+def cleaning_stale_identical_yesterday_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with prices identical to previous day and 0 volume."""
+    df = cleaning_base_df.sort_values(["Company", "Date"]).copy()
+    # Set rows 1, 3, 5, etc. to be identical to previous day with 0 volume
+    for i in [1, 3, 5]:
+        if i < len(df):
+            df.loc[df.index[i], ["Open", "High", "Low", "Close"]] = df.iloc[i - 1][
+                ["Open", "High", "Low", "Close"]
+            ].values
+            df.loc[df.index[i], "Volume"] = 0
+    return df
+
+
+@pytest.fixture()
+def cleaning_wrong_dtypes_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with wrong dtypes (string instead of numeric)."""
+    df = cleaning_base_df.copy()
+    df["Close"] = df["Close"].astype(str)
+    df["vix"] = df["vix"].astype(str)
+    df["Date"] = df["Date"].astype(str)
+    return df
+
+
+@pytest.fixture()
+def cleaning_string_case_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with inconsistent string casing."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "Company"] = "aapl"
+    df.loc[df.index[1], "Company"] = "MSFT"
+    df.loc[df.index[2], "fear_greed_label"] = "fear"
+    df.loc[df.index[3], "label"] = "hold"
+    return df
+
+
+@pytest.fixture()
+def cleaning_string_whitespace_df(cleaning_base_df) -> pd.DataFrame:
+    """DataFrame with leading/trailing whitespace in strings."""
+    df = cleaning_base_df.copy()
+    df.loc[df.index[0], "Company"] = "  AAPL  "
+    df.loc[df.index[1], "fear_greed_label"] = " neutral "
+    df.loc[df.index[2], "label"] = "hold "
+    return df
