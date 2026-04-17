@@ -12,6 +12,7 @@ test:
 
 test-unit:
 	poetry run pytest tests/unit/ -v
+
 type-check:
 	poetry run pyright
 
