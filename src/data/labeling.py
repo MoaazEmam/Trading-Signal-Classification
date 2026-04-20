@@ -15,11 +15,11 @@ def label(df, N: float = 10, M: float = 2):
         # calculate volatility
         group["daily_return"] = group["Close"].pct_change()  # get % change between close[i] and close[i-1]
         group["volatility"] = group["daily_return"].shift(1).rolling(window=20).std()  # std of past 20 daily returns
-        indices = group.index
 
         # drop first 20 na rows and last N rows
         group = group.dropna(subset=["volatility"])
         group = group.iloc[:-N]
+        indices = group.index  # captured AFTER filtering so labels map to the correct rows
 
         closes = group["Close"].values
         volatilities = group["volatility"].values
