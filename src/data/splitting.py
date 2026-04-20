@@ -23,7 +23,7 @@ def compute_test_cutoff(
     cutoff = min_date + total_span * (1 - test_size)
     print(
         f"Computed test cutoff: {cutoff.date()} "
-        f"(data range {min_date.date()} → {max_date.date()}, "
+        f"(data range {min_date.date()} -> {max_date.date()}, "
         f"test_size={test_size})"
     )
     return cutoff
@@ -115,8 +115,8 @@ def save_splits(
     test_path = output_dir / "test.csv"
     train_val.to_csv(train_val_path, index=False)
     test.to_csv(test_path, index=False)
-    print(f"train_val → {train_val_path}  ({train_val.shape[0]:,} rows)")
-    print(f"test      → {test_path}  ({test.shape[0]:,} rows)")
+    print(f"train_val -> {train_val_path}  ({train_val.shape[0]:,} rows)")
+    print(f"test      -> {test_path}  ({test.shape[0]:,} rows)")
 
 
 def run_splitting(

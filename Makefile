@@ -38,6 +38,10 @@ data-clean:
 preprocess:
 	poetry run python -m src.data.preprocessing
 
+# Full pipeline: ingest raw data, then run all preprocessing stages.
+# Stages inside preprocess: raw validation → cleaning → post-clean validation → labeling → splitting
+pipeline: ingest preprocess
+
 engineer:
 	poetry run python -m src.features.engineering
 
