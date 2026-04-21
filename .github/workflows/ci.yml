@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     branches:
@@ -9,35 +8,28 @@ on:
     branches:
       - main
       - dev
-
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-
       - name: Install Poetry
         run: pip install poetry
-
       - name: Install dependencies
         run: poetry install
-
       - name: Lint
-        run: poetry run ruff check src/ tests/ --fix
-
+        run: poetry run ruff check src/ tests/
+      - name: Format check
+        run: poetry run black --check src/ tests/
       - name: Unit tests
         run: poetry run pytest tests/unit/ -q --no-header
-
       - name: Full test suite with coverage gate
         run: poetry run pytest tests/ --cov=src --cov-report=xml --cov-fail-under=60
-
       - name: Upload coverage report
         uses: codecov/codecov-action@v4
         with:
