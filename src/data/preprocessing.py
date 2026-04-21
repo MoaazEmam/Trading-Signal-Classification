@@ -292,7 +292,9 @@ _STEP_PREFIX_MAP = {
     "SAVE QUARANTINE":           "_save_quarantine",
 }
 
-
+def _percentage_removed(n:int, raw_df: pd.DataFrame)->str:
+    return f"{n / len(raw_df) * 100:.2f}%" if len(raw_df) else "n/a"
+    
 def _write_cleaning_log(
     path: str,
     raw_df: pd.DataFrame,
@@ -301,7 +303,7 @@ def _write_cleaning_log(
     remaining_issues: list[str],
 ) -> None:
     total_removed = len(raw_df) - len(clean_df)
-    pct = lambda n: f"{n / len(raw_df) * 100:.2f}%" if len(raw_df) else "n/a"
+    pct = _percentage_removed(total_removed,raw_df)
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     step_log: dict[str, list[str]] = {k: [] for k in _STEP_PREFIX_MAP}
