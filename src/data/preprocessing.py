@@ -186,7 +186,7 @@ class _ExtendedCleaner(Cleaner):
             ("DROP STALE ROWS",            self.drop_stale_rows),
             ("DROP ZERO-VOLUME MOVEMENT",  self.drop_zero_volume_movement),
             ("HANDLE PRICE SPIKES",        self.handle_price_spikes),
-            ("WINSORIZE VOLUME OUTLIERS",  self.winsorize_outliers),
+            #("WINSORIZE VOLUME OUTLIERS",  self.winsorize_outliers),
             ("FIX FEAR & GREED LABELS",    self.fix_fear_greed_labels),
             ("SAVE QUARANTINE",            self._save_quarantine),
         ]
@@ -220,47 +220,39 @@ class _ExtendedCleaner(Cleaner):
         logger.info(f"drop_zero_volume_movement: complete -- {len(bad_rows)} rows quarantined")
 
     def handle_price_spikes(self, threshold: float = 0.50) -> None:
-        """Removes spike rows where the next day reverses >30% (data errors); keeps persistent spikes."""
+        """Removes all rows where Close moves more than `threshold` vs the prior day (split-adjusted)."""
         temp = self.df.sort_values(["Company", "Date"]).copy()
         pct_change = temp.groupby("Company")["Close"].pct_change()
-        pct_change_next = temp.groupby("Company")["Close"].pct_change(-1)
         spike_mask = (pct_change.abs() > threshold) & (temp["Stock Splits"] == 0)
-        reversal_mask = pct_change_next.abs() > 0.30
-        data_error_mask = spike_mask & reversal_mask
-        error_rows = temp[data_error_mask].copy()
-        kept_spikes = int(spike_mask.sum()) - len(error_rows)
-        if len(error_rows) > 0:
-            self.quarantine.append(error_rows)
-            self.df = temp[~data_error_mask]
+        spike_rows = temp[spike_mask].copy()
+        if len(spike_rows) > 0:
+            self.quarantine.append(spike_rows)
+            self.df = temp[~spike_mask]
             self.log.append(
-                f"handle_price_spikes: {len(error_rows)} spike-rows removed "
-                f"(reversed next day - data error); "
-                f"{kept_spikes} persistent spike(s) kept as legitimate events"
+                f"handle_price_spikes: {len(spike_rows)} spike-rows removed "
+                f"(|pct_change| > {threshold:.0%}, Stock Splits == 0)"
             )
         else:
-            self.log.append(
-                f"handle_price_spikes: 0 data-error spikes; "
-                f"{int(spike_mask.sum())} persistent spike(s) kept as legitimate events"
-            )
-        logger.info(f"handle_price_spikes: complete -- {len(error_rows)} removed, {kept_spikes} kept")
+            self.log.append("handle_price_spikes: no spike rows found")
+        logger.info(f"handle_price_spikes: complete -- {len(spike_rows)} removed")
 
-    def winsorize_outliers(self) -> None:
-        """Caps Volume per company at its 99th percentile."""
-        temp = self.df.copy()
-        cap_99 = temp.groupby("Company")["Volume"].transform(lambda s: s.quantile(0.99))
-        over_cap = temp["Volume"] > cap_99
-        n_capped = int(over_cap.sum())
-        if n_capped > 0:
-            temp.loc[over_cap, "Volume"] = cap_99[over_cap].astype(temp["Volume"].dtype)
-            self.df = temp
-            self.log.append(
-                f"winsorize_outliers: {n_capped} Volume values capped at per-company 99th percentile"
-            )
-        else:
-            self.log.append(
-                "winsorize_outliers: no Volume values exceeded per-company 99th percentile cap"
-            )
-        logger.info(f"winsorize_outliers: complete -- {n_capped} values capped")
+    # def winsorize_outliers(self) -> None:
+    #     """Caps Volume per company at its 99th percentile."""
+    #     temp = self.df.copy()
+    #     cap_99 = temp.groupby("Company")["Volume"].transform(lambda s: s.quantile(0.99))
+    #     over_cap = temp["Volume"] > cap_99
+    #     n_capped = int(over_cap.sum())
+    #     if n_capped > 0:
+    #         temp.loc[over_cap, "Volume"] = cap_99[over_cap].astype(temp["Volume"].dtype)
+    #         self.df = temp
+    #         self.log.append(
+    #             f"winsorize_outliers: {n_capped} Volume values capped at per-company 99th percentile"
+    #         )
+    #     else:
+    #         self.log.append(
+    #             "winsorize_outliers: no Volume values exceeded per-company 99th percentile cap"
+    #         )
+    #     logger.info(f"winsorize_outliers: complete -- {n_capped} values capped")
 
     def fix_fear_greed_labels(self) -> None:
         """Regenerates fear_greed_label from fear_greed_score using canonical non-overlapping boundaries."""
@@ -295,7 +287,7 @@ _STEP_PREFIX_MAP = {
     "DROP STALE ROWS":           "drop_stale_rows",
     "DROP ZERO-VOLUME MOVEMENT": "drop_zero_volume_movement",
     "HANDLE PRICE SPIKES":       "handle_price_spikes",
-    "WINSORIZE VOLUME OUTLIERS": "winsorize_outliers",
+    #"WINSORIZE VOLUME OUTLIERS": "winsorize_outliers",
     "FIX FEAR & GREED LABELS":   "fix_fear_greed_labels",
     "SAVE QUARANTINE":           "_save_quarantine",
 }
@@ -334,7 +326,7 @@ def _write_cleaning_log(
 
     categories: dict[str, list[str]] = {
         "DATA COVERAGE": [],
-        "RESIDUAL OUTLIERS (post-winsorize; expected for equity data)": [],
+        "RESIDUAL OUTLIERS (to be handled in transformation pipeline)": [],
         "SANITY": [],
         "CORRELATIONS (expected structural patterns)": [],
     }
@@ -342,7 +334,7 @@ def _write_cleaning_log(
         if issue.startswith("Date"):
             categories["DATA COVERAGE"].append(issue)
         elif issue.startswith("Outliers"):
-            categories["RESIDUAL OUTLIERS (post-winsorize; expected for equity data)"].append(issue)
+            categories["RESIDUAL OUTLIERS (to be handled in transformation pipeline)"].append(issue)
         elif issue.lower().startswith("sanity"):
             categories["SANITY"].append(issue)
         else:
@@ -353,6 +345,8 @@ def _write_cleaning_log(
 
     with open(path, "w", encoding="utf-8") as f:
         w = f.write
+
+
         w("CLEANING DECISION LOG\n")
         w(f"Generated: {now}\n")
         w(sep + "\n\n")
@@ -493,6 +487,14 @@ def run_cleaning() -> pd.DataFrame:
             logger.warning(f"  - {issue}")
     else:
         logger.info("run_cleaning: full validation passed -- no issues remaining")
+
+    # Drop columns used during cleaning/validation (Stock Splits gates the
+    # price-spike check in validation_helper.check_price_spikes) but not kept
+    # as model features downstream.
+    dropped_cols = [c for c in ("Dividends", "Stock Splits") if c in clean_df.columns]
+    if dropped_cols:
+        clean_df = clean_df.drop(columns=dropped_cols)
+        logger.info("run_cleaning: dropped columns %s from cleaned output", dropped_cols)
 
     CLEANED_PATH.parent.mkdir(parents=True, exist_ok=True)
     clean_df.to_csv(str(CLEANED_PATH), index=False)
