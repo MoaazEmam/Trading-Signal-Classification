@@ -10,6 +10,7 @@ import yfinance as yf
 from fredapi import Fred
 
 from src.config import settings
+from src.utils import _save_to_csv
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
@@ -128,13 +129,6 @@ def _get_date_limits(df: pd.DataFrame) -> tuple[pd.Timestamp, pd.Timestamp]:
     return df["Date"].min(), df["Date"].max()  # type: ignore
 
 
-def _save_to_csv(df: pd.DataFrame) -> None:
-    RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(RAW_DATA_PATH, index=False)
-    print(f"Successfully saved merged dataset to: {RAW_DATA_PATH}")
-    print(f"📊 Final Dataset Shape: {df.shape}")
-
-
 def run_ingestion():
     kaggle_df = _fetch_kaggle_dataset()
     # get date limits incase dataset dynamically incase dataset is updated
@@ -155,7 +149,7 @@ def run_ingestion():
     print("Merging all three......")
     merged_df = _merge_on_date(kaggle_df, fred_df)
     merged_df = _merge_on_date(merged_df, fg_df)  # type: ignore
-    _save_to_csv(merged_df)
+    _save_to_csv(merged_df, RAW_DATA_PATH)
     print("Ingestion Complete.")
 
 
