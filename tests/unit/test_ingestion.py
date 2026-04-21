@@ -16,8 +16,8 @@ from src.data.ingestion import (
     _get_date_limits,
     _merge_on_date,
     _normalize_date,
-    _save_to_csv,
 )
+from src.utils import _save_to_csv
 
 
 class TestNormalizeDate:
@@ -58,7 +58,9 @@ class TestMergeOnDate:
         assert len(merged) == len(raw_kaggle_df)
 
     def test_missing_dates_produce_nan(self, raw_kaggle_df):
-        empty_fred = pd.DataFrame({"Date": pd.Series(dtype="datetime64[ns]"), "vix": []})
+        empty_fred = pd.DataFrame(
+            {"Date": pd.Series(dtype="datetime64[ns]"), "vix": []}
+        )
         merged = _merge_on_date(raw_kaggle_df, empty_fred)
         assert merged["vix"].isna().all()  # type: ignore
 
@@ -112,22 +114,19 @@ class TestGetDateLimits:
 
 
 class TestSaveToCsv:
-    def test_creates_parent_directory(self, tmp_path, raw_kaggle_df, monkeypatch):
+    def test_creates_parent_directory(self, tmp_path, raw_kaggle_df):
         target = tmp_path / "nested" / "dir" / "out.csv"
-        monkeypatch.setattr("src.data.ingestion.RAW_DATA_PATH", target)
-        _save_to_csv(raw_kaggle_df)
+        _save_to_csv(raw_kaggle_df, target)
         assert target.exists()
 
-    def test_saved_csv_has_correct_shape(self, tmp_path, raw_kaggle_df, monkeypatch):
+    def test_saved_csv_has_correct_shape(self, tmp_path, raw_kaggle_df):
         target = tmp_path / "out.csv"
-        monkeypatch.setattr("src.data.ingestion.RAW_DATA_PATH", target)
-        _save_to_csv(raw_kaggle_df)
+        _save_to_csv(raw_kaggle_df, target)
         loaded = pd.read_csv(target)
         assert loaded.shape == raw_kaggle_df.shape
 
-    def test_saved_csv_has_correct_columns(self, tmp_path, raw_kaggle_df, monkeypatch):
+    def test_saved_csv_has_correct_columns(self, tmp_path, raw_kaggle_df):
         target = tmp_path / "out.csv"
-        monkeypatch.setattr("src.data.ingestion.RAW_DATA_PATH", target)
-        _save_to_csv(raw_kaggle_df)
+        _save_to_csv(raw_kaggle_df, target)
         loaded = pd.read_csv(target)
         assert set(loaded.columns) == set(raw_kaggle_df.columns)
