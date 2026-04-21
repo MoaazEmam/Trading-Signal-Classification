@@ -42,8 +42,8 @@ preprocess:
 # Stages inside preprocess: raw validation → cleaning → post-clean validation → labeling → splitting
 pipeline: ingest preprocess
 
-engineer:
-	poetry run python -m src.features.engineering
+transform:
+	poetry run python -m src.features.transform
 
 train:
 	poetry run python -m src.models.train
