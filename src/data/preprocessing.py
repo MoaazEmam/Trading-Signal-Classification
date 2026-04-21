@@ -59,6 +59,7 @@ def _score_to_fg_label(score: float) -> str:
 
 # -- extended cleaner -------------------------------------------------------
 
+
 class _ExtendedCleaner(Cleaner):
     """
     Extends Cleaner with additional steps and bug fixes.
@@ -74,16 +75,38 @@ class _ExtendedCleaner(Cleaner):
         applies str.title() to all string columns including Company.
         """
         implicit_missing = [
-            "", " ", "N/A", "n/a", "NA", "null", "NULL",
-            "None", "none", "NaN", "nan", "?", "missing", "Missing", "-",
+            "",
+            " ",
+            "N/A",
+            "n/a",
+            "NA",
+            "null",
+            "NULL",
+            "None",
+            "none",
+            "NaN",
+            "nan",
+            "?",
+            "missing",
+            "Missing",
+            "-",
         ]
         self.df = self.df.replace(implicit_missing, pd.NA)
         self.log.append("fix_dtypes: replaced implicit missing values with NaN")
 
         numeric_cols = [
-            "Open", "High", "Low", "Close", "Volume", "Dividends",
-            "Stock Splits", "vix", "fed_funds_rate", "treasury_10y",
-            "sp500_level", "fear_greed_score",
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "Dividends",
+            "Stock Splits",
+            "vix",
+            "fed_funds_rate",
+            "treasury_10y",
+            "sp500_level",
+            "fear_greed_score",
         ]
         for col in numeric_cols:
             if col in self.df.columns:
@@ -91,9 +114,7 @@ class _ExtendedCleaner(Cleaner):
                 self.df[col] = pd.to_numeric(self.df[col], errors="coerce")
                 new_nulls = self.df[col].isnull().sum() - before
                 if new_nulls > 0:
-                    self.log.append(
-                        f"fix_dtypes: '{col}' - {new_nulls} unparseable values set to NaN"
-                    )
+                    self.log.append(f"fix_dtypes: '{col}' - {new_nulls} unparseable values set to NaN")
 
         before = self.df["Date"].isnull().sum()
         self.df["Date"] = pd.to_datetime(self.df["Date"], errors="coerce")
@@ -103,13 +124,9 @@ class _ExtendedCleaner(Cleaner):
 
         # Company: strip whitespace only -- do NOT title-case ticker symbols
         if "Company" in self.df.columns:
-            self.df["Company"] = self.df["Company"].where(
-                self.df["Company"].notna(), other=np.nan
-            )
+            self.df["Company"] = self.df["Company"].where(self.df["Company"].notna(), other=np.nan)
             self.df["Company"] = self.df["Company"].astype(str).str.strip()
-            self.df["Company"] = self.df["Company"].replace(
-                {"None": np.nan, "Nan": np.nan, "nan": np.nan}
-            )
+            self.df["Company"] = self.df["Company"].replace({"None": np.nan, "Nan": np.nan, "nan": np.nan})
 
         # Non-ticker string columns: keep title-case normalisation
         for col in ["fear_greed_label", "label"]:
@@ -132,13 +149,15 @@ class _ExtendedCleaner(Cleaner):
             missing_rows = self.df[condition]
             self.quarantine.append(missing_rows)
             self.df = self.df[~condition]
-            self.log.append(
-                f"drop_missing: {len(missing_rows)} rows missing critical fields removed"
-            )
+            self.log.append(f"drop_missing: {len(missing_rows)} rows missing critical fields removed")
 
         non_critical_cols = [
-            "vix", "fed_funds_rate", "treasury_10y",
-            "sp500_level", "fear_greed_score", "fear_greed_label",
+            "vix",
+            "fed_funds_rate",
+            "treasury_10y",
+            "sp500_level",
+            "fear_greed_score",
+            "fear_greed_label",
         ]
         for col in non_critical_cols:
             if col in self.df.columns:
@@ -171,24 +190,22 @@ class _ExtendedCleaner(Cleaner):
             invalid_rows = self.df[condition]
             self.quarantine.append(invalid_rows)
             self.df = self.df[~condition]
-            self.log.append(
-                f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Open outside High/Low"
-            )
+            self.log.append(f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Open outside High/Low")
 
     def run_all(self) -> pd.DataFrame:
         """Runs all cleaning steps in order, recording per-step row counts in self.step_rows."""
         self.step_rows: list[tuple[str, int, int]] = []
         steps = [
-            ("FIX DATA TYPES",            self.fix_dtypes),
-            ("DROP MISSING VALUES",        self.drop_missing),
-            ("DROP DUPLICATES",            self.drop_duplicates),
-            ("DROP INVALID PRICES",        self.drop_invalid_prices),
-            ("DROP STALE ROWS",            self.drop_stale_rows),
-            ("DROP ZERO-VOLUME MOVEMENT",  self.drop_zero_volume_movement),
-            ("HANDLE PRICE SPIKES",        self.handle_price_spikes),
-            #("WINSORIZE VOLUME OUTLIERS",  self.winsorize_outliers),
-            ("FIX FEAR & GREED LABELS",    self.fix_fear_greed_labels),
-            ("SAVE QUARANTINE",            self._save_quarantine),
+            ("FIX DATA TYPES", self.fix_dtypes),
+            ("DROP MISSING VALUES", self.drop_missing),
+            ("DROP DUPLICATES", self.drop_duplicates),
+            ("DROP INVALID PRICES", self.drop_invalid_prices),
+            ("DROP STALE ROWS", self.drop_stale_rows),
+            ("DROP ZERO-VOLUME MOVEMENT", self.drop_zero_volume_movement),
+            ("HANDLE PRICE SPIKES", self.handle_price_spikes),
+            # ("WINSORIZE VOLUME OUTLIERS",  self.winsorize_outliers),
+            ("FIX FEAR & GREED LABELS", self.fix_fear_greed_labels),
+            ("SAVE QUARANTINE", self._save_quarantine),
         ]
         for name, fn in steps:
             before = len(self.df)
@@ -209,14 +226,9 @@ class _ExtendedCleaner(Cleaner):
         if len(bad_rows) > 0:
             self.quarantine.append(bad_rows)
             self.df = temp[~condition]
-            self.log.append(
-                f"drop_zero_volume_movement: {len(bad_rows)} rows removed "
-                f"(Volume=0 with Close change)"
-            )
+            self.log.append(f"drop_zero_volume_movement: {len(bad_rows)} rows removed " f"(Volume=0 with Close change)")
         else:
-            self.log.append(
-                "drop_zero_volume_movement: no anomalous zero-volume + price-movement rows found"
-            )
+            self.log.append("drop_zero_volume_movement: no anomalous zero-volume + price-movement rows found")
         logger.info(f"drop_zero_volume_movement: complete -- {len(bad_rows)} rows quarantined")
 
     def handle_price_spikes(self, threshold: float = 0.50) -> None:
@@ -280,21 +292,23 @@ class _ExtendedCleaner(Cleaner):
 _W = 78  # log line width
 
 _STEP_PREFIX_MAP = {
-    "FIX DATA TYPES":            "fix_dtypes",
-    "DROP MISSING VALUES":       "drop_missing",
-    "DROP DUPLICATES":           "drop_duplicates",
-    "DROP INVALID PRICES":       "drop_invalid_prices",
-    "DROP STALE ROWS":           "drop_stale_rows",
+    "FIX DATA TYPES": "fix_dtypes",
+    "DROP MISSING VALUES": "drop_missing",
+    "DROP DUPLICATES": "drop_duplicates",
+    "DROP INVALID PRICES": "drop_invalid_prices",
+    "DROP STALE ROWS": "drop_stale_rows",
     "DROP ZERO-VOLUME MOVEMENT": "drop_zero_volume_movement",
-    "HANDLE PRICE SPIKES":       "handle_price_spikes",
-    #"WINSORIZE VOLUME OUTLIERS": "winsorize_outliers",
-    "FIX FEAR & GREED LABELS":   "fix_fear_greed_labels",
-    "SAVE QUARANTINE":           "_save_quarantine",
+    "HANDLE PRICE SPIKES": "handle_price_spikes",
+    # "WINSORIZE VOLUME OUTLIERS": "winsorize_outliers",
+    "FIX FEAR & GREED LABELS": "fix_fear_greed_labels",
+    "SAVE QUARANTINE": "_save_quarantine",
 }
 
-def _percentage_removed(n:int, raw_df: pd.DataFrame)->str:
+
+def _percentage_removed(n: int, raw_df: pd.DataFrame) -> str:
     return f"{n / len(raw_df) * 100:.2f}%" if len(raw_df) else "n/a"
-    
+
+
 def _write_cleaning_log(
     path: str,
     raw_df: pd.DataFrame,
@@ -303,14 +317,13 @@ def _write_cleaning_log(
     remaining_issues: list[str],
 ) -> None:
     total_removed = len(raw_df) - len(clean_df)
-    pct = _percentage_removed(total_removed,raw_df)
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     step_log: dict[str, list[str]] = {k: [] for k in _STEP_PREFIX_MAP}
     for entry in cleaner.log:
         for step, prefix in _STEP_PREFIX_MAP.items():
             if entry.startswith(prefix + ":"):
-                step_log[step].append(entry[len(prefix) + 1:].strip())
+                step_log[step].append(entry[len(prefix) + 1 :].strip())
                 break
 
     quarantine_count = 0
@@ -321,8 +334,12 @@ def _write_cleaning_log(
                 quarantine_count = int(m.group(1).replace(",", ""))
 
     removal_steps = [
-        "DROP MISSING VALUES", "DROP DUPLICATES", "DROP INVALID PRICES",
-        "DROP STALE ROWS", "DROP ZERO-VOLUME MOVEMENT", "HANDLE PRICE SPIKES",
+        "DROP MISSING VALUES",
+        "DROP DUPLICATES",
+        "DROP INVALID PRICES",
+        "DROP STALE ROWS",
+        "DROP ZERO-VOLUME MOVEMENT",
+        "HANDLE PRICE SPIKES",
     ]
     step_rows_map = {name: (b, a) for name, b, a in cleaner.step_rows}
 
@@ -348,7 +365,6 @@ def _write_cleaning_log(
     with open(path, "w", encoding="utf-8") as f:
         w = f.write
 
-
         w("CLEANING DECISION LOG\n")
         w(f"Generated: {now}\n")
         w(sep + "\n\n")
@@ -356,7 +372,7 @@ def _write_cleaning_log(
         w(thin + "\n")
         w(f"  Input rows:             {len(raw_df):>10,}\n")
         w(f"  Output rows:            {len(clean_df):>10,}\n")
-        w(f"  Total rows removed:     {total_removed:>10,}  ({pct(total_removed)})\n")
+        w(f"  Total rows removed:     {total_removed:>10,}  ({_percentage_removed(total_removed,raw_df)})\n")
         w(f"  Rows quarantined:       {quarantine_count:>10,}\n")
         w("\n")
         w("  Removal by step:\n")
@@ -367,7 +383,7 @@ def _write_cleaning_log(
                 n = before - after
                 label = step.title().replace("  ", " ")
                 dots = "." * (col_w - len(label))
-                w(f"    {label} {dots}  {n:>7,}  ({pct(n)})\n")
+                w(f"    {label} {dots}  {n:>7,}  ({_percentage_removed(n,raw_df)})\n")
         w("\n")
         w(sep + "\n\n")
         w("STEP-BY-STEP DETAIL\n")
@@ -402,6 +418,7 @@ def _write_cleaning_log(
 
 # -- validation helper -----------------------------------------------------
 
+
 def _run_validator_checks(df: pd.DataFrame) -> list[str]:
     """
     Run the 10 label-independent Validator checks and return the issues list.
@@ -428,6 +445,7 @@ def _run_validator_checks(df: pd.DataFrame) -> list[str]:
 
 
 # -- raw validation stage --------------------------------------------------
+
 
 def run_raw_validation() -> list[str]:
     """
@@ -457,6 +475,7 @@ def run_raw_validation() -> list[str]:
 
 
 # -- cleaning stage ---------------------------------------------------------
+
 
 def run_cleaning() -> pd.DataFrame:
     """
@@ -511,13 +530,17 @@ def run_cleaning() -> pd.DataFrame:
 
 # ── labeling ───────────────────────────────────────────────────────────────
 
+
 def run_labeling(cleaned_df: pd.DataFrame | None = None) -> pd.DataFrame:
     """Label the cleaned dataset using the teammate's fixed label() and write to labeled CSV."""
     if cleaned_df is None:
         logger.info("run_labeling: loading cleaned data from %s", CLEANED_PATH)
         cleaned_df = pd.read_csv(CLEANED_PATH)
 
-    logger.info("run_labeling: applying triple-barrier labels (N=%d, rolling_window=20)...", LABEL_LOOKAHEAD_N)
+    logger.info(
+        "run_labeling: applying triple-barrier labels (N=%d, rolling_window=20)...",
+        LABEL_LOOKAHEAD_N,
+    )
     labeled_df = _label(cleaned_df, N=LABEL_LOOKAHEAD_N, M=2)
 
     LABELED_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -529,6 +552,7 @@ def run_labeling(cleaned_df: pd.DataFrame | None = None) -> pd.DataFrame:
 
 
 # ── splitting ──────────────────────────────────────────────────────────────
+
 
 def run_splitting(labeled_df: pd.DataFrame | None = None, test_size: float = 0.2) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Split labeled data into train_val / test using the teammate's temporal_split and write both CSVs."""
@@ -543,12 +567,14 @@ def run_splitting(labeled_df: pd.DataFrame | None = None, test_size: float = 0.2
     save_splits(train_val, test)
     logger.info(
         "run_splitting: complete -- train_val %d rows, test %d rows",
-        len(train_val), len(test),
+        len(train_val),
+        len(test),
     )
     return train_val, test
 
 
 # ── full pipeline ──────────────────────────────────────────────────────────
+
 
 def run_preprocessing() -> None:
     """Run the complete preprocessing pipeline.

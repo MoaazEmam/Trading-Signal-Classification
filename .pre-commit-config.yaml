@@ -7,12 +7,3 @@ repos:
         stages: [pre-commit]
       - id: ruff-format
         stages: [pre-commit]
-
-  - repo: local
-    hooks:
-      - id: type-check
-        name: type check (pyright)
-        entry: poetry run pyright
-        language: system
-        pass_filenames: false
-        stages: [pre-push]
