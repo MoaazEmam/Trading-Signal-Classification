@@ -12,6 +12,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.preprocessing import RobustScaler, StandardScaler
 
 
 class GroupedWinsorizer(BaseEstimator, TransformerMixin):
@@ -67,7 +68,7 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         self.lower_q = lower_q
         self.unseen_group_policy = unseen_group_policy
 
-    def fit(self, X: pd.DataFrame, y: pd.Series | None = None) -> "GroupedWinsorizer":
+    def fit(self, X: pd.DataFrame, y: pd.Series | None = None) -> GroupedWinsorizer:
         self._validate_input(X)
         cols = self._resolve_cols(X)
 
@@ -77,8 +78,12 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         self.global_upper_ = {col: float(X[col].quantile(self.q)) for col in cols}
 
         if self.lower_q is not None:
-            self.lower_caps_ = {col: grouped[col].quantile(self.lower_q) for col in cols}
-            self.global_lower_ = {col: float(X[col].quantile(self.lower_q)) for col in cols}
+            self.lower_caps_ = {
+                col: grouped[col].quantile(self.lower_q) for col in cols
+            }
+            self.global_lower_ = {
+                col: float(X[col].quantile(self.lower_q)) for col in cols
+            }
 
         self.feature_names_in_ = np.asarray(X.columns)
         self._fitted_cols_ = cols
@@ -113,11 +118,17 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         return out
 
     def get_feature_names_out(self, input_features=None) -> np.ndarray:
-        return np.asarray(input_features) if input_features is not None else self.feature_names_in_
+        return (
+            np.asarray(input_features)
+            if input_features is not None
+            else self.feature_names_in_
+        )
 
     def _resolve_cols(self, X: pd.DataFrame) -> list[str]:
         if self.cols is None:
-            raise ValueError("`cols` must be specified (list of numeric columns to cap).")
+            raise ValueError(
+                "`cols` must be specified (list of numeric columns to cap)."
+            )
         missing = [c for c in self.cols if c not in X.columns]
         if missing:
             raise ValueError(f"Columns not found in input: {missing}")
@@ -134,3 +145,43 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
             raise ValueError("`lower_q` must be in (0, q).")
         if self.unseen_group_policy not in {"global", "passthrough"}:
             raise ValueError("unseen_group_policy must be 'global' or 'passthrough'.")
+
+
+class AdaptiveScaler(BaseEstimator, TransformerMixin):
+    """Per-column scaler: RobustScaler when >outlier_threshold fraction of values are IQR outliers,
+    StandardScaler otherwise."""
+
+    def __init__(self, outlier_threshold: float = 0.01):
+        self.outlier_threshold = outlier_threshold
+
+    def fit(self, X: pd.DataFrame, y=None) -> AdaptiveScaler:
+        self._cols = list(X.columns)
+        self._scalers: dict = {}
+        for col in self._cols:
+            series = X[col].dropna()
+            q1, q3 = float(series.quantile(0.25)), float(series.quantile(0.75))
+            iqr = q3 - q1
+            lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+            outlier_frac = float(((X[col] < lower) | (X[col] > upper)).mean())
+            scaler = (
+                RobustScaler()
+                if outlier_frac > self.outlier_threshold
+                else StandardScaler()
+            )
+            scaler.fit(X[col].values.reshape(-1, 1))
+            self._scalers[col] = scaler
+        return self
+
+    def transform(self, X: pd.DataFrame, y=None) -> pd.DataFrame:
+        out = X.copy()
+        for col in self._cols:
+            if col in out.columns:
+                out[col] = (
+                    self._scalers[col]
+                    .transform(out[col].values.reshape(-1, 1))
+                    .flatten()
+                )
+        return out
+
+    def get_feature_names_out(self, input_features=None) -> np.ndarray:
+        return np.asarray(self._cols)

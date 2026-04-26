@@ -20,6 +20,13 @@ TEST_SELECTED_PATH = PROCESSED_DIR / "test_selected.csv"
 LABEL_COL = "label"
 
 
+def load_selector(path: Path | None = None) -> FeatureSelector:
+    if path is None:
+        project_root = Path(__file__).resolve().parent.parent.parent
+        path = project_root / "models" / "artifacts" / "feature_selector.pkl"
+    return FeatureSelector.load(path)
+
+
 def _split_x_y(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     y = df[LABEL_COL]
     x = df.drop(columns=[LABEL_COL])
@@ -27,6 +34,8 @@ def _split_x_y(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
 
 
 def run_selection(
+    train_df: pd.DataFrame | None = None,
+    test_df: pd.DataFrame | None = None,
     filter_thresholds: tuple[float, float, float] = (1e-4, 0.95, 0.01),
     importance_threshold: float = 0.01,
     min_features: int = 10,
@@ -37,12 +46,15 @@ def run_selection(
     logger.info("FEATURE SELECTION START")
     logger.info(sep)
 
-    train_df, test_df = load_train_test_transformed()
-    logger.info("train_val: %d rows x %d cols", *train_df.shape)
-    logger.info("test     : %d rows x %d cols", *test_df.shape)
+    if train_df is not None and test_df is not None:
+        train_data, test_data = train_df, test_df
+    else:
+        train_data, test_data = load_train_test_transformed()
+    logger.info("train_val: %d rows x %d cols", *train_data.shape)
+    logger.info("test     : %d rows x %d cols", *test_data.shape)
 
-    x_train, y_train = _split_x_y(train_df)
-    x_test, y_test = _split_x_y(test_df)
+    x_train, y_train = _split_x_y(train_data)
+    x_test, y_test = _split_x_y(test_data)
 
     selector = FeatureSelector(
         filter_thresholds=filter_thresholds,

@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 RAW_PATH = Path("data/raw/market_data_merged.csv")
 CLEANED_PATH = Path("data/processed/market_data_cleaned.csv")
 LABELED_PATH = Path("data/processed/market_data_labeled.csv")
+FEATURED_PATH = Path("data/processed/market_data_with_features.csv")
 PROCESSED_PATH = Path("data/processed")
 LOG_PATH = Path("reports/cleaning_log.txt")
 
@@ -114,19 +115,27 @@ class _ExtendedCleaner(Cleaner):
                 self.df[col] = pd.to_numeric(self.df[col], errors="coerce")
                 new_nulls = self.df[col].isnull().sum() - before
                 if new_nulls > 0:
-                    self.log.append(f"fix_dtypes: '{col}' - {new_nulls} unparseable values set to NaN")
+                    self.log.append(
+                        f"fix_dtypes: '{col}' - {new_nulls} unparseable values set to NaN"
+                    )
 
         before = self.df["Date"].isnull().sum()
         self.df["Date"] = pd.to_datetime(self.df["Date"], errors="coerce")
         new_nulls = self.df["Date"].isnull().sum() - before
         if new_nulls > 0:
-            self.log.append(f"fix_dtypes: 'Date' - {new_nulls} unparseable dates set to NaT")
+            self.log.append(
+                f"fix_dtypes: 'Date' - {new_nulls} unparseable dates set to NaT"
+            )
 
         # Company: strip whitespace only -- do NOT title-case ticker symbols
         if "Company" in self.df.columns:
-            self.df["Company"] = self.df["Company"].where(self.df["Company"].notna(), other=np.nan)
+            self.df["Company"] = self.df["Company"].where(
+                self.df["Company"].notna(), other=np.nan
+            )
             self.df["Company"] = self.df["Company"].astype(str).str.strip()
-            self.df["Company"] = self.df["Company"].replace({"None": np.nan, "Nan": np.nan, "nan": np.nan})
+            self.df["Company"] = self.df["Company"].replace(
+                {"None": np.nan, "Nan": np.nan, "nan": np.nan}
+            )
 
         # Non-ticker string columns: keep title-case normalisation
         for col in ["fear_greed_label", "label"]:
@@ -149,7 +158,9 @@ class _ExtendedCleaner(Cleaner):
             missing_rows = self.df[condition]
             self.quarantine.append(missing_rows)
             self.df = self.df[~condition]
-            self.log.append(f"drop_missing: {len(missing_rows)} rows missing critical fields removed")
+            self.log.append(
+                f"drop_missing: {len(missing_rows)} rows missing critical fields removed"
+            )
 
         non_critical_cols = [
             "vix",
@@ -185,12 +196,16 @@ class _ExtendedCleaner(Cleaner):
         super().drop_invalid_prices()
 
         # Open outside High/Low (not in original)
-        condition = (self.df["Open"] > self.df["High"]) | (self.df["Open"] < self.df["Low"])
+        condition = (self.df["Open"] > self.df["High"]) | (
+            self.df["Open"] < self.df["Low"]
+        )
         if condition.any():
             invalid_rows = self.df[condition]
             self.quarantine.append(invalid_rows)
             self.df = self.df[~condition]
-            self.log.append(f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Open outside High/Low")
+            self.log.append(
+                f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Open outside High/Low"
+            )
 
     def run_all(self) -> pd.DataFrame:
         """Runs all cleaning steps in order, recording per-step row counts in self.step_rows."""
@@ -226,10 +241,17 @@ class _ExtendedCleaner(Cleaner):
         if len(bad_rows) > 0:
             self.quarantine.append(bad_rows)
             self.df = temp[~condition]
-            self.log.append(f"drop_zero_volume_movement: {len(bad_rows)} rows removed " f"(Volume=0 with Close change)")
+            self.log.append(
+                f"drop_zero_volume_movement: {len(bad_rows)} rows removed "
+                f"(Volume=0 with Close change)"
+            )
         else:
-            self.log.append("drop_zero_volume_movement: no anomalous zero-volume + price-movement rows found")
-        logger.info(f"drop_zero_volume_movement: complete -- {len(bad_rows)} rows quarantined")
+            self.log.append(
+                "drop_zero_volume_movement: no anomalous zero-volume + price-movement rows found"
+            )
+        logger.info(
+            f"drop_zero_volume_movement: complete -- {len(bad_rows)} rows quarantined"
+        )
 
     def handle_price_spikes(self, threshold: float = 0.50) -> None:
         """Removes all rows where Close moves more than `threshold` vs the prior day (split-adjusted)."""
@@ -268,22 +290,31 @@ class _ExtendedCleaner(Cleaner):
 
     def fix_fear_greed_labels(self) -> None:
         """Regenerates fear_greed_label from fear_greed_score using canonical non-overlapping boundaries."""
-        if "fear_greed_score" not in self.df.columns or "fear_greed_label" not in self.df.columns:
+        if (
+            "fear_greed_score" not in self.df.columns
+            or "fear_greed_label" not in self.df.columns
+        ):
             return
         before_mismatches = self._count_fg_mismatches()
-        self.df["fear_greed_label"] = self.df["fear_greed_score"].apply(_score_to_fg_label)
+        self.df["fear_greed_label"] = self.df["fear_greed_score"].apply(
+            _score_to_fg_label
+        )
         after_mismatches = self._count_fg_mismatches()
         self.log.append(
             f"fix_fear_greed_labels: regenerated fear_greed_label from score "
             f"(mismatches: {before_mismatches} -> {after_mismatches})"
         )
-        logger.info(f"fix_fear_greed_labels: complete -- {before_mismatches} mismatches resolved")
+        logger.info(
+            f"fix_fear_greed_labels: complete -- {before_mismatches} mismatches resolved"
+        )
 
     def _count_fg_mismatches(self) -> int:
         mismatches = 0
         for lo, hi, label_name in _FEAR_GREED_BOUNDS:
             mask = self.df["fear_greed_label"] == label_name
-            mismatches += int((~self.df["fear_greed_score"].between(lo, hi) & mask).sum())
+            mismatches += int(
+                (~self.df["fear_greed_score"].between(lo, hi) & mask).sum()
+            )
         return mismatches
 
 
@@ -353,7 +384,9 @@ def _write_cleaning_log(
         if issue.startswith("Date"):
             categories["DATA COVERAGE"].append(issue)
         elif issue.startswith("Outliers"):
-            categories["RESIDUAL OUTLIERS (to be handled in transformation pipeline)"].append(issue)
+            categories[
+                "RESIDUAL OUTLIERS (to be handled in transformation pipeline)"
+            ].append(issue)
         elif issue.lower().startswith("sanity"):
             categories["SANITY"].append(issue)
         else:
@@ -372,7 +405,9 @@ def _write_cleaning_log(
         w(thin + "\n")
         w(f"  Input rows:             {len(raw_df):>10,}\n")
         w(f"  Output rows:            {len(clean_df):>10,}\n")
-        w(f"  Total rows removed:     {total_removed:>10,}  ({_percentage_removed(total_removed,raw_df)})\n")
+        w(
+            f"  Total rows removed:     {total_removed:>10,}  ({_percentage_removed(total_removed,raw_df)})\n"
+        )
         w(f"  Rows quarantined:       {quarantine_count:>10,}\n")
         w("\n")
         w("  Removal by step:\n")
@@ -477,33 +512,30 @@ def run_raw_validation() -> list[str]:
 # -- cleaning stage ---------------------------------------------------------
 
 
-def run_cleaning() -> pd.DataFrame:
-    """
-    Extended cleaning stage using _ExtendedCleaner (subclass of teammate's Cleaner).
-
-    Differences from the original cleaning.py run_cleaning():
-    - Reads raw CSV with on_bad_lines="skip" (handles 73 fused rows).
-    - Uses _ExtendedCleaner which adds new steps and fixes existing ones.
-    - Calls _run_validator_checks (post-clean) to confirm fixes; skips the 3
-      label-dependent checks that raise KeyError without a label column.
-    - Writes a structured cleaning log with step table and categorised issues.
-    """
-    logger.info("run_cleaning: loading raw data...")
-    df = pd.read_csv(str(RAW_PATH), low_memory=False, on_bad_lines="skip")
+def run_cleaning(raw_df: pd.DataFrame | None = None) -> pd.DataFrame:
+    if raw_df is not None:
+        df = raw_df.copy()
+    else:
+        logger.info("run_cleaning: loading raw data...")
+        df = pd.read_csv(str(RAW_PATH), low_memory=False, on_bad_lines="skip")
     logger.info(f"run_cleaning: loaded {len(df):,} rows x {df.shape[1]} columns")
 
     cleaner = _ExtendedCleaner(df)
     clean_df = cleaner.run_all()
     logger.info(f"run_cleaning: cleaning complete -- {len(clean_df):,} rows remaining")
 
-    assert clean_df["Close"].isnull().sum() == 0, "Close still has nulls after cleaning!"
+    assert (
+        clean_df["Close"].isnull().sum() == 0
+    ), "Close still has nulls after cleaning!"
     assert (clean_df["High"] < clean_df["Low"]).sum() == 0, "High < Low still present!"
     assert clean_df.duplicated().sum() == 0, "Duplicates still present!"
     logger.info("run_cleaning: post-cleaning checks passed")
 
     remaining_issues = _run_validator_checks(clean_df)
     if remaining_issues:
-        logger.warning(f"run_cleaning: {len(remaining_issues)} issues still flagged after cleaning:")
+        logger.warning(
+            f"run_cleaning: {len(remaining_issues)} issues still flagged after cleaning:"
+        )
         for issue in remaining_issues:
             logger.warning(f"  - {issue}")
     else:
@@ -515,7 +547,9 @@ def run_cleaning() -> pd.DataFrame:
     dropped_cols = [c for c in ("Dividends", "Stock Splits") if c in clean_df.columns]
     if dropped_cols:
         clean_df = clean_df.drop(columns=dropped_cols)
-        logger.info("run_cleaning: dropped columns %s from cleaned output", dropped_cols)
+        logger.info(
+            "run_cleaning: dropped columns %s from cleaned output", dropped_cols
+        )
 
     CLEANED_PATH.parent.mkdir(parents=True, exist_ok=True)
     clean_df.to_csv(str(CLEANED_PATH), index=False)
@@ -554,11 +588,13 @@ def run_labeling(cleaned_df: pd.DataFrame | None = None) -> pd.DataFrame:
 # ── splitting ──────────────────────────────────────────────────────────────
 
 
-def run_splitting(labeled_df: pd.DataFrame | None = None, test_size: float = 0.2) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Split labeled data into train_val / test using the teammate's temporal_split and write both CSVs."""
+def run_splitting(
+    labeled_df: pd.DataFrame | None = None, test_size: float = 0.2
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Split featured data into train_val / test using temporal_split and write both CSVs."""
     if labeled_df is None:
-        logger.info("run_splitting: loading labeled data from %s", LABELED_PATH)
-        labeled_df = pd.read_csv(str(LABELED_PATH), parse_dates=["Date"])
+        logger.info("run_splitting: loading featured data from %s", FEATURED_PATH)
+        labeled_df = pd.read_csv(str(FEATURED_PATH), parse_dates=["Date"])
     else:
         labeled_df = labeled_df.copy()
         labeled_df["Date"] = pd.to_datetime(labeled_df["Date"])
