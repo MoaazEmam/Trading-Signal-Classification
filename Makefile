@@ -45,6 +45,9 @@ pipeline: ingest preprocess
 transform:
 	poetry run python -m src.features.transform
 
+select:
+	poetry run python -m src.features.selection_runner
+
 train:
 	poetry run python -m src.models.train
 
