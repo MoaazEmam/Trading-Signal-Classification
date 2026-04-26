@@ -54,39 +54,36 @@ def _load_split(path: Path) -> tuple[pd.DataFrame, pd.Series]:
 
 
 def run_transform(
+    train_df: pd.DataFrame | None = None,
+    test_df: pd.DataFrame | None = None,
     scale: bool = True,
     winsorize_q: float = 0.99,
     encode_company: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    Fit the feature pipeline on train_val and transform both splits.
-
-    Parameters
-    ----------
-    scale : bool
-        Forwarded to build_pipeline; set False for tree-based models.
-    winsorize_q : float
-        Forwarded to build_pipeline; upper quantile for GroupedWinsorizer.
-    encode_company : bool
-        Forwarded to build_pipeline; ordinal-encode Company when True.
-
-    Returns
-    -------
-    (train_val_transformed, test_transformed) as DataFrames with the encoded
-    label column re-attached so each file is self-contained for downstream
-    training. Labels are integer-encoded (LabelEncoder fit on train_val);
-    the class order is persisted in models/artifacts/label_encoder.pkl.
-    """
     sep = "=" * 60
     logger.info(sep)
     logger.info(
         "FEATURE TRANSFORM START (scale=%s, q=%s, encode_company=%s)",
-        scale, winsorize_q, encode_company,
+        scale,
+        winsorize_q,
+        encode_company,
     )
     logger.info(sep)
 
-    X_train, y_train = _load_split(TRAIN_VAL_PATH)
-    X_test, y_test = _load_split(TEST_PATH)
+    if train_df is not None and test_df is not None:
+        y_train = train_df[LABEL_COL]
+        X_train = train_df.drop(columns=[LABEL_COL])
+        y_test = test_df[LABEL_COL]
+        X_test = test_df.drop(columns=[LABEL_COL])
+        logger.info(
+            "  train_val: %d rows x %d feature columns", len(X_train), X_train.shape[1]
+        )
+        logger.info(
+            "  test     : %d rows x %d feature columns", len(X_test), X_test.shape[1]
+        )
+    else:
+        X_train, y_train = _load_split(TRAIN_VAL_PATH)
+        X_test, y_test = _load_split(TEST_PATH)
 
     pipeline = build_pipeline(
         scale=scale,
@@ -108,8 +105,11 @@ def run_transform(
     label_encoder = LabelEncoder()
     y_train_enc = label_encoder.fit_transform(y_train)
     y_test_enc = label_encoder.transform(y_test)
-    logger.info("label classes (encoded 0..%d): %s",
-                len(label_encoder.classes_) - 1, list(label_encoder.classes_))
+    logger.info(
+        "label classes (encoded 0..%d): %s",
+        len(label_encoder.classes_) - 1,
+        list(label_encoder.classes_),
+    )
 
     train_out = X_train_out.assign(**{LABEL_COL: y_train_enc})
     test_out = X_test_out.assign(**{LABEL_COL: y_test_enc})
