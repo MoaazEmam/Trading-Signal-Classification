@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.utils import _save_to_csv, load_cleaned_labeled
+from src.utils import load_cleaned_labeled
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,7 +14,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-ENGINEERED_PATH = Path("../../data/processed/market_data_with_features.csv")
+ENGINEERED_PATH = Path("data/processed/market_data_with_features.csv")
 
 
 def _calculate_price_momentum(df: pd.DataFrame) -> pd.DataFrame:
@@ -35,8 +35,12 @@ def _calculate_moving_averages(df: pd.DataFrame) -> pd.DataFrame:
     for n in [9, 21, 50]:
         features[f"ema_{n}"] = df["Close"].ewm(span=n, adjust=False).mean()
     features["price_to_sma20"] = df["Close"] / (features["sma_20"] + 1e-9)
-    features["sma_cross_20_50"] = (features["sma_20"] > features["sma_50"]).astype(int).replace(0, -1)
-    features["sma_cross_50_200"] = (features["sma_50"] > features["sma_200"]).astype(int).replace(0, -1)
+    features["sma_cross_20_50"] = (
+        (features["sma_20"] > features["sma_50"]).astype(int).replace(0, -1)
+    )
+    features["sma_cross_50_200"] = (
+        (features["sma_50"] > features["sma_200"]).astype(int).replace(0, -1)
+    )
     return features
 
 
@@ -93,7 +97,9 @@ def _calculate_bollinger_bands(df: pd.DataFrame) -> pd.DataFrame:
 
     features["bb_width"] = (bb_upper - bb_lower) / bb_mid
 
-    features["bb_position"] = (df["Close"] - bb_lower) / (bb_upper - bb_lower + 1e-9)  # avoid divide by zero
+    features["bb_position"] = (df["Close"] - bb_lower) / (
+        bb_upper - bb_lower + 1e-9
+    )  # avoid divide by zero
 
     return features
 
@@ -110,7 +116,9 @@ def _calculate_volume_features(df: pd.DataFrame) -> pd.DataFrame:
 
     features["obv"] = (direction * df["Volume"]).cumsum()
 
-    vwap = (df["Close"] * df["Volume"]).rolling(20).sum() / (df["Volume"].rolling(20).sum() + 1e-9)
+    vwap = (df["Close"] * df["Volume"]).rolling(20).sum() / (
+        df["Volume"].rolling(20).sum() + 1e-9
+    )
 
     features["vwap"] = vwap
     features["price_to_vwap"] = df["Close"] / (vwap + 1e-9)
@@ -166,7 +174,9 @@ def _calculate_vix_features(df: pd.DataFrame) -> pd.DataFrame:
 
     features["vix_percentile"] = vix.rolling(252).rank(pct=True)
 
-    features["vix_regime"] = vix.apply(lambda x: 0 if x < 15 else (1 if x < 25 else (2 if x < 35 else 3)))
+    features["vix_regime"] = vix.apply(
+        lambda x: 0 if x < 15 else (1 if x < 25 else (2 if x < 35 else 3))
+    )
 
     if "realized_vol_20" in df.columns:
         features["vix_vs_realized"] = vix / (df["realized_vol_20"] + 1e-9)
@@ -214,7 +224,9 @@ def _calculate_interest_rate_features(df: pd.DataFrame) -> pd.DataFrame:
     features["rate_change_fed"] = fed.diff(5)
     features["rate_change_10y"] = ten_y.diff(5)
 
-    features["yield_curve_regime"] = (features["yield_spread"] > 0).astype(int).replace(0, -1)
+    features["yield_curve_regime"] = (
+        (features["yield_spread"] > 0).astype(int).replace(0, -1)
+    )
 
     if "realized_vol_20" in df.columns:
         features["real_rate_proxy"] = ten_y - df["realized_vol_20"]
@@ -420,16 +432,39 @@ def build_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
     start = time.time()
     df = df.sort_values(["Company", "Date"]).reset_index(drop=True)
 
-    feature_blocks = df.groupby("Company", group_keys=False).apply(_calculate_features, include_groups=False)
+    feature_blocks = df.groupby("Company", group_keys=False).apply(
+        _calculate_features, include_groups=False
+    )
 
     feature_blocks = feature_blocks.reset_index(drop=True)
 
     assert len(feature_blocks) == len(df), (
-        f"Row count mismatch after feature engineering: " f"{len(feature_blocks)} features vs {len(df)} original rows"
+        f"Row count mismatch after feature engineering: "
+        f"{len(feature_blocks)} features vs {len(df)} original rows"
     )
 
     result = pd.concat([df, feature_blocks], axis=1)
-    logger.info(f"Feature engineering complete: {len(result.columns)} total columns — {time.time() - start:.2f}s")
+    logger.info(
+        f"Feature engineering complete: {len(result.columns)} total columns — {time.time() - start:.2f}s"
+    )
+    return result
+
+
+def run_engineering(df: pd.DataFrame) -> pd.DataFrame:
+    logger.info("run_engineering: building feature matrix...")
+    result = build_feature_matrix(df)
+    before = len(result)
+    result = result.dropna()
+    logger.info(
+        "run_engineering: dropped %d NaN rows (rolling-window warmup)",
+        before - len(result),
+    )
+
+    project_root = Path(__file__).resolve().parent.parent.parent
+    out_path = project_root / ENGINEERED_PATH
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    result.to_csv(out_path, index=False)
+    logger.info("run_engineering: saved to %s", out_path)
     return result
 
 
@@ -437,11 +472,7 @@ if __name__ == "__main__":
     logger.info("Loading dataset...")
     t = time.time()
     df = load_cleaned_labeled()
-    logger.info(f"Dataset loaded: {len(df):,} rows, {len(df.columns)} columns — {time.time() - t:.2f}s")
-
-    df_with_features = build_feature_matrix(df)
-
-    logger.info("Saving to CSV...")
-    t = time.time()
-    _save_to_csv(df_with_features, ENGINEERED_PATH)
-    logger.info(f"Saved to {ENGINEERED_PATH} — {time.time() - t:.2f}s")
+    logger.info(
+        f"Dataset loaded: {len(df):,} rows, {len(df.columns)} columns — {time.time() - t:.2f}s"
+    )
+    run_engineering(df)
