@@ -615,3 +615,69 @@ def engineering_inverted_yield_df(engineering_base_df) -> pd.DataFrame:
     df["fed_funds_rate"] = 5.0
     df["treasury_10y"] = 3.0
     return df
+
+
+# ---------------------------------------------------------------------------
+# Feature selection fixtures
+# ---------------------------------------------------------------------------
+
+N_SELECTION_DAYS = 300  # enough for rolling windows and TimeSeriesSplit folds
+
+
+@pytest.fixture()
+def selection_base_df() -> pd.DataFrame:
+    """
+    Multi-company DataFrame with all engineered feature columns present.
+    Uses random but structured data so variance/correlation/MI filters
+    have meaningful signal to work with.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=N_SELECTION_DAYS)
+    rng = np.random.default_rng(0)
+    rows = []
+    for company in COMPANIES:
+        close = np.cumprod(1 + rng.normal(0.0005, 0.01, N_SELECTION_DAYS)) * 100
+        for i, date in enumerate(dates):
+            c = close[i]
+            rows.append(
+                {
+                    "Date": date,
+                    "Company": company,
+                    "Close": c,
+                    "good_feature": rng.normal(0, 1),
+                    "constant_feature": 1.0,
+                    "correlated_feature": c
+                    + rng.normal(0, 0.001),  # near-duplicate of Close
+                    "noise_feature": rng.normal(0, 1),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+@pytest.fixture()
+def selection_X_y(selection_base_df) -> tuple[pd.DataFrame, pd.Series]:
+    df = selection_base_df.copy()
+    y = pd.Series((df["good_feature"] > 0).astype(int), name="label")
+    rng = np.random.default_rng(99)
+    df["noise_feature"] = rng.permutation(df["noise_feature"].values)
+    X = df.drop(columns=["Date"])
+    return X, y
+
+
+@pytest.fixture()
+def selection_all_constant_df(selection_base_df) -> pd.DataFrame:
+    """All numeric columns are constant — variance filter should drop all of them."""
+    df = selection_base_df.copy()
+    for col in ["Close", "good_feature", "correlated_feature", "noise_feature"]:
+        df[col] = 1.0
+    return df
+
+
+@pytest.fixture()
+def selection_no_numeric_df() -> pd.DataFrame:
+    """Only non-numeric columns — all filters should pass through without error."""
+    dates = pd.bdate_range(start=BASE_DATE, periods=50)
+    rows = []
+    for company in COMPANIES:
+        for date in dates:
+            rows.append({"Date": date, "Company": company, "label": "Hold"})
+    return pd.DataFrame(rows)
