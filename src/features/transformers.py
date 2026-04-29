@@ -67,7 +67,7 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         self.lower_q = lower_q
         self.unseen_group_policy = unseen_group_policy
 
-    def fit(self, X: pd.DataFrame, y: pd.Series | None = None) -> "GroupedWinsorizer":
+    def fit(self, X: pd.DataFrame, y: pd.Series | None = None) -> GroupedWinsorizer:
         self._validate_input(X)
         cols = self._resolve_cols(X)
 
@@ -77,8 +77,12 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         self.global_upper_ = {col: float(X[col].quantile(self.q)) for col in cols}
 
         if self.lower_q is not None:
-            self.lower_caps_ = {col: grouped[col].quantile(self.lower_q) for col in cols}
-            self.global_lower_ = {col: float(X[col].quantile(self.lower_q)) for col in cols}
+            self.lower_caps_ = {
+                col: grouped[col].quantile(self.lower_q) for col in cols
+            }
+            self.global_lower_ = {
+                col: float(X[col].quantile(self.lower_q)) for col in cols
+            }
 
         self.feature_names_in_ = np.asarray(X.columns)
         self._fitted_cols_ = cols
@@ -113,11 +117,17 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         return out
 
     def get_feature_names_out(self, input_features=None) -> np.ndarray:
-        return np.asarray(input_features) if input_features is not None else self.feature_names_in_
+        return (
+            np.asarray(input_features)
+            if input_features is not None
+            else self.feature_names_in_
+        )
 
     def _resolve_cols(self, X: pd.DataFrame) -> list[str]:
         if self.cols is None:
-            raise ValueError("`cols` must be specified (list of numeric columns to cap).")
+            raise ValueError(
+                "`cols` must be specified (list of numeric columns to cap)."
+            )
         missing = [c for c in self.cols if c not in X.columns]
         if missing:
             raise ValueError(f"Columns not found in input: {missing}")
@@ -134,3 +144,26 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
             raise ValueError("`lower_q` must be in (0, q).")
         if self.unseen_group_policy not in {"global", "passthrough"}:
             raise ValueError("unseen_group_policy must be 'global' or 'passthrough'.")
+
+
+class ColumnDropper(BaseEstimator, TransformerMixin):
+    """
+    Drops a list of columns at transform time, silently skipping any that
+    are absent. Fit stores only the intersection of requested cols and actual
+    columns so downstream get_feature_names_out is always accurate.
+    """
+
+    def __init__(self, cols: list[str]) -> None:
+        self.cols = cols
+
+    def fit(self, X: pd.DataFrame, y=None) -> ColumnDropper:
+        self.cols_to_drop_ = [c for c in self.cols if c in X.columns]
+        self.feature_names_in_ = np.asarray(X.columns)
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        return X.drop(columns=self.cols_to_drop_)
+
+    def get_feature_names_out(self, input_features=None) -> np.ndarray:
+        cols = input_features if input_features is not None else self.feature_names_in_
+        return np.asarray([c for c in cols if c not in self.cols_to_drop_])
