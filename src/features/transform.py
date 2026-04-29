@@ -26,7 +26,7 @@ import joblib
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-from src.features.pipeline import build_pipeline
+from src.features.pipeline import build_pipeline, feature_input_columns
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +84,14 @@ def run_transform(
     else:
         X_train, y_train = _load_split(TRAIN_VAL_PATH)
         X_test, y_test = _load_split(TEST_PATH)
+
+    expected = set(feature_input_columns())
+    missing = expected - set(X_train.columns) - {"label"}
+    if missing:
+        logger.warning(
+            "columns expected by pipeline but not found in train_df: %s",
+            sorted(missing),
+        )
 
     pipeline = build_pipeline(
         scale=scale,

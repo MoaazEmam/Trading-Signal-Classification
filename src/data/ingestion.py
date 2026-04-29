@@ -97,14 +97,20 @@ def _fetch_kaggle_dataset() -> pd.DataFrame:
     return df
 
 
-def _fetch_fred_series(series_id: str, start: str, end: str, name: str) -> pd.DataFrame:
-    s = fred.get_series(series_id, observation_start=start, observation_end=end)
-    df_fred = s.reset_index()
-    df_fred.columns = ["Date", name]
-    df_fred["Date"] = (
-        pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
-    )
-    return df_fred
+def _fetch_fred_series(
+    series_id: str, start: str, end: str, name: str
+) -> pd.DataFrame | None:
+    try:
+        s = fred.get_series(series_id, observation_start=start, observation_end=end)
+        df_fred = s.reset_index()
+        df_fred.columns = ["Date", name]
+        df_fred["Date"] = (
+            pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
+        )
+        return df_fred
+    except Exception as e:
+        print(f"skipping fred for date {start}: {e}")
+        return None
 
 
 def _fetch_fred_macros(start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
@@ -116,6 +122,10 @@ def _fetch_fred_macros(start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
         for series_id, name in FRED_TICKER_MAP.items()
     ]
     print("Done")
+    valid_dfs = [df for df in dfs if df is not None]
+
+    if not valid_dfs:
+        raise RuntimeError("All FRED series failed to fetch.")
     return reduce(
         lambda left, right: pd.merge(left, right, on="Date", how="outer"), dfs
     )

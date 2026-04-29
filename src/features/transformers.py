@@ -12,7 +12,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.preprocessing import RobustScaler, StandardScaler
 
 
 class GroupedWinsorizer(BaseEstimator, TransformerMixin):
@@ -147,41 +146,24 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
             raise ValueError("unseen_group_policy must be 'global' or 'passthrough'.")
 
 
-class AdaptiveScaler(BaseEstimator, TransformerMixin):
-    """Per-column scaler: RobustScaler when >outlier_threshold fraction of values are IQR outliers,
-    StandardScaler otherwise."""
+class ColumnDropper(BaseEstimator, TransformerMixin):
+    """
+    Drops a list of columns at transform time, silently skipping any that
+    are absent. Fit stores only the intersection of requested cols and actual
+    columns so downstream get_feature_names_out is always accurate.
+    """
 
-    def __init__(self, outlier_threshold: float = 0.01):
-        self.outlier_threshold = outlier_threshold
+    def __init__(self, cols: list[str]) -> None:
+        self.cols = cols
 
-    def fit(self, X: pd.DataFrame, y=None) -> AdaptiveScaler:
-        self._cols = list(X.columns)
-        self._scalers: dict = {}
-        for col in self._cols:
-            series = X[col].dropna()
-            q1, q3 = float(series.quantile(0.25)), float(series.quantile(0.75))
-            iqr = q3 - q1
-            lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
-            outlier_frac = float(((X[col] < lower) | (X[col] > upper)).mean())
-            scaler = (
-                RobustScaler()
-                if outlier_frac > self.outlier_threshold
-                else StandardScaler()
-            )
-            scaler.fit(X[col].values.reshape(-1, 1))
-            self._scalers[col] = scaler
+    def fit(self, X: pd.DataFrame, y=None) -> ColumnDropper:
+        self.cols_to_drop_ = [c for c in self.cols if c in X.columns]
+        self.feature_names_in_ = np.asarray(X.columns)
         return self
 
-    def transform(self, X: pd.DataFrame, y=None) -> pd.DataFrame:
-        out = X.copy()
-        for col in self._cols:
-            if col in out.columns:
-                out[col] = (
-                    self._scalers[col]
-                    .transform(out[col].values.reshape(-1, 1))
-                    .flatten()
-                )
-        return out
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        return X.drop(columns=self.cols_to_drop_)
 
     def get_feature_names_out(self, input_features=None) -> np.ndarray:
-        return np.asarray(self._cols)
+        cols = input_features if input_features is not None else self.feature_names_in_
+        return np.asarray([c for c in cols if c not in self.cols_to_drop_])
