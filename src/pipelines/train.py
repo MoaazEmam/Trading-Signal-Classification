@@ -6,11 +6,12 @@ from src.data.validation import run_validation
 from src.features.engineering import run_engineering
 from src.features.selection_runner import run_selection
 from src.features.transform import run_transform
+from src.models.trainer import train_all
 
 logger = logging.getLogger(__name__)
 
 
-def run_train_pipeline() -> tuple[object, object]:
+def run_train_pipeline() -> tuple[object, object, dict]:
     sep = "=" * 60
     logger.info(sep)
     logger.info("TRAINING PIPELINE START")
@@ -37,9 +38,13 @@ def run_train_pipeline() -> tuple[object, object]:
     logger.info("TRAINING PIPELINE COMPLETE")
     logger.info("  train_selected: %d rows x %d cols", *train_s.shape)
     logger.info("  test_selected : %d rows x %d cols", *test_s.shape)
+
+    training_results = train_all(train_df=train_s, test_df=test_s)
     logger.info(sep)
 
-    return train_s, test_s
+    logger.info("TRAINING PIPELINE COMPLETE")
+    logger.info(sep)
+    return train_s, test_s, training_results
 
 
 if __name__ == "__main__":

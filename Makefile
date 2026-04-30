@@ -1,5 +1,5 @@
 .PHONY: install lint format test test-unit test-integration type-check \
-        ingest clean-data label engineer split transform select \
+        ingest clean-data label engineer split transform select train \
         train-pipeline validate clean
 
 # dev
@@ -34,6 +34,7 @@ engineer:  data/processed/market_data_with_features.csv
 split:     data/processed/train_val.csv
 transform: data/processed/train_val_transformed.csv
 select:    data/processed/train_val_selected.csv
+train:     models/artifacts/training_results.json
 
 data/raw/market_data_merged.csv: src/data/ingestion.py
 	poetry run python -m src.data.ingestion
@@ -56,10 +57,13 @@ data/processed/train_val_transformed.csv data/processed/test_transformed.csv &: 
 data/processed/train_val_selected.csv data/processed/test_selected.csv &: data/processed/train_val_transformed.csv data/processed/test_transformed.csv src/features/selection_runner.py src/features/features_selection/filter.py src/features/features_selection/importance.py src/features/features_selection/selector.py
 	poetry run python -m src.features.selection_runner
 
+models/artifacts/training_results.json &: data/processed/train_val_selected.csv data/processed/test_selected.csv src/models/trainer.py src/pipelines/train.py
+	poetry run python -m src.models.trainer
+
 # full training pipeline
 # Depends on the final output files — only rebuilds stages whose inputs changed.
 
-train-pipeline: data/processed/train_val_selected.csv data/processed/test_selected.csv src/pipelines/train.py
+train-pipeline: models/artifacts/training_results.json
 	@echo "Training pipeline complete."
 
 # standalone validation report
