@@ -233,3 +233,7 @@ notebooks/*
 /.idea/.name
 /.idea/Trading-Signal-Classification.iml
 /.claude/
+/models/adaboost.pkl
+/models/decision_tree.pkl
+/models/logistic_regression.pkl
+/models/random_forest.pkl
