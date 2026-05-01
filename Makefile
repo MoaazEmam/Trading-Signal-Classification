@@ -1,6 +1,6 @@
 .PHONY: install lint format test test-unit test-integration type-check \
         ingest clean-data label engineer split transform select \
-        train-pipeline validate clean
+        train-pipeline validate clean app
 
 # dev
 
@@ -66,6 +66,9 @@ train-pipeline: data/processed/train_val_selected.csv data/processed/test_select
 
 validate:
 	poetry run python -m src.data.validation
+
+app:
+	poetry run streamlit run app/streamlit_app.py
 
 clean:
 	find . -type f -name "*.pyc" -delete
