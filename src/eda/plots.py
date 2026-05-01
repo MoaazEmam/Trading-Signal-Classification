@@ -1,5 +1,3 @@
-
-
 from __future__ import annotations
 
 from typing import Sequence
@@ -8,7 +6,6 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from scipy.cluster.hierarchy import leaves_list, linkage
 from scipy.spatial.distance import squareform
 
@@ -24,8 +21,6 @@ def _ordered_classes(values: Sequence) -> list[str]:
     seen = [c for c in CLASS_ORDER if c in set(values)]
     extras = [c for c in pd.unique(values) if c not in seen]
     return seen + list(extras)
-
-
 
 
 def train_test_timeline(
@@ -120,11 +115,7 @@ def class_proportions_by_company(
     company_col: str = COMPANY_COL,
 ) -> go.Figure:
     """Stacked-bar of class % per company."""
-    g = (
-        df.groupby([company_col, label_col])
-        .size()
-        .unstack(fill_value=0)
-    )
+    g = df.groupby([company_col, label_col]).size().unstack(fill_value=0)
     g = g.div(g.sum(axis=1), axis=0)
     classes = _ordered_classes(g.columns)
 
@@ -152,8 +143,6 @@ def class_proportions_by_company(
     return fig
 
 
-
-
 def class_conditional_box(
     df: pd.DataFrame,
     feature: str,
@@ -177,9 +166,7 @@ def class_conditional_box(
                 go.Violin(y=sub, name=cls, marker_color=color, box_visible=True)
             )
         else:
-            fig.add_trace(
-                go.Box(y=sub, name=cls, marker_color=color, boxmean=True)
-            )
+            fig.add_trace(go.Box(y=sub, name=cls, marker_color=color, boxmean=True))
     fig.update_layout(
         title=f"{feature} by class",
         yaxis_title=feature,
@@ -228,9 +215,6 @@ def mi_ranking_bar(
     return fig
 
 
-
-
-
 def correlation_heatmap(
     df: pd.DataFrame,
     cluster_order: bool = True,
@@ -244,7 +228,9 @@ def correlation_heatmap(
     if cluster_order and corr.shape[0] > 2:
         dist = 1.0 - corr.abs()
         np.fill_diagonal(dist.values, 0.0)
-        order = leaves_list(linkage(squareform(dist.values, checks=False), method=method))
+        order = leaves_list(
+            linkage(squareform(dist.values, checks=False), method=method)
+        )
         corr = corr.iloc[order, :].iloc[:, order]
 
     fig = go.Figure(
