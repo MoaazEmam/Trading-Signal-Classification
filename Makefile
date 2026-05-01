@@ -11,7 +11,7 @@ lint:
 	poetry run ruff check src/ tests/
 
 format:
-	poetry run ruff format src/ tests/
+	poetry run black src/ tests/
 
 test:
 	poetry run pytest tests/ -v
