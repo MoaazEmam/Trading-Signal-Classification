@@ -1,5 +1,3 @@
-
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -17,15 +15,16 @@ LABEL_COL = "label"
 DATE_COL = "Date"
 COMPANY_COL = "Company"
 
-Split = Literal["train", "test"] #2 valid values: train / test
+Split = Literal["train", "test"]  # 2 valid values: train / test
 
 
-#return path for train_val_selected vs test_selected
+# return path for train_val_selected vs test_selected
 def _selected_path(split: Split) -> Path:
     name = "train_val_selected.csv" if split == "train" else "test_selected.csv"
     return PROCESSED_DIR / name
 
-#return path for train_val vs test
+
+# return path for train_val vs test
 def _split_path(split: Split) -> Path:
     name = "train_val.csv" if split == "train" else "test.csv"
     return PROCESSED_DIR / name
@@ -41,7 +40,8 @@ def decode_labels(y: pd.Series) -> pd.Series:
     decoded = encoder.inverse_transform(y.to_numpy())
     return pd.Series(decoded, index=y.index, name=y.name)
 
-#return df with decoded labels
+
+# return df with decoded labels
 def load_selected(split: Split = "train", decode: bool = True) -> pd.DataFrame:
     """Load the post-selection split with standardized features."""
     df = pd.read_csv(_selected_path(split))
@@ -60,19 +60,19 @@ def load_with_dates(split: Split = "train", decode: bool = True) -> pd.DataFrame
         usecols=[DATE_COL, COMPANY_COL],
     )
 
-    #check that row count in selected and anchor are the same
+    # check that row count in selected and anchor are the same
     if len(anchor) != len(selected):
         raise ValueError(
             f"row count mismatch: selected={len(selected)}, "
             f"split={len(anchor)} — pipeline may have reordered rows."
         )
-    #verify company col identical in both
+    # verify company col identical in both
     if not (anchor[COMPANY_COL].to_numpy() == selected[COMPANY_COL].to_numpy()).all():
         raise ValueError(
             "Company column does not align row-by-row between selected "
             "and pre-transform split files — index-based join is unsafe."
         )
-    #attach date
+    # attach date
     selected.insert(0, DATE_COL, anchor[DATE_COL].to_numpy())
     return selected
 
