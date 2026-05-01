@@ -27,22 +27,36 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
         importance_threshold: float = 0.01,
         min_features: int = 10,
         max_features: int = 50,
+        mi_top_n: int | None = None,
+        mi_top_pct: float | None = None,
+        importance_top_n: int | None = None,
+        importance_top_pct: float | None = None,
     ) -> None:
         self.filter_thresholds = filter_thresholds
         self.importance_threshold = importance_threshold
         self.min_features = min_features
         self.max_features = max_features
+        self.mi_top_n = mi_top_n
+        self.mi_top_pct = mi_top_pct
+        self.importance_top_n = importance_top_n
+        self.importance_top_pct = importance_top_pct
 
     def fit(self, x: pd.DataFrame, y: pd.Series) -> FeatureSelector:
         logger.info("FeatureSelector.fit: starting — %d columns in", x.shape[1])
 
         nonnumeric_cols: list[str] = get_nonnumeric_cols(x).columns.tolist()
 
-        after_filters = apply_basic_filters(x, y, self.filter_thresholds)
+        after_filters = apply_basic_filters(
+            x, y, self.filter_thresholds, self.mi_top_n, self.mi_top_pct
+        )
         logger.info("after filters: %d columns survive", len(after_filters))
 
         after_importance = apply_importance_filter(
-            x[after_filters], y, self.importance_threshold
+            x[after_filters],
+            y,
+            self.importance_threshold,
+            self.importance_top_n,
+            self.importance_top_pct,
         )
         numeric_survivors = [c for c in after_importance if c not in nonnumeric_cols]
         logger.info(

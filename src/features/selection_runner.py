@@ -36,10 +36,14 @@ def _split_x_y(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
 def run_selection(
     train_df: pd.DataFrame | None = None,
     test_df: pd.DataFrame | None = None,
-    filter_thresholds: tuple[float, float, float] = (1e-4, 0.95, 0.01),
-    importance_threshold: float = 0.01,
+    filter_thresholds: tuple[float, float, float] = (1e-4, 0.80, 0.01),
+    importance_threshold: float = 0.02,
     min_features: int = 10,
-    max_features: int = 50,
+    max_features: int = 15,
+    mi_top_n: int | None = None,
+    mi_top_pct: float | None = None,
+    importance_top_n: int | None = None,
+    importance_top_pct: float | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     sep = "=" * 60
     logger.info(sep)
@@ -61,6 +65,10 @@ def run_selection(
         importance_threshold=importance_threshold,
         min_features=min_features,
         max_features=max_features,
+        mi_top_n=mi_top_n,
+        mi_top_pct=mi_top_pct,
+        importance_top_n=importance_top_n,
+        importance_top_pct=importance_top_pct,
     )
 
     x_train_out = selector.fit_transform(x_train, y_train)
@@ -89,4 +97,4 @@ def run_selection(
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
-    run_selection()
+    run_selection(mi_top_pct=0.50, importance_top_n=40)

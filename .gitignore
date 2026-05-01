@@ -237,3 +237,5 @@ notebooks/*
 /models/decision_tree.pkl
 /models/logistic_regression.pkl
 /models/random_forest.pkl
+/models/lightgbm.pkl
+/models/voting_classifier.pkl

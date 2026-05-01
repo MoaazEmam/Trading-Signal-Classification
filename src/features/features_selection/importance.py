@@ -14,6 +14,13 @@ def _train_selector_model(x: pd.DataFrame, y: pd.Series) -> lgb.Booster:
         "learning_rate": 0.05,
         "verbosity": -1,
         "random_state": 42,
+        "max_depth": 6,
+        # regularization
+        "reg_alpha": 0.1,
+        "reg_lambda": 1.0,
+        "min_child_samples": 50,
+        "feature_fraction": 0.8,  # features per tree
+        "bagging_fraction": 0.8,  # rows per iteration
     }
     dataset = lgb.Dataset(x, label=y)
     return lgb.train(params, dataset, num_boost_round=200)
@@ -50,15 +57,34 @@ def get_importance_scores(
 
 
 def apply_importance_filter(
-    x: pd.DataFrame, y: pd.Series, threshold: float = 0.01
+    x: pd.DataFrame,
+    y: pd.Series,
+    threshold: float = 0.01,
+    top_n: int | None = None,
+    top_pct: float | None = None,
 ) -> list[str]:
     numeric_col_names: list[str] = get_numeric_cols(x).columns.tolist()
     nonnumeric_col_names: list[str] = get_nonnumeric_cols(x).columns.tolist()
 
     scores = get_importance_scores(x, y)
-    min_score = threshold * float(scores.max())
-    surviving_numeric = [
-        c for c in numeric_col_names if scores.get(c, 0.0) >= min_score
-    ]
+    if top_n is not None:
+        surviving_numeric = scores.head(top_n).index.tolist()
+
+    elif top_pct is not None:
+        k = max(1, int(len(scores) * top_pct))
+        surviving_numeric = scores.head(k).index.tolist()
+    else:
+        max_score = float(scores.max()) if not scores.empty else 0.0
+        min_score = threshold * max_score
+        surviving_numeric = [
+            c for c in numeric_col_names if scores.get(c, 0.0) >= min_score
+        ]
 
     return surviving_numeric + nonnumeric_col_names
+
+    # min_score = threshold * float(scores.max())
+    # surviving_numeric = [
+    #     c for c in numeric_col_names if scores.get(c, 0.0) >= min_score
+    # ]
+    #
+    # return surviving_numeric + nonnumeric_col_names
