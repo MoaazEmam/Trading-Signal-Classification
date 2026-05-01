@@ -334,63 +334,37 @@ def _calculate_cross_feature_interactions(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _calculate_features(df: pd.DataFrame) -> pd.DataFrame:
-    t = time.time()
     price_momentum = _calculate_price_momentum(df)
-    logger.info(f"  price momentum         : {time.time() - t:.2f}s")
 
-    t = time.time()
     moving_averages = _calculate_moving_averages(df)
-    logger.info(f"  moving averages        : {time.time() - t:.2f}s")
 
-    t = time.time()
     rsi_features = _calculate_rsi_features(df)
-    logger.info(f"  RSI                    : {time.time() - t:.2f}s")
 
-    t = time.time()
     macd_features = _calculate_macd(df)
-    logger.info(f"  MACD                   : {time.time() - t:.2f}s")
 
-    t = time.time()
     bb_features = _calculate_bollinger_bands(df)
-    logger.info(f"  Bollinger bands        : {time.time() - t:.2f}s")
 
-    t = time.time()
     volume_features = _calculate_volume_features(df)
-    logger.info(f"  volume                 : {time.time() - t:.2f}s")
 
-    t = time.time()
     volatility_features = _calculate_volatility_features(df)
-    logger.info(f"  volatility             : {time.time() - t:.2f}s")
 
     df_aug = df.copy()
     df_aug["realized_vol_20"] = volatility_features["realized_vol_20"]
     df_aug["vix_percentile"] = None
 
-    t = time.time()
     vix_features = _calculate_vix_features(df_aug)
-    logger.info(f"  VIX                    : {time.time() - t:.2f}s")
 
     df_aug["vix_percentile"] = vix_features["vix_percentile"]
 
-    t = time.time()
     sp500_features = _calculate_sp500_relative_features(df)
-    logger.info(f"  S&P500 relative        : {time.time() - t:.2f}s")
 
-    t = time.time()
     rate_features = _calculate_interest_rate_features(df_aug)
-    logger.info(f"  interest rates         : {time.time() - t:.2f}s")
 
-    t = time.time()
     fg_features = _calculate_fear_greed_features(df_aug)
-    logger.info(f"  fear & greed           : {time.time() - t:.2f}s")
 
-    t = time.time()
     candle_features = _calculate_candlestick_features(df)
-    logger.info(f"  candlestick            : {time.time() - t:.2f}s")
 
-    t = time.time()
     calendar_features = _calculate_calendar_features(df)
-    logger.info(f"  calendar               : {time.time() - t:.2f}s")
 
     cross_input = df.copy()
     cross_input["rsi_14"] = rsi_features["rsi_14"]
@@ -399,9 +373,7 @@ def _calculate_features(df: pd.DataFrame) -> pd.DataFrame:
     cross_input["vix_percentile"] = vix_features["vix_percentile"]
     cross_input["price_to_sma20"] = moving_averages["price_to_sma20"]
 
-    t = time.time()
     cross_features = _calculate_cross_feature_interactions(cross_input)
-    logger.info(f"  cross-feature interactions: {time.time() - t:.2f}s")
 
     return pd.concat(
         [
