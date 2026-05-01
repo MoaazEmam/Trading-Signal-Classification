@@ -1,6 +1,6 @@
 .PHONY: install lint format test test-unit test-integration type-check \
-        ingest clean-data label engineer split transform select train \
-        train-pipeline validate clean
+        ingest clean-data label engineer split transform select train\
+        train-pipeline validate clean app
 
 # dev
 
@@ -70,6 +70,9 @@ train-pipeline: models/artifacts/training_results.json
 
 validate:
 	poetry run python -m src.data.validation
+
+app:
+	poetry run streamlit run app/streamlit_app.py
 
 clean:
 	find . -type f -name "*.pyc" -delete
