@@ -32,22 +32,30 @@ class Validator:
         expected_string = ["Company", "fear_greed_label", "label"]
 
         for col in expected_numeric:
-            if col in self.df.columns and not pd.api.types.is_numeric_dtype(self.df[col]):
+            if col in self.df.columns and not pd.api.types.is_numeric_dtype(
+                self.df[col]
+            ):
                 self.issues.append(
                     f"Dtype: '{col}' expected numeric but found {self.df[col].dtype} — "
                     f"possible parsing issue (commas, symbols, or mixed values)."
                 )
 
         for col in expected_datetime:
-            if col in self.df.columns and not pd.api.types.is_datetime64_any_dtype(self.df[col]):
+            if col in self.df.columns and not pd.api.types.is_datetime64_any_dtype(
+                self.df[col]
+            ):
                 self.issues.append(
                     f"Dtype: '{col}' expected datetime but found {self.df[col].dtype} — "
                     f"Date parsing may have failed."
                 )
 
         for col in expected_string:
-            if col in self.df.columns and not pd.api.types.is_object_dtype(self.df[col]):
-                self.issues.append(f"Dtype: '{col}' expected string/object but found {self.df[col].dtype}.")
+            if col in self.df.columns and not pd.api.types.is_object_dtype(
+                self.df[col]
+            ):
+                self.issues.append(
+                    f"Dtype: '{col}' expected string/object but found {self.df[col].dtype}."
+                )
 
     # 2. duplicates
     def check_duplicates(self):
@@ -59,7 +67,9 @@ class Validator:
             subset=["Date", "Company"]
         ).sum()  # because date,company should be a unique combination
         if key_dup > 0:
-            self.issues.append(f"Duplicates: {key_dup} duplicate (Date, Company) pairs found.")
+            self.issues.append(
+                f"Duplicates: {key_dup} duplicate (Date, Company) pairs found."
+            )
 
     # 3. class distribution
     def check_class_distribution(self):
@@ -68,7 +78,9 @@ class Validator:
             return
         imbalance_ratio = round(label_pct.max() / label_pct.min(), 2)
         if imbalance_ratio > 1.5:
-            self.issues.append(f"Balance: Class imbalance detected — ratio {imbalance_ratio}x.")
+            self.issues.append(
+                f"Balance: Class imbalance detected — ratio {imbalance_ratio}x."
+            )
 
     # 4. checks done per company
 
@@ -77,7 +89,9 @@ class Validator:
         rows_per_date = self.df.groupby("Date").size()
         bad_dates = rows_per_date[rows_per_date != n_companies]
         if len(bad_dates) > 0:
-            self.issues.append(f"Date coverage; {len(bad_dates)} dates have inconsistent company coverage.")
+            self.issues.append(
+                f"Date coverage; {len(bad_dates)} dates have inconsistent company coverage."
+            )
 
     # 5. date time
 
@@ -87,7 +101,9 @@ class Validator:
         present_dates = self.df["Date"].dt.normalize().unique()
         missing_dates = sorted(set(all_dates.normalize()) - set(present_dates))  # type: ignore
         if len(missing_dates) > 20:
-            self.issues.append(f"Date gaps: {len(missing_dates)} missing business days.")
+            self.issues.append(
+                f"Date gaps: {len(missing_dates)} missing business days."
+            )
 
     # 6. feature distributions and outliers
 
@@ -115,7 +131,9 @@ class Validator:
         spike_count = mask.sum()
 
         if spike_count > 0:
-            self.issues.append(f"Sanity: {spike_count} suspicious price jumps >50% without a stock split.")
+            self.issues.append(
+                f"Sanity: {spike_count} suspicious price jumps >50% without a stock split."
+            )
 
     # 7. domain specific sanity checks
 
@@ -130,15 +148,21 @@ class Validator:
         if n_hl > 0:
             self.issues.append(f"Sanity: {n_hl} rows where High < Low.")
         # Close within High/Low
-        n_close = ((self.df["Close"] > self.df["High"]) | (self.df["Close"] < self.df["Low"])).sum()
+        n_close = (
+            (self.df["Close"] > self.df["High"]) | (self.df["Close"] < self.df["Low"])
+        ).sum()
         if n_close > 0:
-            self.issues.append(f"Sanity:{n_close} rows where Close is outside High/Low.")
+            self.issues.append(
+                f"Sanity:{n_close} rows where Close is outside High/Low."
+            )
         # Volume, VIX, Fear/Greed range
         ranges = {"Volume": (1, np.inf), "vix": (5, 100), "fear_greed_score": (0, 100)}
         for col, (lo, hi) in ranges.items():
             n_bad = ((self.df[col] < lo) | (self.df[col] > hi)).sum()
             if n_bad > 0:
-                self.issues.append(f"Sanity:{n_bad} rows where '{col}' outside [{lo},{hi}]")
+                self.issues.append(
+                    f"Sanity:{n_bad} rows where '{col}' outside [{lo},{hi}]"
+                )
         # Fear/Greed label consistency
         label_map = {
             "Extreme Fear": (0, 25),
@@ -152,7 +176,9 @@ class Validator:
             mask = self.df["fear_greed_label"] == label_name
             mismatches += (~self.df["fear_greed_score"].between(lo, hi) & mask).sum()
         if mismatches > 0:
-            self.issues.append(f"Sanity:{mismatches} Fear/Greed score-label mismatches.")
+            self.issues.append(
+                f"Sanity:{mismatches} Fear/Greed score-label mismatches."
+            )
 
     # data likely repeats itself
     def check_stale_data(self):
@@ -165,7 +191,9 @@ class Validator:
         stale_count = stale_mask.sum()
 
         if stale_count > 0:
-            self.issues.append(f"Sanity: {stale_count} 'stale' rows found (Price frozen + 0 Volume).")
+            self.issues.append(
+                f"Sanity: {stale_count} 'stale' rows found (Price frozen + 0 Volume)."
+            )
 
     # 8. Correlations
     def check_correlations(self):
@@ -194,13 +222,15 @@ class Validator:
                 # high
                 if abs(p) > 0.85 or abs(s) > 0.85:
                     self.issues.append(
-                        f"Correlation: {col1} ↔ {col2} — " f"Pearson={round(p, 3)}, Spearman={round(s, 3)}"
+                        f"Correlation: {col1} ↔ {col2} — "
+                        f"Pearson={round(p, 3)}, Spearman={round(s, 3)}"
                     )
 
                 # non-linear or there are outliers
                 if abs(p - s) > 0.1:
                     self.issues.append(
-                        f"Correlation divergence: {col1} ↔ {col2} — " f"Pearson={round(p, 3)} vs Spearman={round(s, 3)}"
+                        f"Correlation divergence: {col1} ↔ {col2} — "
+                        f"Pearson={round(p, 3)} vs Spearman={round(s, 3)}"
                     )
 
     # 9. label consistency
@@ -208,7 +238,9 @@ class Validator:
         multi_label = self.df.groupby(["Date", "Company"])["label"].nunique()
         inconsistent = multi_label[multi_label > 1]
         if len(inconsistent) > 0:
-            self.issues.append(f"Consistency: {len(inconsistent)} (Date, Company) pairs have conflicting labels.")
+            self.issues.append(
+                f"Consistency: {len(inconsistent)} (Date, Company) pairs have conflicting labels."
+            )
 
     def check_label_leakage(self):
         # is the target label is too highly correlated with current price?

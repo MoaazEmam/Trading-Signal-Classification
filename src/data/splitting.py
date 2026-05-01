@@ -87,13 +87,17 @@ def temporal_split(
         )
 
     if apply_lookahead_buffer:
-        unique_train_dates = sorted(train_val[date_col].dt.normalize().unique().tolist())
+        unique_train_dates = sorted(
+            train_val[date_col].dt.normalize().unique().tolist()
+        )
         if len(unique_train_dates) > LOOKAHEAD_DAYS:
             buffer_cutoff = unique_train_dates[-LOOKAHEAD_DAYS - 1]
             rows_before = len(train_val)
             train_val = pd.DataFrame(train_val[train_val[date_col] <= buffer_cutoff])
             rows_dropped = rows_before - len(train_val)
-            print(f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val).")
+            print(
+                f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val)."
+            )
 
     return train_val, test
 

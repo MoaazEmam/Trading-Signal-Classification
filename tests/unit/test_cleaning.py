@@ -23,14 +23,18 @@ class TestDropInvalidPrices:
         # No rows should have High < Low
         assert (cleaner.df["High"] < cleaner.df["Low"]).sum() == 0
 
-    def test_drops_rows_where_close_greater_than_high(self, cleaning_close_outside_range_df):
+    def test_drops_rows_where_close_greater_than_high(
+        self, cleaning_close_outside_range_df
+    ):
         cleaner = Cleaner(cleaning_close_outside_range_df)
         cleaner.drop_invalid_prices()
 
         # Should have dropped rows where Close > High
         assert (cleaner.df["Close"] > cleaner.df["High"]).sum() == 0
 
-    def test_drops_rows_where_close_less_than_low(self, cleaning_close_outside_range_df):
+    def test_drops_rows_where_close_less_than_low(
+        self, cleaning_close_outside_range_df
+    ):
         cleaner = Cleaner(cleaning_close_outside_range_df)
         cleaner.drop_invalid_prices()
 
@@ -153,7 +157,9 @@ class TestFixDtypes:
         cleaner.fix_dtypes()
 
         # "None" should be converted to NA
-        assert cleaner.df.loc[0, "Company"] is pd.NA or pd.isna(cleaner.df.loc[0, "Company"])
+        assert cleaner.df.loc[0, "Company"] is pd.NA or pd.isna(
+            cleaner.df.loc[0, "Company"]
+        )
 
     def test_df_copy_not_modified(self, cleaning_base_df):
         original_len = len(cleaning_base_df)
@@ -195,14 +201,18 @@ class TestDropMissing:
         # Should drop row with missing label
         assert cleaner.df["label"].isna().sum() == 0
 
-    def test_drops_low_pct_missing_noncritical(self, cleaning_missing_noncritical_low_pct_df):
+    def test_drops_low_pct_missing_noncritical(
+        self, cleaning_missing_noncritical_low_pct_df
+    ):
         cleaner = Cleaner(cleaning_missing_noncritical_low_pct_df)
         cleaner.drop_missing()
 
         # Should drop rows with <5% missing vix and fed_funds_rate
         assert len(cleaner.df) < len(cleaning_missing_noncritical_low_pct_df)
 
-    def test_keeps_high_pct_missing_noncritical(self, cleaning_missing_noncritical_high_pct_df):
+    def test_keeps_high_pct_missing_noncritical(
+        self, cleaning_missing_noncritical_high_pct_df
+    ):
         cleaner = Cleaner(cleaning_missing_noncritical_high_pct_df)
         cleaner.drop_missing()
 
@@ -253,11 +263,16 @@ class TestDropDuplicates:
 
         assert any("drop_duplicates" in entry for entry in cleaner.log)
 
-    def test_logs_dropped_date_company_duplicates(self, cleaning_date_company_duplicates_df):
+    def test_logs_dropped_date_company_duplicates(
+        self, cleaning_date_company_duplicates_df
+    ):
         cleaner = Cleaner(cleaning_date_company_duplicates_df)
         cleaner.drop_duplicates()
 
-        assert any("drop_duplicates" in entry and "Date, Company" in entry for entry in cleaner.log)
+        assert any(
+            "drop_duplicates" in entry and "Date, Company" in entry
+            for entry in cleaner.log
+        )
 
     def test_quarantines_duplicates(self, cleaning_full_duplicates_df):
         cleaner = Cleaner(cleaning_full_duplicates_df)
@@ -291,7 +306,9 @@ class TestDropStaleRows:
         # Should drop flat price + 0 volume rows
         assert len(cleaner.df) < len(cleaning_stale_flat_df)
 
-    def test_drops_identical_to_yesterday_with_zero_volume(self, cleaning_stale_identical_yesterday_df):
+    def test_drops_identical_to_yesterday_with_zero_volume(
+        self, cleaning_stale_identical_yesterday_df
+    ):
         cleaner = Cleaner(cleaning_stale_identical_yesterday_df)
         cleaner.drop_stale_rows()
 
@@ -343,7 +360,9 @@ class TestDropStaleRows:
 class TestSaveQuarantine:
     """Test quarantine file saving."""
 
-    def test_creates_quarantine_file(self, cleaning_full_duplicates_df, tmp_path, monkeypatch):
+    def test_creates_quarantine_file(
+        self, cleaning_full_duplicates_df, tmp_path, monkeypatch
+    ):
         monkeypatch.chdir(tmp_path)
         monkeypatch.setenv("PWD", str(tmp_path))
 
@@ -354,7 +373,9 @@ class TestSaveQuarantine:
         quarantine_path = tmp_path / "data" / "processed" / "quarantine.csv"
         assert quarantine_path.exists()
 
-    def test_quarantine_file_contains_rejected_rows(self, cleaning_full_duplicates_df, tmp_path, monkeypatch):
+    def test_quarantine_file_contains_rejected_rows(
+        self, cleaning_full_duplicates_df, tmp_path, monkeypatch
+    ):
         monkeypatch.chdir(tmp_path)
 
         cleaner = Cleaner(cleaning_full_duplicates_df)
@@ -366,7 +387,9 @@ class TestSaveQuarantine:
 
         assert len(quarantine_df) > 0
 
-    def test_logs_quarantine_save(self, cleaning_full_duplicates_df, tmp_path, monkeypatch):
+    def test_logs_quarantine_save(
+        self, cleaning_full_duplicates_df, tmp_path, monkeypatch
+    ):
         monkeypatch.chdir(tmp_path)
 
         cleaner = Cleaner(cleaning_full_duplicates_df)
@@ -385,7 +408,9 @@ class TestSaveQuarantine:
         quarantine_path = tmp_path / "data" / "processed" / "quarantine.csv"
         assert not quarantine_path.exists()
 
-    def test_removes_duplicates_in_quarantine(self, cleaning_full_duplicates_df, tmp_path, monkeypatch):
+    def test_removes_duplicates_in_quarantine(
+        self, cleaning_full_duplicates_df, tmp_path, monkeypatch
+    ):
         monkeypatch.chdir(tmp_path)
 
         cleaner = Cleaner(cleaning_full_duplicates_df)
@@ -413,7 +438,9 @@ class TestRunAll:
         cleaner.run_all()
 
         # Should have logs from multiple steps
-        assert len(cleaner.log) >= 5  # At least fix_dtypes, drop_missing, drop_duplicates, etc.
+        assert (
+            len(cleaner.log) >= 5
+        )  # At least fix_dtypes, drop_missing, drop_duplicates, etc.
 
     def test_run_all_no_high_less_than_low(self, cleaning_high_low_invalid_df):
         cleaner = Cleaner(cleaning_high_low_invalid_df)
@@ -425,7 +452,9 @@ class TestRunAll:
         cleaner = Cleaner(cleaning_close_outside_range_df)
         result = cleaner.run_all()
 
-        assert ((result["Close"] > result["High"]) | (result["Close"] < result["Low"])).sum() == 0
+        assert (
+            (result["Close"] > result["High"]) | (result["Close"] < result["Low"])
+        ).sum() == 0
 
     def test_run_all_no_negative_prices(self, cleaning_negative_prices_df):
         cleaner = Cleaner(cleaning_negative_prices_df)
@@ -449,7 +478,9 @@ class TestRunAll:
 
         assert result.duplicated().sum() == 0
 
-    def test_run_all_no_date_company_duplicates(self, cleaning_date_company_duplicates_df):
+    def test_run_all_no_date_company_duplicates(
+        self, cleaning_date_company_duplicates_df
+    ):
         cleaner = Cleaner(cleaning_date_company_duplicates_df)
         result = cleaner.run_all()
 
@@ -511,7 +542,9 @@ class TestRunAll:
 
         # All issues should be resolved
         assert (result["High"] < result["Low"]).sum() == 0
-        assert ((result["Close"] > result["High"]) | (result["Close"] < result["Low"])).sum() == 0
+        assert (
+            (result["Close"] > result["High"]) | (result["Close"] < result["Low"])
+        ).sum() == 0
         assert pd.api.types.is_numeric_dtype(result["vix"])
 
 
