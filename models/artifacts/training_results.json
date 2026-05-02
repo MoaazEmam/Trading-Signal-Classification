@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-05-01T14:48:02.462687+00:00",
+  "models": {
+    "logistic_regression": {
+      "best_params": {},
+      "cv_accuracy": NaN,
+      "train_accuracy": 0.45835671264688427,
+      "test_accuracy": 0.37959640390477295,
+      "train_time_s": 169.9,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/logistic_regression.pkl"
+    },
+    "decision_tree": {
+      "best_params": {},
+      "cv_accuracy": NaN,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.3652171676248537,
+      "train_time_s": 19.09,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/decision_tree.pkl"
+    },
+    "adaboost": {
+      "best_params": {},
+      "cv_accuracy": NaN,
+      "train_accuracy": 0.4731400066813483,
+      "test_accuracy": 0.40126815089194995,
+      "train_time_s": 62.24,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/adaboost.pkl"
+    },
+    "random_forest": {
+      "best_params": {},
+      "cv_accuracy": NaN,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.395107458424972,
+      "train_time_s": 97.12,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/random_forest.pkl"
+    },
+    "lightgbm": {
+      "best_params": {},
+      "cv_accuracy": NaN,
+      "train_accuracy": 0.6060404578345296,
+      "test_accuracy": 0.400084886368021,
+      "train_time_s": 11.65,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/lightgbm.pkl"
+    },
+    "voting_classifier": {
+      "best_params": {
+        "estimators": [
+          "lightgbm",
+          "random_forest",
+          "adaboost"
+        ],
+        "voting": "soft"
+      },
+      "cv_accuracy": null,
+      "train_accuracy": 0.9571615297044315,
+      "test_accuracy": 0.4001106095098455,
+      "train_time_s": 265.5,
+      "artifact_path": "/home/moaaz/important/data science/project/Trading-Signal-Classification/models/voting_classifier.pkl"
+    }
+  }
+}

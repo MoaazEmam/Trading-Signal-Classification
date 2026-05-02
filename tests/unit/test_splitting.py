@@ -123,7 +123,9 @@ class TestTemporalSplitOutput:
         With buffer the fraction is slightly smaller; we just check it's
         in the right ballpark (>5% and <40% for default test_size=0.2).
         """
-        train_val, test = temporal_split(splitting_labeled_df, apply_lookahead_buffer=False)
+        train_val, test = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=False
+        )
         total = len(train_val) + len(test)
         test_fraction = len(test) / total
         assert 0.05 < test_fraction < 0.40
@@ -131,13 +133,21 @@ class TestTemporalSplitOutput:
 
 class TestLookaheadBuffer:
     def test_buffer_removes_rows_from_train_val(self, splitting_labeled_df):
-        train_no_buf, _ = temporal_split(splitting_labeled_df, apply_lookahead_buffer=False)
-        train_with_buf, _ = temporal_split(splitting_labeled_df, apply_lookahead_buffer=True)
+        train_no_buf, _ = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=False
+        )
+        train_with_buf, _ = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=True
+        )
         assert len(train_with_buf) < len(train_no_buf)
 
     def test_buffer_does_not_affect_test(self, splitting_labeled_df):
-        _, test_no_buf = temporal_split(splitting_labeled_df, apply_lookahead_buffer=False)
-        _, test_with_buf = temporal_split(splitting_labeled_df, apply_lookahead_buffer=True)
+        _, test_no_buf = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=False
+        )
+        _, test_with_buf = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=True
+        )
         pd.testing.assert_frame_equal(
             test_no_buf.reset_index(drop=True),
             test_with_buf.reset_index(drop=True),
@@ -148,15 +158,21 @@ class TestLookaheadBuffer:
         When train_val has <= LOOKAHEAD_DAYS unique dates the buffer branch is
         not entered and no rows are dropped from train_val.
         """
-        train_no_buf, _ = temporal_split(splitting_few_dates_df, apply_lookahead_buffer=False)
-        train_with_buf, _ = temporal_split(splitting_few_dates_df, apply_lookahead_buffer=True)
+        train_no_buf, _ = temporal_split(
+            splitting_few_dates_df, apply_lookahead_buffer=False
+        )
+        train_with_buf, _ = temporal_split(
+            splitting_few_dates_df, apply_lookahead_buffer=True
+        )
         assert len(train_with_buf) == len(train_no_buf)
 
     def test_buffer_false_preserves_all_train_rows(self, splitting_labeled_df):
         """apply_lookahead_buffer=False → combined rows equal original labeled rows."""
 
         # no NaN labels in this fixture so combined should equal original
-        train_val, test = temporal_split(splitting_labeled_df, apply_lookahead_buffer=False)
+        train_val, test = temporal_split(
+            splitting_labeled_df, apply_lookahead_buffer=False
+        )
         assert len(train_val) + len(test) == len(splitting_labeled_df)
 
 

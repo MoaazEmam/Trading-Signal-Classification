@@ -23,7 +23,7 @@ def compute_test_cutoff(
     cutoff = min_date + total_span * (1 - test_size)
     print(
         f"Computed test cutoff: {cutoff.date()} "
-        f"(data range {min_date.date()} → {max_date.date()}, "
+        f"(data range {min_date.date()} -> {max_date.date()}, "
         f"test_size={test_size})"
     )
     return cutoff
@@ -87,13 +87,17 @@ def temporal_split(
         )
 
     if apply_lookahead_buffer:
-        unique_train_dates = sorted(train_val[date_col].dt.normalize().unique().tolist())
+        unique_train_dates = sorted(
+            train_val[date_col].dt.normalize().unique().tolist()
+        )
         if len(unique_train_dates) > LOOKAHEAD_DAYS:
             buffer_cutoff = unique_train_dates[-LOOKAHEAD_DAYS - 1]
             rows_before = len(train_val)
             train_val = pd.DataFrame(train_val[train_val[date_col] <= buffer_cutoff])
             rows_dropped = rows_before - len(train_val)
-            print(f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val).")
+            print(
+                f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val)."
+            )
 
     return train_val, test
 
@@ -115,8 +119,8 @@ def save_splits(
     test_path = output_dir / "test.csv"
     train_val.to_csv(train_val_path, index=False)
     test.to_csv(test_path, index=False)
-    print(f"train_val → {train_val_path}  ({train_val.shape[0]:,} rows)")
-    print(f"test      → {test_path}  ({test.shape[0]:,} rows)")
+    print(f"train_val -> {train_val_path}  ({train_val.shape[0]:,} rows)")
+    print(f"test      -> {test_path}  ({test.shape[0]:,} rows)")
 
 
 def run_splitting(

@@ -4,29 +4,29 @@
 ======================================================================
 
 Loaded from: data\raw\market_data_merged.csv
-Shape: 887,372 rows × 16 columns
+Shape: 887,850 rows × 16 columns
 
 ======================================================================
   1. Column names and data types
 ======================================================================
 
           Column          Dtype  Non-Null Count  Null Count
-            Date datetime64[ns]          887372           0
-            Open        float64          887372           0
-            High        float64          887372           0
-             Low        float64          887372           0
-           Close        float64          887372           0
-          Volume          int64          887372           0
-       Dividends        float64          887372           0
-    Stock Splits        float64          887372           0
-         Company         object          887372           0
-             vix        float64          886894         478
-  fed_funds_rate        float64          886894         478
-    treasury_10y        float64          880653        6719
-     sp500_level        float64          886894         478
-fear_greed_score          int64          887372           0
-fear_greed_label         object          887372           0
-           label         object          872151       15221
+            Date datetime64[ns]          887850           0
+            Open        float64          887850           0
+            High        float64          887850           0
+             Low        float64          887850           0
+           Close        float64          887850           0
+          Volume          int64          887850           0
+       Dividends        float64          887850           0
+    Stock Splits        float64          887850           0
+         Company         object          887850           0
+             vix        float64          887372         478
+  fed_funds_rate        float64          887372         478
+    treasury_10y        float64          881131        6719
+     sp500_level        float64          886894         956
+fear_greed_score          int64          887850           0
+fear_greed_label         object          887850           0
+           label         object          872629       15221
 
 ======================================================================
   2. Data quality checks
@@ -45,9 +45,9 @@ Found 29 issue(s):
    1. missing: 'vix' missing 0.05% — LOW ⚠️
    2. missing: 'fed_funds_rate' missing 0.05% — LOW ⚠️
    3. missing: 'treasury_10y' missing 0.76% — LOW ⚠️
-   4. missing: 'sp500_level' missing 0.05% — LOW ⚠️
-   5. missing: 'label' missing 1.72% — LOW ⚠️
-   6. Date coverage; 1799 dates have inconsistent company coverage.
+   4. missing: 'sp500_level' missing 0.11% — LOW ⚠️
+   5. missing: 'label' missing 1.71% — LOW ⚠️
+   6. Date coverage; 1800 dates have inconsistent company coverage.
    7. Date gaps: 73 missing business days.
    8. Balance: Class imbalance detected — ratio 1.67x.
    9. Outliers: 'Open' has 7.19% outliers.
@@ -56,7 +56,7 @@ Found 29 issue(s):
   12. Outliers: 'Close' has 7.19% outliers.
   13. Outliers: 'Volume' has 10.85% outliers.
   14. Sanity: 37 suspicious price jumps >50% without a stock split.
-  15. Sanity:10 rows where Close is outside High/Low.
+  15. Sanity:12 rows where Close is outside High/Low.
   16. Sanity:331 rows where 'Volume' outside [1,inf]
   17. Sanity:8645 Fear/Greed score-label mismatches.
   18. Sanity: 328 'stale' rows found (Price frozen + 0 Volume).

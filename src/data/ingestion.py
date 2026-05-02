@@ -10,6 +10,7 @@ import yfinance as yf
 from fredapi import Fred
 
 from src.config import settings
+from src.utils import _save_to_csv
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
@@ -35,12 +36,18 @@ def save_sample(
     print(f"Reading full dataset from {raw_path} …")
     df = pd.read_csv(raw_path, parse_dates=["Date"])
 
-    sample = df.sort_values(["Company", "Date"]).groupby("Company", group_keys=False).apply(lambda g: g.head(n_rows))
+    sample = (
+        df.sort_values(["Company", "Date"])
+        .groupby("Company", group_keys=False)
+        .apply(lambda g: g.head(n_rows))
+    )
 
     sample_path.parent.mkdir(parents=True, exist_ok=True)
     sample.to_csv(sample_path, index=False)
 
-    print(f"Sample saved → {sample_path}  ({sample.shape[0]:,} rows × {sample.shape[1]} cols)")
+    print(
+        f"Sample saved → {sample_path}  ({sample.shape[0]:,} rows × {sample.shape[1]} cols)"
+    )
     return sample_path
 
 
@@ -48,7 +55,9 @@ def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame
     today = date.today().strftime("%Y-%m-%d")
     try:
         start = last_date + pd.Timedelta(days=1)
-        ticker_df = yf.download(ticker, start=start, end=today, auto_adjust=True, progress=False)
+        ticker_df = yf.download(
+            ticker, start=start, end=today, auto_adjust=True, progress=False
+        )
         if ticker_df is None or ticker_df.empty:
             # the prints will be replaced with log calls once logger is implemented
             print(f"{ticker}: no new data since {start.date()}, skipping")
@@ -81,27 +90,45 @@ def _fetch_kaggle_dataset() -> pd.DataFrame:
     path = kagglehub.dataset_download("iveeaten3223times/massive-yahoo-finance-dataset")
     csv_path = Path(path) / "stock_details_5_years.csv"
     df = pd.read_csv(csv_path, compression="infer")
-    df["Date"] = pd.to_datetime(df["Date"], utc=True).dt.tz_localize(None).dt.normalize()
+    df["Date"] = (
+        pd.to_datetime(df["Date"], utc=True).dt.tz_localize(None).dt.normalize()
+    )
     print("Done")
     return df
 
 
-def _fetch_fred_series(series_id: str, start: str, end: str, name: str) -> pd.DataFrame:
-    s = fred.get_series(series_id, observation_start=start, observation_end=end)
-    df_fred = s.reset_index()
-    df_fred.columns = ["Date", name]
-    df_fred["Date"] = pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
-    return df_fred
+def _fetch_fred_series(
+    series_id: str, start: str, end: str, name: str
+) -> pd.DataFrame | None:
+    try:
+        s = fred.get_series(series_id, observation_start=start, observation_end=end)
+        df_fred = s.reset_index()
+        df_fred.columns = ["Date", name]
+        df_fred["Date"] = (
+            pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
+        )
+        return df_fred
+    except Exception as e:
+        print(f"skipping fred for date {start}: {e}")
+        return None
 
 
 def _fetch_fred_macros(start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
     print("Fetching fred macros.......")
     dfs = [
-        _fetch_fred_series(series_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"), name)
+        _fetch_fred_series(
+            series_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"), name
+        )
         for series_id, name in FRED_TICKER_MAP.items()
     ]
     print("Done")
-    return reduce(lambda left, right: pd.merge(left, right, on="Date", how="outer"), dfs)
+    valid_dfs = [df for df in dfs if df is not None]
+
+    if not valid_dfs:
+        raise RuntimeError("All FRED series failed to fetch.")
+    return reduce(
+        lambda left, right: pd.merge(left, right, on="Date", how="outer"), dfs
+    )
 
 
 def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
@@ -109,7 +136,11 @@ def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
     url = f"https://api.alternative.me/fng/?limit={limit}&format=json"
     data = requests.get(url).json()["data"]
     df_fg = pd.DataFrame(data)
-    df_fg["Date"] = pd.to_datetime(df_fg["timestamp"].astype(int), unit="s").dt.tz_localize(None).dt.normalize()
+    df_fg["Date"] = (
+        pd.to_datetime(df_fg["timestamp"].astype(int), unit="s")
+        .dt.tz_localize(None)
+        .dt.normalize()
+    )
     df_fg["fear_greed_score"] = df_fg["value"].astype(int)
     df_fg["fear_greed_label"] = df_fg["value_classification"]
     print("Done")
@@ -120,19 +151,14 @@ def _normalize_date(df: pd.DataFrame, date_col: str = "Date") -> pd.Series:
     return df[date_col].dt.tz_localize(None).dt.normalize()
 
 
-def _merge_on_date(df1: pd.DataFrame, df2: pd.DataFrame, date_col: str = "Date") -> pd.DataFrame:
+def _merge_on_date(
+    df1: pd.DataFrame, df2: pd.DataFrame, date_col: str = "Date"
+) -> pd.DataFrame:
     return df1.merge(df2, on=date_col, how="left")
 
 
 def _get_date_limits(df: pd.DataFrame) -> tuple[pd.Timestamp, pd.Timestamp]:
     return df["Date"].min(), df["Date"].max()  # type: ignore
-
-
-def _save_to_csv(df: pd.DataFrame) -> None:
-    RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(RAW_DATA_PATH, index=False)
-    print(f"Successfully saved merged dataset to: {RAW_DATA_PATH}")
-    print(f"📊 Final Dataset Shape: {df.shape}")
 
 
 def run_ingestion():
@@ -142,7 +168,9 @@ def run_ingestion():
     tickers = pd.Series(kaggle_df["Company"].unique())
     # enriching dataset with new data
     yfinance_df = _fetch_yfinance_data(tickers, end)
-    kaggle_df = pd.concat([kaggle_df, yfinance_df], ignore_index=True).sort_values("Date")
+    kaggle_df = pd.concat([kaggle_df, yfinance_df], ignore_index=True).sort_values(
+        "Date"
+    )
     # get dates again
     start, end = _get_date_limits(kaggle_df)
 
@@ -155,8 +183,9 @@ def run_ingestion():
     print("Merging all three......")
     merged_df = _merge_on_date(kaggle_df, fred_df)
     merged_df = _merge_on_date(merged_df, fg_df)  # type: ignore
-    _save_to_csv(merged_df)
+    _save_to_csv(merged_df, RAW_DATA_PATH)
     print("Ingestion Complete.")
+    return merged_df
 
 
 if __name__ == "__main__":

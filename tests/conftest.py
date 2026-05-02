@@ -8,6 +8,9 @@ COMPANIES = ["AAPL", "MSFT"]
 BASE_DATE = pd.Timestamp("2020-01-02")
 N_DAYS = 60
 SAMPLE_PATH = Path("data/samples/market_data_sample.csv")
+N_ENGINEERING_DAYS = (
+    260  # >252 so vix_percentile rolling(252) has at least 1 valid value
+)
 
 
 def _base_dates(n: int = N_DAYS) -> pd.DatetimeIndex:
@@ -23,7 +26,8 @@ def sample_df() -> pd.DataFrame:
     """
     if not SAMPLE_PATH.exists():
         pytest.skip(
-            f"Sample file not found at {SAMPLE_PATH}. " "Run save_sample() after ingestion + labeling to generate it."
+            f"Sample file not found at {SAMPLE_PATH}. "
+            "Run save_sample() after ingestion + labeling to generate it."
         )
     return pd.read_csv(SAMPLE_PATH, parse_dates=["Date"])
 
@@ -73,7 +77,9 @@ def raw_fear_greed_df() -> pd.DataFrame:
         {
             "Date": dates,
             "fear_greed_score": np.tile([30, 50, 70], len(dates))[: len(dates)],
-            "fear_greed_label": np.tile(["Fear", "Neutral", "Greed"], len(dates))[: len(dates)],
+            "fear_greed_label": np.tile(["Fear", "Neutral", "Greed"], len(dates))[
+                : len(dates)
+            ],
         }
     )
 
@@ -188,7 +194,9 @@ def missing_values_df(clean_validation_df) -> pd.DataFrame:
 
 @pytest.fixture()
 def duplicate_rows_df(clean_validation_df) -> pd.DataFrame:
-    return pd.concat([clean_validation_df, clean_validation_df.iloc[:5]], ignore_index=True)
+    return pd.concat(
+        [clean_validation_df, clean_validation_df.iloc[:5]], ignore_index=True
+    )
 
 
 @pytest.fixture()
@@ -213,7 +221,11 @@ def price_spike_df(clean_validation_df) -> pd.DataFrame:
     Uses the 10th AAPL row (not 5th) to ensure there is a prior row
     for pct_change() to compare against after sort_values().
     """
-    df = clean_validation_df.copy().sort_values(["Company", "Date"]).reset_index(drop=True)
+    df = (
+        clean_validation_df.copy()
+        .sort_values(["Company", "Date"])
+        .reset_index(drop=True)
+    )
     idx = df[df["Company"] == "AAPL"].index[10]
     df.loc[idx, "Close"] = 999.0  # >50% jump from prior row's 102.0
     df.loc[idx, "High"] = 999.0
@@ -459,3 +471,213 @@ def cleaning_string_whitespace_df(cleaning_base_df) -> pd.DataFrame:
     df.loc[df.index[1], "fear_greed_label"] = " neutral "
     df.loc[df.index[2], "label"] = "hold "
     return df
+
+
+@pytest.fixture()
+def engineering_base_df() -> pd.DataFrame:
+    """
+    Minimal valid multi-company DataFrame that satisfies every feature function.
+    260 business days, 2 companies, all required columns present.
+    Prices drift slightly so rolling std / pct_change are non-zero.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=N_ENGINEERING_DAYS)
+    rng = np.random.default_rng(42)
+    rows = []
+    for company in COMPANIES:
+        close = np.cumprod(1 + rng.normal(0.0005, 0.01, N_ENGINEERING_DAYS)) * 100
+        for i, date in enumerate(dates):
+            c = close[i]
+            rows.append(
+                {
+                    "Date": date,
+                    "Open": c * 0.99,
+                    "High": c * 1.01,
+                    "Low": c * 0.98,
+                    "Close": c,
+                    "Volume": int(rng.integers(500_000, 2_000_000)),
+                    "Company": company,
+                    "vix": float(rng.uniform(12, 35)),
+                    "fed_funds_rate": float(rng.uniform(0.5, 5.5)),
+                    "treasury_10y": float(rng.uniform(1.5, 5.0)),
+                    "sp500_level": float(
+                        np.cumprod(1 + rng.normal(0.0003, 0.008, i + 1))[-1] * 3000
+                    ),
+                    "fear_greed_score": int(rng.integers(10, 90)),
+                    "fear_greed_label": "Neutral",
+                    "label": "Hold",
+                }
+            )
+    df = pd.DataFrame(rows)
+    df["Date"] = pd.to_datetime(df["Date"])
+    return df
+
+
+@pytest.fixture()
+def engineering_single_company_df(engineering_base_df) -> pd.DataFrame:
+    """Single-company slice — used to test _calculate_features directly."""
+    return engineering_base_df[engineering_base_df["Company"] == "AAPL"].reset_index(
+        drop=True
+    )
+
+
+@pytest.fixture()
+def engineering_flat_price_df() -> pd.DataFrame:
+    """
+    Perfectly flat prices — realized_vol = 0, ATR = 0.
+    Tests that epsilon guards (1e-9) prevent divide-by-zero NaN/inf output.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=N_ENGINEERING_DAYS)
+    rows = []
+    for company in COMPANIES:
+        for date in dates:
+            rows.append(
+                {
+                    "Date": date,
+                    "Open": 100.0,
+                    "High": 100.0,
+                    "Low": 100.0,
+                    "Close": 100.0,
+                    "Volume": 1_000_000,
+                    "Company": company,
+                    "vix": 20.0,
+                    "fed_funds_rate": 1.0,
+                    "treasury_10y": 2.0,
+                    "sp500_level": 3000.0,
+                    "fear_greed_score": 50,
+                    "fear_greed_label": "Neutral",
+                    "label": "Hold",
+                }
+            )
+    df = pd.DataFrame(rows)
+    df["Date"] = pd.to_datetime(df["Date"])
+    return df
+
+
+@pytest.fixture()
+def engineering_single_row_df() -> pd.DataFrame:
+    """
+    One row per company — every rolling/shift feature will be NaN.
+    Tests that functions return a DataFrame of the correct shape
+    even when all values are NaN.
+    """
+    rows = []
+    for company in COMPANIES:
+        rows.append(
+            {
+                "Date": BASE_DATE,
+                "Open": 100.0,
+                "High": 105.0,
+                "Low": 95.0,
+                "Close": 102.0,
+                "Volume": 1_000_000,
+                "Company": company,
+                "vix": 18.0,
+                "fed_funds_rate": 1.0,
+                "treasury_10y": 2.0,
+                "sp500_level": 3200.0,
+                "fear_greed_score": 50,
+                "fear_greed_label": "Neutral",
+                "label": "Hold",
+            }
+        )
+    df = pd.DataFrame(rows)
+    df["Date"] = pd.to_datetime(df["Date"])
+    return df
+
+
+@pytest.fixture()
+def engineering_extreme_vix_df(engineering_base_df) -> pd.DataFrame:
+    """VIX alternates between crisis (>35) and low (<15) — tests all vix_regime buckets."""
+    df = engineering_base_df.copy()
+    df.loc[df.index[::4], "vix"] = 40.0  # Crisis
+    df.loc[df.index[1::4], "vix"] = 30.0  # Elevated
+    df.loc[df.index[2::4], "vix"] = 20.0  # Normal
+    df.loc[df.index[3::4], "vix"] = 10.0  # Low
+    return df
+
+
+@pytest.fixture()
+def engineering_extreme_fear_greed_df(engineering_base_df) -> pd.DataFrame:
+    df = engineering_base_df.copy()
+    for company in df["Company"].unique():
+        mask = df["Company"] == company
+        idx = df[mask].index
+        half = len(idx) // 2
+        df.loc[idx[:half], "fear_greed_score"] = 10  # extreme fear
+        df.loc[idx[half:], "fear_greed_score"] = 90  # extreme greed
+    return df
+
+
+@pytest.fixture()
+def engineering_inverted_yield_df(engineering_base_df) -> pd.DataFrame:
+    """treasury_10y < fed_funds_rate — inverted yield curve, yield_spread < 0."""
+    df = engineering_base_df.copy()
+    df["fed_funds_rate"] = 5.0
+    df["treasury_10y"] = 3.0
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Feature selection fixtures
+# ---------------------------------------------------------------------------
+
+N_SELECTION_DAYS = 300  # enough for rolling windows and TimeSeriesSplit folds
+
+
+@pytest.fixture()
+def selection_base_df() -> pd.DataFrame:
+    """
+    Multi-company DataFrame with all engineered feature columns present.
+    Uses random but structured data so variance/correlation/MI filters
+    have meaningful signal to work with.
+    """
+    dates = pd.bdate_range(start=BASE_DATE, periods=N_SELECTION_DAYS)
+    rng = np.random.default_rng(0)
+    rows = []
+    for company in COMPANIES:
+        close = np.cumprod(1 + rng.normal(0.0005, 0.01, N_SELECTION_DAYS)) * 100
+        for i, date in enumerate(dates):
+            c = close[i]
+            rows.append(
+                {
+                    "Date": date,
+                    "Company": company,
+                    "Close": c,
+                    "good_feature": rng.normal(0, 1),
+                    "constant_feature": 1.0,
+                    "correlated_feature": c
+                    + rng.normal(0, 0.001),  # near-duplicate of Close
+                    "noise_feature": rng.normal(0, 1),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+@pytest.fixture()
+def selection_X_y(selection_base_df) -> tuple[pd.DataFrame, pd.Series]:
+    df = selection_base_df.copy()
+    y = pd.Series((df["good_feature"] > 0).astype(int), name="label")
+    rng = np.random.default_rng(99)
+    df["noise_feature"] = rng.permutation(df["noise_feature"].values)
+    X = df.drop(columns=["Date"])
+    return X, y
+
+
+@pytest.fixture()
+def selection_all_constant_df(selection_base_df) -> pd.DataFrame:
+    """All numeric columns are constant — variance filter should drop all of them."""
+    df = selection_base_df.copy()
+    for col in ["Close", "good_feature", "correlated_feature", "noise_feature"]:
+        df[col] = 1.0
+    return df
+
+
+@pytest.fixture()
+def selection_no_numeric_df() -> pd.DataFrame:
+    """Only non-numeric columns — all filters should pass through without error."""
+    dates = pd.bdate_range(start=BASE_DATE, periods=50)
+    rows = []
+    for company in COMPANIES:
+        for date in dates:
+            rows.append({"Date": date, "Company": company, "label": "Hold"})
+    return pd.DataFrame(rows)

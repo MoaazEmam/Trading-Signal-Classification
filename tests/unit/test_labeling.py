@@ -41,7 +41,9 @@ class TestWarmupAndTailExclusion:
         result = label(labeling_buy_df, N=10, M=2)
         company_df = result[result["Company"] == "TEST"].sort_values("Date")
         nan_rows = company_df[company_df["label"].isna()]
-        assert len(nan_rows) >= 20, f"Expected at least 20 NaN warmup rows, got {len(nan_rows)}"
+        assert (
+            len(nan_rows) >= 20
+        ), f"Expected at least 20 NaN warmup rows, got {len(nan_rows)}"
 
     def test_last_n_rows_per_company_are_nan(self, labeling_buy_df):
         N = 10
@@ -87,8 +89,12 @@ class TestReturnBehaviour:
 
 class TestParameters:
     def test_large_M_produces_more_holds(self, labeling_buy_df):
-        holds_tight = (_labeled(label(labeling_buy_df, N=10, M=0.1))["label"] == "Hold").sum()
-        holds_wide = (_labeled(label(labeling_buy_df, N=10, M=100))["label"] == "Hold").sum()
+        holds_tight = (
+            _labeled(label(labeling_buy_df, N=10, M=0.1))["label"] == "Hold"
+        ).sum()
+        holds_wide = (
+            _labeled(label(labeling_buy_df, N=10, M=100))["label"] == "Hold"
+        ).sum()
         assert holds_wide >= holds_tight
 
     def test_smaller_N_leaves_fewer_tail_nans(self, labeling_buy_df):
@@ -127,4 +133,6 @@ class TestOnSampleDf:
         for company, group in result.groupby("Company"):
             if len(group) < 31:
                 continue  # not enough rows for warmup + label + tail
-            assert group["label"].notna().any(), f"Company {company} ({len(group)} rows) has no labeled rows"
+            assert (
+                group["label"].notna().any()
+            ), f"Company {company} ({len(group)} rows) has no labeled rows"

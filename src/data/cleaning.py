@@ -24,15 +24,21 @@ class Cleaner:
             invalid_rows = self.df[condition]
             self.quarantine.append(invalid_rows)
             self.df = self.df[~condition]
-            self.log.append(f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where High < Low")
+            self.log.append(
+                f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where High < Low"
+            )
 
         # Check Close outside High/Low
-        condition = (self.df["Close"] > self.df["High"]) | (self.df["Close"] < self.df["Low"])
+        condition = (self.df["Close"] > self.df["High"]) | (
+            self.df["Close"] < self.df["Low"]
+        )
         if condition.any():
             invalid_rows = self.df[condition]
             self.quarantine.append(invalid_rows)
             self.df = self.df[~condition]
-            self.log.append(f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Close outside High/Low")
+            self.log.append(
+                f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where Close outside High/Low"
+            )
             # Drop rows where prices are negative or zero
         price_cols = ["Open", "High", "Low", "Close"]
         for col in price_cols:
@@ -41,7 +47,9 @@ class Cleaner:
                 invalid_rows = self.df[condition]
                 self.quarantine.append(invalid_rows)
                 self.df = self.df[~condition]
-                self.log.append(f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where {col} <= 0")
+                self.log.append(
+                    f"drop_invalid_prices: Dropped {len(invalid_rows)} rows where {col} <= 0"
+                )
 
     # 2. Consistency — Fix dtypes & standardize formats
     def fix_dtypes(self):
@@ -90,14 +98,18 @@ class Cleaner:
                 after = self.df[col].isnull().sum()
                 new_nulls = after - before
                 if new_nulls > 0:
-                    self.log.append(f"fix_dtypes: '{col}' — {new_nulls} unparseable values set to NaN")
+                    self.log.append(
+                        f"fix_dtypes: '{col}' — {new_nulls} unparseable values set to NaN"
+                    )
         # Date column
         before = self.df["Date"].isnull().sum()
         self.df["Date"] = pd.to_datetime(self.df["Date"], errors="coerce")
         after_coerce = self.df["Date"].isnull().sum()
         new_nulls = after_coerce - before
         if new_nulls > 0:
-            self.log.append(f"fix_dtypes: 'Date' — {new_nulls} unparseable dates set to NaT")
+            self.log.append(
+                f"fix_dtypes: 'Date' — {new_nulls} unparseable dates set to NaT"
+            )
         # String columns
         # convert actual NaN before astype to avoid converting them to "nan"
         string_cols = ["Company", "fear_greed_label", "label"]
@@ -120,7 +132,9 @@ class Cleaner:
             missing_rows = self.df[condition]
             self.quarantine.append(missing_rows)
             self.df = self.df[~condition]
-            self.log.append(f"drop_missing: {len(missing_rows)} rows missing critical fields removed")
+            self.log.append(
+                f"drop_missing: {len(missing_rows)} rows missing critical fields removed"
+            )
 
         # Non-critical columns — only drop if <5% missing (MCAR)
         non_critical_cols = [
@@ -155,13 +169,19 @@ class Cleaner:
         full_duplicates = self.df[self.df.duplicated(keep="first")]
         self.quarantine.append(full_duplicates)
         self.df = self.df.drop_duplicates()
-        self.log.append(f"drop_duplicates: Dropped {len(full_duplicates)} duplicate rows")
+        self.log.append(
+            f"drop_duplicates: Dropped {len(full_duplicates)} duplicate rows"
+        )
 
         # Drop fuzzy duplicate: (Date, Company) pairs, keep first
-        fuzzy_duplicates = self.df[self.df.duplicated(subset=["Date", "Company"], keep="first")]
+        fuzzy_duplicates = self.df[
+            self.df.duplicated(subset=["Date", "Company"], keep="first")
+        ]
         self.quarantine.append(fuzzy_duplicates)
         self.df = self.df.drop_duplicates(subset=["Date", "Company"], keep="first")
-        self.log.append(f"drop_duplicates: Dropped {len(fuzzy_duplicates)} duplicate (Date, Company) rows")
+        self.log.append(
+            f"drop_duplicates: Dropped {len(fuzzy_duplicates)} duplicate (Date, Company) rows"
+        )
 
     # 5. Timeliness — Handle stale data
 
@@ -201,8 +221,12 @@ class Cleaner:
         self.quarantine.append(stale_rows)
         number_of_stale_rows = len(stale_rows)
         self.df = temp[~stale_mask]
-        self.log.append(f"drop_stale_rows: {number_of_stale_rows} stale rows removed — price frozen + volume 0")
-        logger.info(f"drop_stale_rows: complete — {number_of_stale_rows} rows quarantined")
+        self.log.append(
+            f"drop_stale_rows: {number_of_stale_rows} stale rows removed — price frozen + volume 0"
+        )
+        logger.info(
+            f"drop_stale_rows: complete — {number_of_stale_rows} rows quarantined"
+        )
 
     def _save_quarantine(self):
         """Saves all rejected rows to a quarantine CSV file for review."""
@@ -216,7 +240,9 @@ class Cleaner:
         quarantine_path = os.path.join("data", "processed", "quarantine.csv")
         quarantine_df.to_csv(quarantine_path, index=False)
 
-        self.log.append(f"_save_quarantine: {len(quarantine_df)} total rows saved to {quarantine_path}")
+        self.log.append(
+            f"_save_quarantine: {len(quarantine_df)} total rows saved to {quarantine_path}"
+        )
         logger.info(f"_save_quarantine: complete — {len(quarantine_df)} rows saved")
 
     def run_all(self) -> pd.DataFrame:
@@ -244,7 +270,9 @@ def run_cleaning():
     logger.info(f"run_cleaning: cleaning complete — {len(clean_df):,} rows remaining")
 
     # post-cleaning sanity checks: quick confirm. cleaning worked
-    assert clean_df["Close"].isnull().sum() == 0, "Close still has nulls after cleaning!"
+    assert (
+        clean_df["Close"].isnull().sum() == 0
+    ), "Close still has nulls after cleaning!"
     assert (clean_df["High"] < clean_df["Low"]).sum() == 0, "High < Low still present!"
     assert clean_df.duplicated().sum() == 0, "Duplicates still present!"
     logger.info("run_cleaning: post-cleaning checks passed")
@@ -253,7 +281,9 @@ def run_cleaning():
     validator = Validator(clean_df)
     remaining_issues = validator.run_all()
     if remaining_issues:
-        logger.warning(f"run_cleaning: {len(remaining_issues)} issues still flagged after cleaning:")
+        logger.warning(
+            f"run_cleaning: {len(remaining_issues)} issues still flagged after cleaning:"
+        )
         for issue in remaining_issues:
             logger.warning(f"  - {issue}")
     else:

@@ -1,45 +1,86 @@
 CLEANING DECISION LOG
-======================================================================
+Generated: 2026-04-21 17:27:05
+==============================================================================
 
-Rows before cleaning: 887,372
-Rows after cleaning:  865,573
-Rows removed:         21,799
+SUMMARY
+------------------------------------------------------------------------------
+  Input rows:                887,731
+  Output rows:               880,551
+  Total rows removed:          7,180  (0.81%)
+  Rows quarantined:            7,180
 
-======================================================================
+  Removal by step:
+    Drop Missing Values ..........    6,714  (0.76%)
+    Drop Duplicates ..............        0  (0.00%)
+    Drop Invalid Prices ..........       32  (0.00%)
+    Drop Stale Rows ..............      327  (0.04%)
+    Drop Zero-Volume Movement ....        1  (0.00%)
+    Handle Price Spikes ..........      106  (0.01%)
 
-  - fix_dtypes: replaced implicit missing values with NaN
-  - drop_missing: 15221 rows missing critical fields removed
-  - drop_missing: 'treasury_10y' had 0.72% missing (MCAR) — 6241 rows removed
-  - drop_duplicates: Dropped 0 duplicate rows
-  - drop_duplicates: Dropped 0 duplicate (Date, Company) rows
-  - drop_invalid_prices: Dropped 10 rows where Close outside High/Low
-  - drop_stale_rows: 327 stale rows removed — price frozen + volume 0
-  - _save_quarantine: 21799 total rows saved to data\processed\quarantine.csv
+==============================================================================
 
-======================================================================
+STEP-BY-STEP DETAIL
+==============================================================================
+
+[1] FIX DATA TYPES                       887,731 -> 887,731  (no rows removed)
+    - replaced implicit missing values with NaN
+
+[2] DROP MISSING VALUES                      887,731 -> 881,017  (-6,714 rows)
+    - 'fed_funds_rate' had 0.05% missing (MCAR) - 477 rows removed
+    - 'treasury_10y' had 0.70% missing (MCAR) - 6237 rows removed
+
+[3] DROP DUPLICATES                      881,017 -> 881,017  (no rows removed)
+    - Dropped 0 duplicate rows
+    - Dropped 0 duplicate (Date, Company) rows
+
+[4] DROP INVALID PRICES                         881,017 -> 880,985  (-32 rows)
+    - Dropped 7 rows where Close outside High/Low
+    - Dropped 25 rows where Open outside High/Low
+
+[5] DROP STALE ROWS                            880,985 -> 880,658  (-327 rows)
+    - 327 stale rows removed — price frozen + volume 0
+
+[6] DROP ZERO-VOLUME MOVEMENT                    880,658 -> 880,657  (-1 rows)
+    - 1 rows removed (Volume=0 with Close change)
+
+[7] HANDLE PRICE SPIKES                        880,657 -> 880,551  (-106 rows)
+    - 106 spike-rows removed (|pct_change| > 50%, Stock Splits == 0)
+
+[8] FIX FEAR & GREED LABELS              880,551 -> 880,551  (no rows removed)
+    - regenerated fear_greed_label from score (mismatches: 42734 -> 0)
+
+==============================================================================
+
 POST-CLEANING VALIDATION
-======================================================================
+==============================================================================
 
-  22 issues still flagged:
-  - Date coverage; 1787 dates have inconsistent company coverage.
-  - Date gaps: 85 missing business days.
-  - Balance: Class imbalance detected — ratio 1.67x.
-  - Outliers: 'Open' has 7.21% outliers.
-  - Outliers: 'High' has 7.21% outliers.
-  - Outliers: 'Low' has 7.2% outliers.
-  - Outliers: 'Close' has 7.2% outliers.
-  - Outliers: 'Volume' has 10.84% outliers.
-  - Sanity: 37 suspicious price jumps >50% without a stock split.
-  - Sanity:2 rows where 'Volume' outside [1,inf]
-  - Sanity:8642 Fear/Greed score-label mismatches.
-  - Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
-  - Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
-  - Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
-  - Correlation divergence: Open ↔ Volume — Pearson=-0.081 vs Spearman=-0.395
-  - Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
-  - Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
-  - Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.393
-  - Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
-  - Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.397
-  - Correlation divergence: Close ↔ Volume — Pearson=-0.081 vs Spearman=-0.395
-  - Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.917, Spearman=0.856
+  20 residual issues (flagged for awareness):
+
+  DATA COVERAGE:
+    - Date coverage; 1789 dates have inconsistent company coverage.
+    - Date gaps: 86 missing business days.
+
+  RESIDUAL OUTLIERS (to be handled in transformation pipeline):
+    - Outliers: 'Open' has 7.21% outliers.
+    - Outliers: 'High' has 7.21% outliers.
+    - Outliers: 'Low' has 7.2% outliers.
+    - Outliers: 'Close' has 7.21% outliers.
+    - Outliers: 'Volume' has 10.85% outliers.
+
+  SANITY:
+    - Sanity: 96 suspicious price jumps >50% without a stock split.
+    - Sanity:1 rows where 'Volume' outside [1,inf]
+
+  CORRELATIONS (expected structural patterns):
+    - Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
+    - Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
+    - Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
+    - Correlation divergence: Open ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
+    - Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
+    - Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
+    - Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.392
+    - Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
+    - Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.396
+    - Correlation divergence: Close ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
+    - Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.915, Spearman=0.85
+

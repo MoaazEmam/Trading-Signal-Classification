@@ -22,6 +22,8 @@ boto3 = "^1.42.76"
 kagglehub = "^1.0.0"
 yfinance = "^1.2.0"
 fredapi = "^0.5.2"
+pandas-market-calendars = "^5.3.2"
+lightgbm = "^4.6.0"
 
 
 
@@ -35,6 +37,8 @@ ipykernel = "^7.2.0"
 jupyter = "^1.1.1"
 pyright = "^1.1.408"
 pandas-stubs = "^3.0.0.260204"
+plotly = "^6.7.0"
+streamlit = "^1.57.0"
 
 [build-system]
 requires = ["poetry-core"]
