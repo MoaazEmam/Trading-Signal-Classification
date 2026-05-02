@@ -1,0 +1,7 @@
+{
+  "model_name": "random_forest",
+  "model_path": "models/random_forest.pkl",
+  "test_f1_macro": 0.0,
+  "test_accuracy": 0.0,
+  "selected_at": "2026-05-02T00:00:00Z"
+}

@@ -440,6 +440,32 @@ def run_engineering(df: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
+def run_engineering_predict(df: pd.DataFrame, target_date: str) -> pd.DataFrame:
+    """Feature engineering for prediction. Drops NaN rows only from context rows,
+    keeping the target date rows even if some features are NaN from rolling warmup."""
+    logger.info("run_engineering_predict: building feature matrix...")
+    result = build_feature_matrix(df)
+
+    target_ts = pd.Timestamp(target_date)
+    target_mask = result["Date"] == target_ts
+
+    context = result[~target_mask].dropna()
+    target = result[target_mask]
+
+    result = (
+        pd.concat([context, target])
+        .sort_values(["Company", "Date"])
+        .reset_index(drop=True)
+    )
+
+    logger.info(
+        "run_engineering_predict: kept %d target rows, %d context rows after NaN drop",
+        target_mask.sum(),
+        len(context),
+    )
+    return result
+
+
 if __name__ == "__main__":
     logger.info("Loading dataset...")
     t = time.time()

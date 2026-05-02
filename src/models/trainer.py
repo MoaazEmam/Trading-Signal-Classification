@@ -27,31 +27,61 @@ def _prepare(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     return df.drop(columns=drop_cols), df[TARGET_COL]
 
 
+# def _param_grids() -> dict[str, dict]:
+#     return {
+#         "logistic_regression": {
+#             "C": [0.01, 0.05, 0.1, 0.5],
+#             "l1_ratio": [0.1, 0.5, 0.9],
+#         },
+#         "decision_tree": {
+#             "max_depth": [4, 6, 8],
+#             "min_samples_leaf": [100, 200, 400],
+#         },
+#         "adaboost": {
+#             "n_estimators": [100, 200, 300],
+#             "learning_rate": [0.01, 0.05, 0.1],
+#         },
+#         "random_forest": {
+#             "max_depth": [8, 10, 15],
+#             "min_samples_leaf": [50, 100, 200],
+#             "max_samples": [0.6, 0.7, 0.8],
+#         },
+#         "lightgbm": {
+#             "n_estimators": [500, 1000],
+#             "num_leaves": [31, 48, 63],
+#             "learning_rate": [0.01, 0.02, 0.05],
+#             "min_child_samples": [100, 200, 300],
+#             "reg_lambda": [0.5, 1.0, 2.0],
+#         },
+#     }
+
+
+# remove the many params just so we can train quickly (sub 24 hours lol) for testing purposes
 def _param_grids() -> dict[str, dict]:
     return {
         "logistic_regression": {
-            "C": [0.01, 0.05, 0.1, 0.5],
-            "l1_ratio": [0.1, 0.5, 0.9],
+            "C": [0.01],
+            "l1_ratio": [0.1],
         },
         "decision_tree": {
-            "max_depth": [4, 6, 8],
-            "min_samples_leaf": [100, 200, 400],
+            "max_depth": [6],
+            "min_samples_leaf": [200],
         },
         "adaboost": {
-            "n_estimators": [100, 200, 300],
-            "learning_rate": [0.01, 0.05, 0.1],
+            "n_estimators": [300],
+            "learning_rate": [0.05],
         },
         "random_forest": {
-            "max_depth": [8, 10, 15],
-            "min_samples_leaf": [50, 100, 200],
-            "max_samples": [0.6, 0.7, 0.8],
+            "max_depth": [10],
+            "min_samples_leaf": [100],
+            "max_samples": [0.7],
         },
         "lightgbm": {
-            "n_estimators": [500, 1000],
-            "num_leaves": [31, 48, 63],
-            "learning_rate": [0.01, 0.02, 0.05],
-            "min_child_samples": [100, 200, 300],
-            "reg_lambda": [0.5, 1.0, 2.0],
+            "n_estimators": [1000],
+            "num_leaves": [48],
+            "learning_rate": [0.02],
+            "min_child_samples": [200],
+            "reg_lambda": [0.5],
         },
     }
 
