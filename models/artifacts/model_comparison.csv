@@ -1,0 +1,7 @@
+Model,Train Acc,Test Acc,Overfit Gap,Weighted F1,MCC,Signal Precision (B),Hold Recall (B)
+logistic_regression,0.4542,0.3916,0.0626,0.3796,0.0797,0.4185,0.2936
+decision_tree,0.4558,0.4022,0.0536,0.3709,0.0471,0.4303,0.6499
+adaboost,0.4133,0.4074,0.0059,0.2358,0.0,0.0,1.0
+random_forest,0.9083,0.3981,0.5101,0.382,0.0865,0.4285,0.3202
+lightgbm,0.6091,0.3863,0.2228,0.3398,0.096,0.4469,0.1767
+voting_classifier,0.9509,0.3908,0.5601,0.3524,0.0963,0.4454,0.2085

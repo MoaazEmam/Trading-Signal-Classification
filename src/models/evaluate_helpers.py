@@ -7,18 +7,18 @@ Internal helpers for evaluate.py — not part of the public API.
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from sklearn.metrics import (
     accuracy_score,
+    auc,
+    confusion_matrix,
     f1_score,
     matthews_corrcoef,
     precision_recall_curve,
     precision_score,
     recall_score,
-    confusion_matrix,
 )
 
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ def confusion_matrix_breakdown(
     y_true: pd.Series,
     y_pred: np.ndarray,
 ) -> dict[str, dict[str, int]]:
-    """Per-class TP, TN, FP, FN via one-vs-rest decomposition (Lecture 08)."""
+    """Per-class TP, TN, FP, FN via one-vs-rest decomposition."""
     cm = confusion_matrix(y_true, y_pred, labels=ALL_LABELS)
     breakdown: dict[str, dict[str, int]] = {}
 
@@ -53,26 +53,22 @@ def compute_metrics(
     y_pred: np.ndarray,
 ) -> dict[str, float]:
     """
-    All Lecture 08 metrics plus business-specific metrics.
-
-    Standard: accuracy, macro/micro/weighted precision/recall/f1, MCC.
-    Business: signal precision (Buy+Sell), hold recall.
+    Core metrics: accuracy, weighted F1/precision/recall, MCC, business metrics.
     """
     metrics: dict[str, float] = {}
 
     metrics["accuracy"] = float(accuracy_score(y_true, y_pred))
     metrics["mcc"] = float(matthews_corrcoef(y_true, y_pred))
 
-    for avg in ("macro", "micro", "weighted"):
-        metrics[f"{avg}_precision"] = float(
-            precision_score(y_true, y_pred, average=avg, zero_division=0)
-        )
-        metrics[f"{avg}_recall"] = float(
-            recall_score(y_true, y_pred, average=avg, zero_division=0)
-        )
-        metrics[f"{avg}_f1"] = float(
-            f1_score(y_true, y_pred, average=avg, zero_division=0)
-        )
+    metrics["weighted_f1"] = float(
+        f1_score(y_true, y_pred, average="weighted", zero_division=0)
+    )
+    metrics["weighted_precision"] = float(
+        precision_score(y_true, y_pred, average="weighted", zero_division=0)
+    )
+    metrics["weighted_recall"] = float(
+        recall_score(y_true, y_pred, average="weighted", zero_division=0)
+    )
 
     present_labels = sorted(y_true.unique().tolist())
     label_to_idx = {lbl: i for i, lbl in enumerate(present_labels)}
@@ -91,60 +87,24 @@ def compute_metrics(
         else 0.0
     )
     metrics["business_hold_recall"] = (
-        float(per_class_recall[label_to_idx[HOLD]])
-        if HOLD in label_to_idx
-        else 0.0
+        float(per_class_recall[label_to_idx[HOLD]]) if HOLD in label_to_idx else 0.0
     )
 
     return metrics
 
 
-def compute_pr_curves(
+def compute_auc_pr(
     y_true: pd.Series,
     y_prob: np.ndarray,
-) -> dict[str, dict[str, np.ndarray]]:
-    """Per-class Precision-Recall curves (one-vs-rest) for threshold analysis (Lecture 08)."""
-    pr_curves: dict[str, dict[str, np.ndarray]] = {}
+) -> dict[str, float]:
+    """AUC-PR scalar per class (one-vs-rest)."""
+    result: dict[str, float] = {}
 
     for i, label in enumerate(ALL_LABELS):
         if y_prob.shape[1] <= i:
             continue
         binary_true = (y_true == label).astype(int)
-        precision, recall, thresholds = precision_recall_curve(binary_true, y_prob[:, i])
-        pr_curves[LABEL_NAMES[label]] = {
-            "precision": precision,
-            "recall": recall,
-            "thresholds": thresholds,
-        }
+        precision, recall, _ = precision_recall_curve(binary_true, y_prob[:, i])
+        result[LABEL_NAMES[label]] = float(auc(recall, precision))
 
-    return pr_curves
-
-
-def save_pr_curves(
-    pr_curves: dict[str, dict[str, np.ndarray]],
-    model_name: str,
-    output_dir: Path,
-) -> list[Path]:
-    """Saves each per-class PR curve as a CSV for MLflow artifact logging."""
-    output_dir.mkdir(parents=True, exist_ok=True)
-    saved: list[Path] = []
-
-    for class_name, curve_data in pr_curves.items():
-        n = min(
-            len(curve_data["precision"]),
-            len(curve_data["recall"]),
-            len(curve_data["thresholds"]) + 1,
-        )
-        df = pd.DataFrame(
-            {
-                "precision": curve_data["precision"][:n],
-                "recall": curve_data["recall"][:n],
-                "threshold": list(curve_data["thresholds"][: n - 1]) + [1.0],
-            }
-        )
-        path = output_dir / f"pr_curve_{model_name}_{class_name.lower()}.csv"
-        df.to_csv(path, index=False)
-        saved.append(path)
-        logger.info("PR curve saved: %s", path)
-
-    return saved
+    return result
