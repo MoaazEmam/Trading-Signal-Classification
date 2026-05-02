@@ -1,6 +1,10 @@
+import json
 from pathlib import Path
 
 import pandas as pd
+
+RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
+PREDICTIONS_DIR = Path("predictions")
 
 
 def load_train_test() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -49,3 +53,34 @@ def _save_to_csv(df: pd.DataFrame, path: Path) -> None:
     df.to_csv(absolute_path, index=False)
     print(f"Successfully saved merged dataset to: {absolute_path}")
     print(f" Final Dataset Shape: {df.shape}")
+
+
+def load_last_n_rows_per_company(
+    path: Path = RAW_DATA_PATH,
+    n_rows: int = 300,
+) -> pd.DataFrame:
+
+    project_root = Path(__file__).resolve().parent.parent
+    absolute_path = project_root / path
+
+    df = pd.read_csv(absolute_path, parse_dates=["Date"])
+    df = (
+        df.sort_values(["Company", "Date"])
+        .groupby("Company", group_keys=False)
+        .apply(lambda g: g.tail(n_rows), include_groups=True)
+        .reset_index(drop=True)
+    )
+    return df
+
+
+def load_best_model_info() -> dict:
+    """Load the best model metadata from models/artifacts/best_model.json"""
+    project_root = Path(__file__).resolve().parent.parent
+    path = project_root / "models" / "artifacts" / "best_model.json"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"best_model.json not found at {path}. "
+            "Run the training and evaluation pipeline first to generate this file."
+        )
+    with open(path) as f:
+        return json.load(f)
