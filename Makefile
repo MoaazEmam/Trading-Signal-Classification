@@ -1,6 +1,6 @@
 .PHONY: install lint format test test-unit test-integration type-check \
         ingest clean-data label engineer split transform select train\
-        train-pipeline validate clean app
+        train-pipeline validate clean app mlflow-log mlflow-server evaluate
 
 # dev
 
@@ -14,13 +14,13 @@ format:
 	poetry run black src/ tests/
 
 test:
-	poetry run pytest tests/ -v
+	poetry run pytest tests/ -v --cov=src --cov-fail-under=60
 
 test-unit:
-	poetry run pytest tests/unit/ -v
+	poetry run pytest tests/unit/ -v --cov=src/models --cov-fail-under=60
 
 test-integration:
-	poetry run pytest tests/integration/ -v
+	poetry run pytest tests/integration/ -v --cov=src --cov-fail-under=60
 
 type-check:
 	poetry run pyright
@@ -35,6 +35,8 @@ split:     data/processed/train_val.csv
 transform: data/processed/train_val_transformed.csv
 select:    data/processed/train_val_selected.csv
 train:     models/artifacts/training_results.json
+evaluate:
+	poetry run python -m src.models.run_evaluation
 
 data/raw/market_data_merged.csv: src/data/ingestion.py
 	poetry run python -m src.data.ingestion
@@ -60,16 +62,27 @@ data/processed/train_val_selected.csv data/processed/test_selected.csv &: data/p
 models/artifacts/training_results.json &: data/processed/train_val_selected.csv data/processed/test_selected.csv src/models/trainer.py src/pipelines/train.py
 	poetry run python -m src.models.trainer
 
-# full training pipeline
-# Depends on the final output files — only rebuilds stages whose inputs changed.
+models/artifacts/model_comparison.csv &: models/artifacts/training_results.json data/processed/train_val_transformed.csv data/processed/test_transformed.csv src/models/run_evaluation.py
+	poetry run python -m src.models.run_evaluation
+
+# pipelines
 
 train-pipeline: models/artifacts/training_results.json
 	@echo "Training pipeline complete."
 
-# standalone validation report
+full-pipeline: models/artifacts/model_comparison.csv
+	@echo "Full pipeline complete — results in models/artifacts/"
+
+# standalone targets
 
 validate:
 	poetry run python -m src.data.validation
+
+mlflow-log: models/artifacts/training_results.json
+	poetry run python -m src.models.ml_flow
+
+mlflow-server:
+	poetry run mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000
 
 app:
 	poetry run streamlit run app/streamlit_app.py

@@ -8,15 +8,6 @@ from typing import Any
 import joblib
 import numpy as np
 import pandas as pd
-from lightgbm import LGBMClassifier
-from sklearn.ensemble import (
-    AdaBoostClassifier,
-    RandomForestClassifier,
-    VotingClassifier,
-)
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, TimeSeriesSplit
-from sklearn.tree import DecisionTreeClassifier
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +55,11 @@ def _param_grids() -> dict[str, dict]:
 
 
 def _base_estimators() -> dict[str, Any]:
+    from lightgbm import LGBMClassifier
+    from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.tree import DecisionTreeClassifier
+
     return {
         "logistic_regression": LogisticRegression(
             solver="saga",
@@ -103,6 +99,12 @@ def _tune(
     x: pd.DataFrame,
     y: pd.Series,
 ) -> tuple[Any, dict, float]:
+    from sklearn.model_selection import (
+        GridSearchCV,
+        RandomizedSearchCV,
+        TimeSeriesSplit,
+    )
+
     tscv = TimeSeriesSplit(n_splits=N_CV_SPLITS)
     n_combinations = int(np.prod([len(v) for v in param_grid.values()]))
 
@@ -146,7 +148,9 @@ def _tune(
     return search.best_estimator_, search.best_params_, float(search.best_score_)
 
 
-def _build_voting(tuned_estimators: dict[str, Any]) -> VotingClassifier:
+def _build_voting(tuned_estimators: dict[str, Any]) -> Any:
+    from sklearn.ensemble import VotingClassifier
+
     return VotingClassifier(
         estimators=[
             ("lightgbm", tuned_estimators["lightgbm"]),
@@ -205,7 +209,7 @@ def train_all(
             "train_accuracy": train_acc,
             "test_accuracy": test_acc,
             "train_time_s": elapsed,
-            "artifact_path": str(model_path),
+            "artifact_path": model_path.relative_to(_PROJECT_ROOT).as_posix(),
         }
 
     logger.info("--- VOTING CLASSIFIER ---")
@@ -235,7 +239,7 @@ def train_all(
         "train_accuracy": voting_train_acc,
         "test_accuracy": voting_test_acc,
         "train_time_s": elapsed,
-        "artifact_path": str(voting_path),
+        "artifact_path": voting_path.relative_to(_PROJECT_ROOT).as_posix(),
     }
 
     _save_results(results)
