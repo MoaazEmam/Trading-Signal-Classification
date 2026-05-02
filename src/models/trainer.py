@@ -19,7 +19,7 @@ MODELS_DIR.mkdir(parents=True, exist_ok=True)
 TARGET_COL = "label"
 COMPANY_COL = "Company"
 RANDOM_STATE = 42
-N_CV_SPLITS = 5
+N_CV_SPLITS = 3
 
 
 def _prepare(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
@@ -30,26 +30,28 @@ def _prepare(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
 def _param_grids() -> dict[str, dict]:
     return {
         "logistic_regression": {
-            "C": [0.01, 0.1, 1.0, 10.0],
+            "C": [0.01, 0.05, 0.1, 0.5],
+            "l1_ratio": [0.1, 0.5, 0.9],
         },
         "decision_tree": {
-            "max_depth": [5, 10, 20, None],
-            "min_samples_leaf": [10, 20, 50],
+            "max_depth": [4, 6, 8],
+            "min_samples_leaf": [100, 200, 400],
         },
         "adaboost": {
-            "n_estimators": [50, 100, 200],
-            "learning_rate": [0.01, 0.1, 1.0],
+            "n_estimators": [100, 200, 300],
+            "learning_rate": [0.01, 0.05, 0.1],
         },
         "random_forest": {
-            "n_estimators": [100, 200, 300],
-            "max_depth": [10, 20, None],
-            "min_samples_leaf": [5, 10, 20],
+            "max_depth": [8, 10, 15],
+            "min_samples_leaf": [50, 100, 200],
+            "max_samples": [0.6, 0.7, 0.8],
         },
         "lightgbm": {
-            "n_estimators": [200, 500],
-            "num_leaves": [31, 63, 127],
-            "learning_rate": [0.01, 0.05, 0.1],
-            "min_child_samples": [20, 50],
+            "n_estimators": [500, 1000],
+            "num_leaves": [31, 48, 63],
+            "learning_rate": [0.01, 0.02, 0.05],
+            "min_child_samples": [100, 200, 300],
+            "reg_lambda": [0.5, 1.0, 2.0],
         },
     }
 
@@ -63,28 +65,53 @@ def _base_estimators() -> dict[str, Any]:
     return {
         "logistic_regression": LogisticRegression(
             solver="saga",
+            penalty="elasticnet",
+            l1_ratio=0.5,
+            C=0.1,
             max_iter=5000,
             random_state=RANDOM_STATE,
         ),
         "decision_tree": DecisionTreeClassifier(
+            max_depth=6,
+            min_samples_leaf=200,
+            min_samples_split=400,
+            max_features="sqrt",
             random_state=RANDOM_STATE,
         ),
         "adaboost": AdaBoostClassifier(
+            estimator=DecisionTreeClassifier(
+                max_depth=3,
+                min_samples_leaf=100,
+                random_state=RANDOM_STATE,
+            ),
+            n_estimators=200,
+            learning_rate=0.05,
             random_state=RANDOM_STATE,
         ),
         "random_forest": RandomForestClassifier(
+            n_estimators=400,
+            max_depth=10,
+            min_samples_leaf=100,
+            min_samples_split=200,
             max_features="sqrt",
+            max_samples=0.7,
             n_jobs=4,
             random_state=RANDOM_STATE,
         ),
         "lightgbm": LGBMClassifier(
             objective="multiclass",
             num_class=3,
-            subsample=0.8,
+            n_estimators=1000,
+            learning_rate=0.02,
+            num_leaves=48,
+            max_depth=7,
+            min_child_samples=200,
+            subsample=0.7,
             subsample_freq=1,
-            colsample_bytree=0.8,
-            reg_alpha=0.1,
-            reg_lambda=0.1,
+            colsample_bytree=0.7,
+            reg_alpha=0.2,
+            reg_lambda=1.0,
+            min_split_gain=0.01,
             n_jobs=4,
             random_state=RANDOM_STATE,
             verbosity=-1,
@@ -108,44 +135,71 @@ def _tune(
     tscv = TimeSeriesSplit(n_splits=N_CV_SPLITS)
     n_combinations = int(np.prod([len(v) for v in param_grid.values()]))
 
-    if n_combinations > 10:
+    scoring = {
+        "accuracy": "accuracy",
+        "f1_macro": "f1_macro",
+        "f1_weighted": "f1_weighted",
+    }
+
+    common_kwargs = dict(
+        cv=tscv,
+        scoring=scoring,
+        refit="f1_macro",
+        return_train_score=True,
+        verbose=1,
+    )
+
+    n_iter = min(n_combinations, 30)
+
+    if n_combinations > 12:
         search = RandomizedSearchCV(
             estimator=estimator,
             param_distributions=param_grid,
-            n_iter=20,
-            cv=tscv,
-            scoring="accuracy",
-            n_jobs=-1,
-            refit=True,
+            n_iter=n_iter,
+            n_jobs=2,
             random_state=RANDOM_STATE,
-            verbose=1,
+            **common_kwargs,
         )
     else:
         search = GridSearchCV(
             estimator=estimator,
             param_grid=param_grid,
-            cv=tscv,
-            scoring="accuracy",
-            n_jobs=-1,
-            refit=True,
-            verbose=1,
+            n_jobs=2,
+            **common_kwargs,
         )
 
     logger.info(
-        "%s: running %s over %d combinations ...",
+        "%s: running %s (%d combinations, n_iter=%d) ...",
         name,
         type(search).__name__,
         n_combinations,
+        n_iter if isinstance(search, RandomizedSearchCV) else n_combinations,
     )
     search.fit(x, y)
+    cv_results = search.cv_results_
+    best_idx = search.best_index_
+    best_train_f1 = cv_results["mean_train_f1_macro"][best_idx]
+    best_val_f1 = cv_results["mean_test_f1_macro"][best_idx]
+    best_val_acc = cv_results["mean_test_accuracy"][best_idx]
+    overfit_gap = best_train_f1 - best_val_f1
+
     logger.info(
-        "%s: best CV accuracy %.4f | best params %s",
+        "%s | val acc %.4f | val f1_macro %.4f | train f1_macro %.4f | overfit gap %.4f | params %s",
         name,
-        search.best_score_,
+        best_val_acc,
+        best_val_f1,
+        best_train_f1,
+        overfit_gap,
         search.best_params_,
     )
+    if overfit_gap > 0.15:
+        logger.warning(
+            "%s: large overfit gap (%.4f) — consider tightening regularization params",
+            name,
+            overfit_gap,
+        )
 
-    return search.best_estimator_, search.best_params_, float(search.best_score_)
+    return search.best_estimator_, search.best_params_, float(best_val_acc)
 
 
 def _build_voting(tuned_estimators: dict[str, Any]) -> Any:
