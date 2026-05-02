@@ -66,7 +66,7 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
 
         self.importance_scores_ = get_importance_scores(x[after_filters], y)
 
-        numeric_survivors = self._apply_bounds(numeric_survivors)
+        # numeric_survivors = self._apply_bounds(numeric_survivors)
         logger.info(
             "after bounds [%d, %d]: %d numeric features selected",
             self.min_features,
