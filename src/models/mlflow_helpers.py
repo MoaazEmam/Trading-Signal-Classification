@@ -44,9 +44,7 @@ def log_all_metrics(cv_accuracy: float | None, eval_result: dict[str, Any]) -> N
     mlflow.log_metric(
         "business_signal_precision", eval_result["test_business_signal_precision"]
     )
-    mlflow.log_metric(
-        "business_hold_recall", eval_result["test_business_hold_recall"]
-    )
+    mlflow.log_metric("business_hold_recall", eval_result["test_business_hold_recall"])
 
     for class_name, auc_val in eval_result.get("auc_pr", {}).items():
         mlflow.log_metric(f"auc_pr_{class_name.lower()}", auc_val)

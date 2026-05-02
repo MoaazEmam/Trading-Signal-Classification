@@ -103,7 +103,9 @@ def _clear_previous_runs(experiment_name: str) -> None:
                 shutil.rmtree(item)
 
     if existing:
-        logger.info("Cleared %d previous run(s) from '%s'", len(existing), experiment_name)
+        logger.info(
+            "Cleared %d previous run(s) from '%s'", len(existing), experiment_name
+        )
 
 
 def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
