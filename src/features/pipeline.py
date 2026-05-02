@@ -5,6 +5,7 @@ build_pipeline() returns a fresh, unfitted sklearn Pipeline wiring up every
 stateful transformation applied between the cleaned splits and model input:
 
     1. GroupedWinsorizer   -- per-Company cap on Volume outliers
+    1. GlobalWinsorizer    -- global cap
     2. ColumnDropper       -- drops redundant / non-feature columns
     3. ColumnTransformer   -- scale numeric, passthrough flags and group key
 
@@ -20,36 +21,21 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, RobustScaler, StandardScaler
 
-from src.features.transformers import ColumnDropper, GroupedWinsorizer
-
-# -- column groups ---------------------------------------------------------
+from src.features.transformers import ColumnDropper, GlobalWinsorizer, GroupedWinsorizer
 
 GROUP_COL = "Company"
 
-WINSORIZE_COLS: list[str] = ["Volume"]
+GROUPED_WINSORIZE_COLS: list[str] = ["Volume"]
 
-# RobustScaler — legitimate heavy tails, not errors
-ROBUST_COLS: list[str] = [
-    "Volume",
-    "volume_sma_20",
-    "volume_ratio",
+GLOBAL_WINSORIZE_COLS: list[str] = [
     "obv",
-    "atr_14",
-    "atr_ratio",
-    "high_low_range",
-]
-
-# StandardScaler — price-derived, returns, technical indicators, macro
-STANDARD_COLS: list[str] = [
-    "Open",
-    "High",
-    "Low",
-    "Close",
-    "vix",
-    "fed_funds_rate",
-    "treasury_10y",
-    "sp500_level",
-    "fear_greed_score",
+    "macd_line",
+    "macd_signal",
+    "macd_histogram",
+    "body_size",
+    "upper_wick",
+    "lower_wick",
+    "volume_price_trend",
     "return_1d",
     "return_2d",
     "return_5d",
@@ -58,34 +44,56 @@ STANDARD_COLS: list[str] = [
     "log_return",
     "gap_open",
     "intraday_return",
-    "sma_5",
-    "sma_10",
-    "sma_20",
-    "sma_50",
-    "sma_200",
-    "ema_9",
-    "ema_21",
-    "ema_50",
-    "price_to_sma20",
-    "sma_cross_20_50",
-    "sma_cross_50_200",
-    "rsi_7",
-    "rsi_14",
-    "rsi_divergence",
+    "sp500_return_1d",
+    "sp500_return_5d",
+    "sp500_return_20d",
+    "relative_return_5d",
+    "vix_change",
+    "fg_change_5d",
+    "fg_momentum",
+    "beta_rolling_20",
+]
+
+ROBUST_COLS: list[str] = [
+    "Volume",
+    "volume_sma_20",
+    "volume_ratio",
+    "obv",
+    "atr_14",
+    "atr_ratio",
+    "high_low_range",
+    "realized_vol_10",
+    "realized_vol_20",
+    "bb_width",
     "macd_line",
     "macd_signal",
     "macd_histogram",
-    "macd_cross",
-    "bb_mid",
-    "bb_upper",
-    "bb_lower",
-    "bb_width",
-    "bb_position",
-    "vwap",
-    "price_to_vwap",
-    "realized_vol_10",
-    "realized_vol_20",
+    "body_size",
+    "upper_wick",
+    "lower_wick",
+    "volume_price_trend",
+    "beta_rolling_20",
     "vix_change",
+    "fg_change_5d",
+    "fg_momentum",
+]
+
+STANDARD_COLS: list[str] = [
+    "return_1d",
+    "return_2d",
+    "return_5d",
+    "return_10d",
+    "return_20d",
+    "log_return",
+    "gap_open",
+    "intraday_return",
+    "price_to_sma20",
+    "rsi_7",
+    "rsi_14",
+    "rsi_divergence",
+    "bb_position",
+    "price_to_vwap",
+    "vix",
     "vix_sma_20",
     "vix_ratio",
     "vix_percentile",
@@ -94,37 +102,34 @@ STANDARD_COLS: list[str] = [
     "sp500_return_5d",
     "sp500_return_20d",
     "relative_return_5d",
-    "beta_rolling_20",
     "stock_to_sp500",
+    "fed_funds_rate",
+    "treasury_10y",
     "yield_spread",
     "rate_change_fed",
     "rate_change_10y",
     "real_rate_proxy",
-    "fg_change_5d",
+    "carry_spread",
+    "fear_greed_score",
     "fg_sma_10",
-    "fg_momentum",
     "fg_vix_divergence",
-    "body_size",
-    "upper_wick",
-    "lower_wick",
-    "candle_direction_streak",
     "rsi_bb_position",
-    "volume_price_trend",
     "macro_risk_score",
     "trend_strength",
-    "carry_spread",
 ]
 
-# Passthrough — binary flags, regime labels, calendar features.
-# Scaling these would distort their semantics.
 PASSTHROUGH_COLS: list[str] = [
     "is_doji",
     "is_bullish_candle",
     "fg_extreme_fear",
     "fg_extreme_greed",
+    "sma_cross_20_50",
+    "sma_cross_50_200",
+    "macd_cross",
     "vol_regime",
     "vix_regime",
     "yield_curve_regime",
+    "candle_direction_streak",
     "day_of_week",
     "month",
     "is_month_end",
@@ -132,13 +137,27 @@ PASSTHROUGH_COLS: list[str] = [
     "week_of_year",
 ]
 
-# Dropped at transform time — redundant or non-feature columns.
-# fear_greed_label is a deterministic bucket of fear_greed_score.
-# Date is a raw timestamp; date features are already in PASSTHROUGH_COLS.
-DROP_COLS: list[str] = ["Date", "fear_greed_label"]
-
-
-# -- builder ---------------------------------------------------------------
+DROP_COLS: list[str] = [
+    "Date",
+    "fear_greed_label",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "vwap",
+    "sma_5",
+    "sma_10",
+    "sma_20",
+    "sma_50",
+    "sma_200",
+    "ema_9",
+    "ema_21",
+    "ema_50",
+    "bb_mid",
+    "bb_upper",
+    "bb_lower",
+    "sp500_level",
+]
 
 
 def build_pipeline(
@@ -146,34 +165,17 @@ def build_pipeline(
     winsorize_q: float = 0.99,
     encode_company: bool = False,
 ) -> Pipeline:
-    """
-    Build the feature pipeline.
-
-    Parameters
-    ----------
-    scale : bool
-        If True, apply RobustScaler to ROBUST_COLS and StandardScaler to
-        STANDARD_COLS. Set False for tree-based models (XGBoost / LightGBM /
-        RandomForest) which are scale-invariant.
-    winsorize_q : float
-        Upper quantile used by GroupedWinsorizer. 0.99 caps the top 1%
-        of Volume per company.
-    encode_company : bool
-        If True, ordinal-encode the Company column (tickers seen at fit are
-        mapped to integers 0..N-1; tickers not seen at fit are encoded as
-        -1). If False, Company is passed through as a string.
-
-    Returns
-    -------
-    sklearn.pipeline.Pipeline
-        Unfitted. Call .fit(X_train) then .transform(X_test), and persist
-        with joblib.dump so inference uses the exact fitted state.
-    """
-    winsorizer = GroupedWinsorizer(
+    grouped_winsorizer = GroupedWinsorizer(
         group_col=GROUP_COL,
-        cols=WINSORIZE_COLS,
+        cols=GROUPED_WINSORIZE_COLS,
         q=winsorize_q,
         unseen_group_policy="global",
+    )
+
+    global_winsorizer = GlobalWinsorizer(
+        cols=GLOBAL_WINSORIZE_COLS,
+        upper_q=winsorize_q,
+        lower_q=1.0 - winsorize_q,
     )
 
     dropper = ColumnDropper(cols=DROP_COLS)
@@ -209,7 +211,8 @@ def build_pipeline(
 
     pipeline = Pipeline(
         steps=[
-            ("winsorize", winsorizer),
+            ("winsorize_grouped", grouped_winsorizer),
+            ("winsorize_global", global_winsorizer),
             ("drop", dropper),
             ("columns", column_transformer),
         ]
@@ -219,5 +222,12 @@ def build_pipeline(
 
 
 def feature_input_columns() -> list[str]:
-    """Columns the pipeline expects in X (everything except the label)."""
-    return [GROUP_COL] + ROBUST_COLS + STANDARD_COLS + PASSTHROUGH_COLS + DROP_COLS
+    return (
+        [GROUP_COL]
+        + GROUPED_WINSORIZE_COLS
+        + GLOBAL_WINSORIZE_COLS
+        + ROBUST_COLS
+        + STANDARD_COLS
+        + PASSTHROUGH_COLS
+        + DROP_COLS
+    )

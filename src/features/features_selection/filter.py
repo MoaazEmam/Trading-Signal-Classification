@@ -101,6 +101,6 @@ def apply_basic_filters(
         x[after_variance_list], y, correlation_threshold
     )
     after_mi_filter = _apply_mutual_info_filter(
-        x[after_correlation_list], y, mi_threshold
+        x[after_correlation_list], y, mi_threshold, mi_top_n, mi_top_pct
     )
     return after_mi_filter

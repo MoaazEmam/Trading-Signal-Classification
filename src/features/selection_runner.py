@@ -97,4 +97,4 @@ def run_selection(
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message)s")
-    run_selection(mi_top_pct=0.50, importance_top_n=40)
+    run_selection(mi_top_pct=0.50, importance_top_n=15)

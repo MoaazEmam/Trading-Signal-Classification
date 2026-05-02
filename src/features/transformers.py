@@ -97,8 +97,6 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
         groups = out[self.group_col]
 
         for col in self._fitted_cols_:
-            # Quantile caps are floats; upcast int columns so np.minimum
-            # doesn't emit a pandas dtype-incompatibility FutureWarning.
             if pd.api.types.is_integer_dtype(out[col]):
                 out[col] = out[col].astype(float)
             upper = groups.map(self.upper_caps_[col])
@@ -144,6 +142,87 @@ class GroupedWinsorizer(BaseEstimator, TransformerMixin):
             raise ValueError("`lower_q` must be in (0, q).")
         if self.unseen_group_policy not in {"global", "passthrough"}:
             raise ValueError("unseen_group_policy must be 'global' or 'passthrough'.")
+
+
+class GlobalWinsorizer(BaseEstimator, TransformerMixin):
+    """
+    Caps specified columns at global quantiles learned during fit.
+
+    Used for features where cross-company comparison is already meaningful
+    (returns, MACD normalized to price, candle body sizes, etc.) so
+    per-company grouping is not appropriate. The caps are computed once
+    across all rows in the training set and applied identically to every
+    row at transform time.
+
+    Parameters
+    ----------
+    cols : list[str]
+        Numeric columns to cap.
+    upper_q : float
+        Upper quantile in (0, 1). Default 0.99.
+    lower_q : float
+        Lower quantile in (0, 1). Default 0.01.
+
+    Attributes (set by fit)
+    -----------------------
+    upper_caps_ : dict[str, float]
+    lower_caps_ : dict[str, float]
+    feature_names_in_ : np.ndarray
+    """
+
+    def __init__(
+        self,
+        cols: list[str] | None = None,
+        upper_q: float = 0.99,
+        lower_q: float = 0.01,
+    ) -> None:
+        self.cols = cols
+        self.upper_q = upper_q
+        self.lower_q = lower_q
+
+    def fit(self, X: pd.DataFrame, y: pd.Series | None = None) -> GlobalWinsorizer:
+        if not isinstance(X, pd.DataFrame):
+            raise TypeError("GlobalWinsorizer expects a pandas DataFrame.")
+        if self.cols is None:
+            raise ValueError("`cols` must be specified.")
+        missing = [c for c in self.cols if c not in X.columns]
+        if missing:
+            raise ValueError(f"Columns not found in input: {missing}")
+        if not 0 < self.lower_q < self.upper_q < 1:
+            raise ValueError(
+                "`lower_q` must be in (0, upper_q) and `upper_q` in (lower_q, 1)."
+            )
+
+        self.upper_caps_ = {
+            col: float(X[col].quantile(self.upper_q)) for col in self.cols
+        }
+        self.lower_caps_ = {
+            col: float(X[col].quantile(self.lower_q)) for col in self.cols
+        }
+        self.feature_names_in_ = np.asarray(X.columns)
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        if not hasattr(self, "upper_caps_"):
+            raise RuntimeError("GlobalWinsorizer must be fit before transform().")
+        out = X.copy()
+        for col in self.cols:
+            if col not in out.columns:
+                continue
+            if pd.api.types.is_integer_dtype(out[col]):
+                out[col] = out[col].astype(float)
+            out[col] = out[col].clip(
+                lower=self.lower_caps_[col],
+                upper=self.upper_caps_[col],
+            )
+        return out
+
+    def get_feature_names_out(self, input_features=None) -> np.ndarray:
+        return (
+            np.asarray(input_features)
+            if input_features is not None
+            else self.feature_names_in_
+        )
 
 
 class ColumnDropper(BaseEstimator, TransformerMixin):
