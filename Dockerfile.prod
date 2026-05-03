@@ -1,0 +1,47 @@
+FROM python:3.13-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cron \
+    curl \
+    git \
+    libgomp1 \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV POETRY_VERSION=1.8.0
+RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+
+WORKDIR /app
+ENV PYTHONPATH=/app
+
+COPY pyproject.toml poetry.lock ./
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-interaction --no-ansi --without dev
+
+COPY . .
+
+RUN mkdir -p predictions/history data/raw data/processed models/artifacts logs
+
+# ── Download trained models and artifacts from Azure Blob Storage ─────────────
+# Passed in as build args from GitHub Actions secrets — never hardcoded.
+# Downloads everything in the blob storage "models" container, which includes:
+#   *.pkl              — trained models (lightgbm, random_forest, etc.)
+#   artifacts/*.pkl    — feature_pipeline, label_encoder, feature_selector
+#   artifacts/*.json   — training_results
+ARG AZURE_STORAGE_ACCOUNT
+ARG AZURE_STORAGE_KEY
+
+RUN az storage blob download-batch \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --source models \
+    --destination /app/models/ \
+    --output none
+
+RUN echo "=== /app/models/ ===" && ls -lh /app/models/*.pkl && \
+    echo "=== /app/models/artifacts/ ===" && ls -lh /app/models/artifacts/
+
+EXPOSE 8000 8501

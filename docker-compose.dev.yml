@@ -2,7 +2,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: uvicorn src.serving.api:app --host 0.0.0.0 --port 8000 --workers 2
     ports:
       - "8000:8000"
@@ -22,7 +22,7 @@ services:
   streamlit:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: streamlit run app/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
     ports:
       - "8501:8501"
@@ -44,7 +44,7 @@ services:
   scheduler:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: /app/scheduler/entrypoint.sh
     env_file:
       - .env

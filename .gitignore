@@ -239,3 +239,4 @@ notebooks/*
 /models/random_forest.pkl
 /models/lightgbm.pkl
 /models/voting_classifier.pkl
+/.env.prod
