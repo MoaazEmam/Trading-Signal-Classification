@@ -28,6 +28,7 @@ uvicorn = "^0.46.0"
 httpx = "^0.28.1"
 streamlit = "^1.57.0"
 fastapi = "^0.136.1"
+plotly = "^6.7.0"
 
 
 

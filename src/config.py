@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     kaggle_username: str = Field(default="kaggle_your_username")
     kaggle_api_token: str = Field(default="kaggle_your_key")
     fred_api_key: str = Field(default="fred-api-key")
-    mlflow_tracking_uri: str = Field(default="mlflow_uri")
+    mlflow_tracking_uri: str = Field(default="sqlite:///mlflow.db")
+    api_url: str = Field(default="http://localhost:8000")
     model_config = SettingsConfigDict(env_file=ENV_FILE_PATH)
 
 

@@ -36,7 +36,8 @@ split:     data/processed/train_val.csv
 transform: data/processed/train_val_transformed.csv
 select:    data/processed/train_val_selected.csv
 train:     models/artifacts/training_results.json
-predict: 	predictions/latest.json
+predict:
+	poetry run python -m src.pipelines.predict
 
 evaluate:
 	poetry run python -m src.models.run_evaluation
@@ -75,9 +76,6 @@ train-pipeline: models/artifacts/training_results.json
 
 full-pipeline: models/artifacts/model_comparison.csv
 	@echo "Full pipeline complete — results in models/artifacts/"
-
-predictions/latest.json &:
-	poetry run python -m src.pipelines.predict
 
 # standalone targets
 
