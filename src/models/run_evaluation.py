@@ -28,6 +28,7 @@ import joblib
 import mlflow
 import pandas as pd
 
+from src.config import settings
 from src.models.evaluate import (
     build_comparison_table,
     evaluate_model,
@@ -108,9 +109,31 @@ def _clear_previous_runs(experiment_name: str) -> None:
         )
 
 
+def _save_best_model_summary(
+    best_model: str,
+    comparison_table: pd.DataFrame,
+    output_path: Path,
+) -> None:
+    row = comparison_table.loc[best_model]
+
+    summary = {
+        "model_name": best_model,
+        "model_path": f"models/{best_model}.pkl",
+        "test_f1_macro": float(row.get("F1 Macro", 0.0)),
+        "test_accuracy": float(row.get("Accuracy", 0.0)),
+        "test_precision_macro": float(row.get("Precision Macro", 0.0)),
+        "test_recall_macro": float(row.get("Recall Macro", 0.0)),
+        "test_mcc": float(row.get("MCC", 0.0)),
+        "selected_at": pd.Timestamp.utcnow().isoformat() + "Z",
+    }
+
+    with open(output_path, "w") as f:
+        json.dump(summary, f, indent=2)
+
+
 def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
     ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-
+    mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
     mlflow.set_experiment(EXPERIMENT_NAME)
     _clear_previous_runs(EXPERIMENT_NAME)
 
@@ -194,6 +217,10 @@ def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
     comp_path = _save_csv(comparison_table, "model_comparison.csv")
 
     best_model = str(comparison_table["MCC"].idxmax())
+    best_model_path = ARTIFACT_DIR / "best_model.json"
+    _save_best_model_summary(best_model, comparison_table, best_model_path)
+
+    mlflow.log_artifact(str(best_model_path), artifact_path="reports")
 
     with mlflow.start_run(run_name="summary"):
         mlflow.log_artifact(str(comp_path), artifact_path="reports")

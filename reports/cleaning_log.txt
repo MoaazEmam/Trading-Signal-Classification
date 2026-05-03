@@ -1,18 +1,18 @@
 CLEANING DECISION LOG
-Generated: 2026-05-02 13:57:05
+Generated: 2026-05-03 15:06:21
 ==============================================================================
 
 SUMMARY
 ------------------------------------------------------------------------------
-  Input rows:                892,024
-  Output rows:               884,910
-  Total rows removed:          7,114  (0.80%)
-  Rows quarantined:            7,114
+  Input rows:                892,630
+  Output rows:               885,512
+  Total rows removed:          7,118  (0.80%)
+  Rows quarantined:            7,118
 
   Removal by step:
-    Drop Missing Values ..........    6,714  (0.75%)
+    Drop Missing Values ..........    6,719  (0.75%)
     Drop Duplicates ..............        0  (0.00%)
-    Drop Invalid Prices ..........       35  (0.00%)
+    Drop Invalid Prices ..........       34  (0.00%)
     Drop Stale Rows ..............      327  (0.04%)
     Drop Zero-Volume Movement ....        1  (0.00%)
     Handle Price Spikes ..........       37  (0.00%)
@@ -22,32 +22,32 @@ SUMMARY
 STEP-BY-STEP DETAIL
 ==============================================================================
 
-[1] FIX DATA TYPES                       892,024 -> 892,024  (no rows removed)
+[1] FIX DATA TYPES                       892,630 -> 892,630  (no rows removed)
     - replaced implicit missing values with NaN
 
-[2] DROP MISSING VALUES                      892,024 -> 885,310  (-6,714 rows)
-    - 'vix' had 0.05% missing (MCAR) - 477 rows removed
-    - 'treasury_10y' had 0.70% missing (MCAR) - 6237 rows removed
+[2] DROP MISSING VALUES                      892,630 -> 885,911  (-6,719 rows)
+    - 'vix' had 0.05% missing (MCAR) - 478 rows removed
+    - 'treasury_10y' had 0.70% missing (MCAR) - 6241 rows removed
 
-[3] DROP DUPLICATES                      885,310 -> 885,310  (no rows removed)
+[3] DROP DUPLICATES                      885,911 -> 885,911  (no rows removed)
     - Dropped 0 duplicate rows
     - Dropped 0 duplicate (Date, Company) rows
 
-[4] DROP INVALID PRICES                         885,310 -> 885,275  (-35 rows)
-    - Dropped 10 rows where Close outside High/Low
+[4] DROP INVALID PRICES                         885,911 -> 885,877  (-34 rows)
+    - Dropped 9 rows where Close outside High/Low
     - Dropped 25 rows where Open outside High/Low
 
-[5] DROP STALE ROWS                            885,275 -> 884,948  (-327 rows)
+[5] DROP STALE ROWS                            885,877 -> 885,550  (-327 rows)
     - 327 stale rows removed — price frozen + volume 0
 
-[6] DROP ZERO-VOLUME MOVEMENT                    884,948 -> 884,947  (-1 rows)
+[6] DROP ZERO-VOLUME MOVEMENT                    885,550 -> 885,549  (-1 rows)
     - 1 rows removed (Volume=0 with Close change)
 
-[7] HANDLE PRICE SPIKES                         884,947 -> 884,910  (-37 rows)
+[7] HANDLE PRICE SPIKES                         885,549 -> 885,512  (-37 rows)
     - 37 spike-rows removed (|pct_change| > 50%, Stock Splits == 0)
 
-[8] FIX FEAR & GREED LABELS              884,910 -> 884,910  (no rows removed)
-    - regenerated fear_greed_label from score (mismatches: 43211 -> 0)
+[8] FIX FEAR & GREED LABELS              885,512 -> 885,512  (no rows removed)
+    - regenerated fear_greed_label from score (mismatches: 43235 -> 0)
 
 ==============================================================================
 
@@ -65,7 +65,7 @@ POST-CLEANING VALIDATION
     - Outliers: 'High' has 7.2% outliers.
     - Outliers: 'Low' has 7.18% outliers.
     - Outliers: 'Close' has 7.19% outliers.
-    - Outliers: 'Volume' has 10.83% outliers.
+    - Outliers: 'Volume' has 10.85% outliers.
 
   SANITY:
     - Sanity: 28 suspicious price jumps >50% without a stock split.
@@ -75,12 +75,12 @@ POST-CLEANING VALIDATION
     - Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
     - Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
     - Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
-    - Correlation divergence: Open ↔ Volume — Pearson=-0.082 vs Spearman=-0.393
+    - Correlation divergence: Open ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
     - Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
     - Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
-    - Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.391
+    - Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.392
     - Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
-    - Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.395
-    - Correlation divergence: Close ↔ Volume — Pearson=-0.082 vs Spearman=-0.393
+    - Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.396
+    - Correlation divergence: Close ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
     - Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.914, Spearman=0.847
 
