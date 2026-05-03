@@ -35,7 +35,7 @@ def run_train_pipeline() -> tuple[object, object, dict]:
     train_s, test_s = run_selection(train_df=train_t, test_df=test_t)
 
     logger.info(sep)
-    logger.info("TRAINING PIPELINE COMPLETE")
+    logger.info("DATA PREPROCESSING COMPLETE")
     logger.info("  train_selected: %d rows x %d cols", *train_s.shape)
     logger.info("  test_selected : %d rows x %d cols", *test_s.shape)
 
