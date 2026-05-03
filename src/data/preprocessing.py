@@ -491,21 +491,12 @@ def run_raw_validation() -> list[str]:
     WARNINGs and the same checks re-run after cleaning (inside run_cleaning)
     to confirm which issues were resolved.
     """
-    logger.info("run_raw_validation: loading raw data from %s", RAW_PATH)
     df = pd.read_csv(str(RAW_PATH), low_memory=False, on_bad_lines="skip")
-    logger.info("run_raw_validation: loaded %d rows x %d columns", len(df), df.shape[1])
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
     issues = _run_validator_checks(df)
-    if issues:
-        logger.warning(
-            "run_raw_validation: %d issues found in raw data (cleaning will address these):",
-            len(issues),
-        )
-        for issue in issues:
-            logger.warning("  - %s", issue)
-    else:
-        logger.info("run_raw_validation: no issues found in raw data")
+    for issue in issues:
+        logger.warning("run_raw_validation: %s", issue)
     return issues
 
 
@@ -516,34 +507,22 @@ def run_cleaning(raw_df: pd.DataFrame | None = None) -> pd.DataFrame:
     if raw_df is not None:
         df = raw_df.copy()
     else:
-        logger.info("run_cleaning: loading raw data...")
         df = pd.read_csv(str(RAW_PATH), low_memory=False, on_bad_lines="skip")
-    logger.info(f"run_cleaning: loaded {len(df):,} rows x {df.shape[1]} columns")
 
     cleaner = _ExtendedCleaner(df)
     clean_df = cleaner.run_all()
-    logger.info(f"run_cleaning: cleaning complete -- {len(clean_df):,} rows remaining")
+    logger.info(f"run_cleaning: {len(df):,} → {len(clean_df):,} rows after cleaning")
 
     assert (
         clean_df["Close"].isnull().sum() == 0
     ), "Close still has nulls after cleaning!"
     assert (clean_df["High"] < clean_df["Low"]).sum() == 0, "High < Low still present!"
     assert clean_df.duplicated().sum() == 0, "Duplicates still present!"
-    logger.info("run_cleaning: post-cleaning checks passed")
 
     remaining_issues = _run_validator_checks(clean_df)
-    if remaining_issues:
-        logger.warning(
-            f"run_cleaning: {len(remaining_issues)} issues still flagged after cleaning:"
-        )
-        for issue in remaining_issues:
-            logger.warning(f"  - {issue}")
-    else:
-        logger.info("run_cleaning: full validation passed -- no issues remaining")
+    for issue in remaining_issues:
+        logger.warning("run_cleaning: %s", issue)
 
-    # Drop columns used during cleaning/validation (Stock Splits gates the
-    # price-spike check in validation_helper.check_price_spikes) but not kept
-    # as model features downstream.
     dropped_cols = [c for c in ("Dividends", "Stock Splits") if c in clean_df.columns]
     if dropped_cols:
         clean_df = clean_df.drop(columns=dropped_cols)
@@ -553,11 +532,9 @@ def run_cleaning(raw_df: pd.DataFrame | None = None) -> pd.DataFrame:
 
     CLEANED_PATH.parent.mkdir(parents=True, exist_ok=True)
     clean_df.to_csv(str(CLEANED_PATH), index=False)
-    logger.info(f"run_cleaning: saved cleaned data to {CLEANED_PATH}")
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     _write_cleaning_log(str(LOG_PATH), df, clean_df, cleaner, remaining_issues)
-    logger.info(f"run_cleaning: log saved to {LOG_PATH}")
 
     return clean_df
 
@@ -568,13 +545,8 @@ def run_cleaning(raw_df: pd.DataFrame | None = None) -> pd.DataFrame:
 def run_labeling(cleaned_df: pd.DataFrame | None = None) -> pd.DataFrame:
     """Label the cleaned dataset using the teammate's fixed label() and write to labeled CSV."""
     if cleaned_df is None:
-        logger.info("run_labeling: loading cleaned data from %s", CLEANED_PATH)
         cleaned_df = pd.read_csv(CLEANED_PATH)
 
-    logger.info(
-        "run_labeling: applying triple-barrier labels (N=%d, rolling_window=20)...",
-        LABEL_LOOKAHEAD_N,
-    )
     labeled_df = _label(cleaned_df, N=LABEL_LOOKAHEAD_N, M=2)
 
     LABELED_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -593,7 +565,6 @@ def run_splitting(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Split featured data into train_val / test using temporal_split and write both CSVs."""
     if labeled_df is None:
-        logger.info("run_splitting: loading featured data from %s", FEATURED_PATH)
         labeled_df = pd.read_csv(str(FEATURED_PATH), parse_dates=["Date"])
     else:
         labeled_df = labeled_df.copy()
@@ -601,11 +572,6 @@ def run_splitting(
 
     train_val, test = temporal_split(labeled_df, test_size=test_size)
     save_splits(train_val, test)
-    logger.info(
-        "run_splitting: complete -- train_val %d rows, test %d rows",
-        len(train_val),
-        len(test),
-    )
     return train_val, test
 
 
@@ -622,37 +588,12 @@ def run_preprocessing() -> None:
         Stage 3 -- labeling          (on clean data — no alignment risk)
         Stage 4 -- splitting
     """
-    sep = "=" * 60
-    logger.info(sep)
-    logger.info("PREPROCESSING PIPELINE START")
-    logger.info(sep)
-
-    # Stage 0 -- raw validation (catch problems before cleaning)
-    logger.info("--- Stage 0: Raw Validation ---")
     run_raw_validation()
-
-    # Stage 1+2 -- cleaning + post-clean validation
-    logger.info("--- Stage 1: Cleaning ---")
-    logger.info("--- Stage 2: Post-clean Validation ---")
     clean_df = run_cleaning()
-
-    # Stage 3 -- labeling on clean data (indices alignment bug fixed)
-    logger.info("--- Stage 3: Labeling ---")
     labeled_df = run_labeling(clean_df)
-
-    # Stage 4 -- splitting (trading-day-aware cutoff + lookahead buffer)
-    logger.info("--- Stage 4: Splitting ---")
     labeled_df["Date"] = pd.to_datetime(labeled_df["Date"])
     run_splitting(labeled_df)
-
-    logger.info(sep)
-    logger.info("PREPROCESSING PIPELINE COMPLETE")
-    logger.info("Outputs:")
-    logger.info("  %s", CLEANED_PATH)
-    logger.info("  %s", LABELED_PATH)
-    logger.info("  %s", PROCESSED_PATH / "train_val.csv")
-    logger.info("  %s", PROCESSED_PATH / "test.csv")
-    logger.info(sep)
+    logger.info("Preprocessing pipeline complete")
 
 
 if __name__ == "__main__":

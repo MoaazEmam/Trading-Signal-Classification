@@ -1,3 +1,4 @@
+import logging
 import os
 from datetime import date
 from functools import reduce
@@ -11,6 +12,8 @@ from fredapi import Fred
 
 from src.config import settings
 from src.utils import _save_to_csv
+
+logger = logging.getLogger(__name__)
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 os.environ["KAGGLE_USERNAME"] = settings.kaggle_username
@@ -33,7 +36,6 @@ def save_sample(
     sample_path: Path = SAMPLE_PATH,
     n_rows: int = SAMPLE_N_ROWS,
 ) -> Path:
-    print(f"Reading full dataset from {raw_path} …")
     df = pd.read_csv(raw_path, parse_dates=["Date"])
 
     sample = (
@@ -45,7 +47,7 @@ def save_sample(
     sample_path.parent.mkdir(parents=True, exist_ok=True)
     sample.to_csv(sample_path, index=False)
 
-    print(
+    logger.info(
         f"Sample saved → {sample_path}  ({sample.shape[0]:,} rows × {sample.shape[1]} cols)"
     )
     return sample_path
@@ -59,8 +61,7 @@ def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame
             ticker, start=start, end=today, auto_adjust=True, progress=False
         )
         if ticker_df is None or ticker_df.empty:
-            # the prints will be replaced with log calls once logger is implemented
-            print(f"{ticker}: no new data since {start.date()}, skipping")
+            logger.warning(f"{ticker}: no new data since {start.date()}, skipping")
             return pd.DataFrame()
         else:
             ticker_df.columns = [col[0] for col in ticker_df.columns]  # flatten df
@@ -71,29 +72,26 @@ def _fetch_yfinance_ticker(ticker: str, last_date: pd.Timestamp) -> pd.DataFrame
             ticker_df = ticker_df.reset_index()
         return ticker_df
     except Exception as e:
-        print(f"Skipped {ticker} due to errors: {e}")
+        logger.error(f"Skipped {ticker} due to errors: {e}", exc_info=True)
         return pd.DataFrame()
 
 
 def _fetch_yfinance_data(tickers: pd.Series, last_date: pd.Timestamp) -> pd.DataFrame:
-    print("fetching new yfinance data")
     dfs = tickers.map(lambda ticker: _fetch_yfinance_ticker(ticker, last_date))
     valid_dfs = [df for df in dfs.tolist() if not df.empty]
     if not valid_dfs:
-        print("No data fetched for any ticker")
+        logger.warning("No data fetched for any ticker")
         return pd.DataFrame()
     return pd.concat(valid_dfs, ignore_index=True)
 
 
 def _fetch_kaggle_dataset() -> pd.DataFrame:
-    print("Fetching kaggle dataset.....")
     path = kagglehub.dataset_download("iveeaten3223times/massive-yahoo-finance-dataset")
     csv_path = Path(path) / "stock_details_5_years.csv"
     df = pd.read_csv(csv_path, compression="infer")
     df["Date"] = (
         pd.to_datetime(df["Date"], utc=True).dt.tz_localize(None).dt.normalize()
     )
-    print("Done")
     return df
 
 
@@ -109,19 +107,17 @@ def _fetch_fred_series(
         )
         return df_fred
     except Exception as e:
-        print(f"skipping fred for date {start}: {e}")
+        logger.error(f"skipping fred for date {start}: {e}", exc_info=True)
         return None
 
 
 def _fetch_fred_macros(start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
-    print("Fetching fred macros.......")
     dfs = [
         _fetch_fred_series(
             series_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"), name
         )
         for series_id, name in FRED_TICKER_MAP.items()
     ]
-    print("Done")
     valid_dfs = [df for df in dfs if df is not None]
 
     if not valid_dfs:
@@ -132,7 +128,6 @@ def _fetch_fred_macros(start: pd.Timestamp, end: pd.Timestamp) -> pd.DataFrame:
 
 
 def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
-    print("Fetching fear&greed macros........")
     url = f"https://api.alternative.me/fng/?limit={limit}&format=json"
     data = requests.get(url).json()["data"]
     df_fg = pd.DataFrame(data)
@@ -143,7 +138,6 @@ def _fetch_fear_greed(limit: int = 3000) -> pd.DataFrame:
     )
     df_fg["fear_greed_score"] = df_fg["value"].astype(int)
     df_fg["fear_greed_label"] = df_fg["value_classification"]
-    print("Done")
     return df_fg[["Date", "fear_greed_score", "fear_greed_label"]]  # type: ignore
 
 
@@ -179,12 +173,10 @@ def run_ingestion():
     fg_df = _fetch_fear_greed()
     fg_df = fg_df[(fg_df["Date"] >= start) & (fg_df["Date"] <= end)]  # cap fg_df
 
-    # merge all 3
-    print("Merging all three......")
     merged_df = _merge_on_date(kaggle_df, fred_df)
     merged_df = _merge_on_date(merged_df, fg_df)  # type: ignore
     _save_to_csv(merged_df, RAW_DATA_PATH)
-    print("Ingestion Complete.")
+    logger.info("Ingestion complete.")
     return merged_df
 
 

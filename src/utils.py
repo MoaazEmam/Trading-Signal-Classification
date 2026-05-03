@@ -1,7 +1,10 @@
 import json
+import logging
 from pathlib import Path
 
 import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 RAW_DATA_PATH = Path("data/raw/market_data_merged.csv")
 PREDICTIONS_DIR = Path("predictions")
@@ -51,8 +54,8 @@ def _save_to_csv(df: pd.DataFrame, path: Path) -> None:
     absolute_path = Path(__file__).resolve().parent.parent / path
     absolute_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(absolute_path, index=False)
-    print(f"Successfully saved merged dataset to: {absolute_path}")
-    print(f" Final Dataset Shape: {df.shape}")
+    logger.info(f"Successfully saved merged dataset to: {absolute_path}")
+    logger.info(f"Final Dataset Shape: {df.shape}")
 
 
 def load_last_n_rows_per_company(

@@ -143,23 +143,19 @@ def run_predict_pipeline(target_date: str | None = None) -> pd.DataFrame | None:
 
     try:
         daily_df = run_daily_fetch(date)
-        logger.info(f"Fetched {date} successfully")
     except RuntimeError as e:
         logger.error(f"Daily fetch failed for {date}: {e}")
         _copy_latest_from_archive(pred_dir)
         return None
 
     try:
-        logger.info("Cleaning daily fetch...")
         cleaned_daily = _clean_daily(daily_df)
         if cleaned_daily.empty:
             raise RuntimeError("Cleaning removed all rows from daily fetch.")
 
-        logger.info(f"Loading last {CONTEXT_ROWS} rows per company for context...")
         history_df = load_last_n_rows_per_company(n_rows=CONTEXT_ROWS)
         history_df = history_df[history_df["Date"] < pd.Timestamp(date)]
 
-        logger.info("Running feature engineering...")
         combined_df = pd.concat([history_df, cleaned_daily], ignore_index=True)
         combined_df = combined_df.sort_values(["Company", "Date"]).reset_index(
             drop=True
@@ -176,10 +172,7 @@ def run_predict_pipeline(target_date: str | None = None) -> pd.DataFrame | None:
 
         companies = todays_features["Company"].reset_index(drop=True)
 
-        logger.info("Transforming features...")
         x_transformed = _transform_features(todays_features)
-
-        logger.info("Selecting features...")
         x_selected = _select_features(x_transformed)
 
         best_model_info = load_best_model_info()
@@ -209,4 +202,14 @@ def run_predict_pipeline(target_date: str | None = None) -> pd.DataFrame | None:
 
 
 if __name__ == "__main__":
-    run_predict_pipeline()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the daily prediction pipeline.")
+    parser.add_argument(
+        "--date",
+        type=str,
+        default=None,
+        help="Target date in YYYY-MM-DD format. Defaults to yesterday.",
+    )
+    args = parser.parse_args()
+    run_predict_pipeline(target_date=args.date)

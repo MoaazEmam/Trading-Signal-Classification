@@ -1,7 +1,10 @@
+import logging
 from pathlib import Path
 
 import pandas as pd
 from sklearn.model_selection import TimeSeriesSplit
+
+logger = logging.getLogger(__name__)
 
 PROCESSED_PATH = Path("data/processed")
 TRAIN_VAL_PATH = PROCESSED_PATH / "train_val.csv"
@@ -21,7 +24,7 @@ def compute_test_cutoff(
     max_date = df[date_col].max()
     total_span = max_date - min_date
     cutoff = min_date + total_span * (1 - test_size)
-    print(
+    logger.info(
         f"Computed test cutoff: {cutoff.date()} "
         f"(data range {min_date.date()} -> {max_date.date()}, "
         f"test_size={test_size})"
@@ -95,7 +98,7 @@ def temporal_split(
             rows_before = len(train_val)
             train_val = pd.DataFrame(train_val[train_val[date_col] <= buffer_cutoff])
             rows_dropped = rows_before - len(train_val)
-            print(
+            logger.info(
                 f"Lookahead buffer: dropped {rows_dropped:,} rows (last {LOOKAHEAD_DAYS} trading days of train_val)."
             )
 
@@ -119,8 +122,8 @@ def save_splits(
     test_path = output_dir / "test.csv"
     train_val.to_csv(train_val_path, index=False)
     test.to_csv(test_path, index=False)
-    print(f"train_val -> {train_val_path}  ({train_val.shape[0]:,} rows)")
-    print(f"test      -> {test_path}  ({test.shape[0]:,} rows)")
+    logger.info(f"train_val -> {train_val_path}  ({train_val.shape[0]:,} rows)")
+    logger.info(f"test      -> {test_path}  ({test.shape[0]:,} rows)")
 
 
 def run_splitting(
@@ -128,15 +131,9 @@ def run_splitting(
     output_dir: str = str(PROCESSED_PATH),
     test_size: float = TEST_SIZE,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    print(f"Loading dataset from {input_path} ...")
     df = pd.read_csv(input_path, parse_dates=["Date"])
-    print(f"Loaded: {df.shape[0]:,} rows × {df.shape[1]} columns")
-
     train_val, test = temporal_split(df, test_size=test_size)
-
     save_splits(train_val, test, output_dir=Path(output_dir))
-
-    print("\nSplitting complete.")
     return train_val, test
 
 

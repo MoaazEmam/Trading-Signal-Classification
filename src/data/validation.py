@@ -17,12 +17,10 @@ def _section(title: str, width: int = 70) -> str:
 
 
 def _write(f, text: str) -> None:
-    print(text)
     f.write(text + "\n")
 
 
 def run_validation(df: pd.DataFrame, stage: str) -> list[str]:
-    logger.info("--- Validation: %s ---", stage)
     validator = Validator(df)
 
     checks = [
@@ -52,11 +50,8 @@ def run_validation(df: pd.DataFrame, stage: str) -> list[str]:
     for check in checks:
         check()
 
-    if validator.issues:
-        for issue in validator.issues:
-            logger.warning("[%s] %s", stage, issue)
-    else:
-        logger.info("[%s] all checks passed", stage)
+    for issue in validator.issues:
+        logger.warning("[%s] %s", stage, issue)
 
     return validator.issues
 
