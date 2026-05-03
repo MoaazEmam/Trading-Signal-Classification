@@ -118,7 +118,6 @@ class Cleaner:
                 self.df[col] = self.df[col].where(self.df[col].notna(), other=np.nan)
                 self.df[col] = self.df[col].astype(str).str.strip().str.title()
                 self.df[col] = self.df[col].replace({"None": np.nan, "Nan": np.nan})
-        logger.info("fix_dtypes: complete")
 
     # 3. Completeness — Handle missing values
     # For non-critical columns with <5% missing; drop rows (MCAR)
@@ -232,7 +231,6 @@ class Cleaner:
         """Saves all rejected rows to a quarantine CSV file for review."""
 
         if not self.quarantine:
-            logger.info("_save_quarantine: no rows to quarantine")
             return
 
         quarantine_df = pd.concat(self.quarantine, ignore_index=True).drop_duplicates()
@@ -261,23 +259,17 @@ LOG_PATH = os.path.join("reports", "cleaning_log.txt")
 
 
 def run_cleaning():
-    logger.info("run_cleaning: loading raw data...")
     df = pd.read_csv(DATA_PATH, low_memory=False)
-    logger.info(f"run_cleaning: loaded {len(df):,} rows × {df.shape[1]} columns")
-
     cleaner = Cleaner(df)
     clean_df = cleaner.run_all()
     logger.info(f"run_cleaning: cleaning complete — {len(clean_df):,} rows remaining")
 
-    # post-cleaning sanity checks: quick confirm. cleaning worked
     assert (
         clean_df["Close"].isnull().sum() == 0
     ), "Close still has nulls after cleaning!"
     assert (clean_df["High"] < clean_df["Low"]).sum() == 0, "High < Low still present!"
     assert clean_df.duplicated().sum() == 0, "Duplicates still present!"
-    logger.info("run_cleaning: post-cleaning checks passed")
 
-    # re-run full validation
     validator = Validator(clean_df)
     remaining_issues = validator.run_all()
     if remaining_issues:
@@ -286,13 +278,9 @@ def run_cleaning():
         )
         for issue in remaining_issues:
             logger.warning(f"  - {issue}")
-    else:
-        logger.info("run_cleaning: full validation passed — no issues remaining ✅")
 
-    # save cleaned data
     os.makedirs(os.path.dirname(CLEANED_PATH), exist_ok=True)
     clean_df.to_csv(CLEANED_PATH, index=False)
-    logger.info(f"run_cleaning: saved cleaned data to {CLEANED_PATH}")
 
     # save decision log
     with open(LOG_PATH, "w", encoding="utf-8") as f:
@@ -315,7 +303,6 @@ def run_cleaning():
                 f.write(f"  - {issue}\n")
         else:
             f.write("  All validation checks passed \n")
-    logger.info(f"run_cleaning: log saved to {LOG_PATH}")
 
     return clean_df
 

@@ -1,4 +1,8 @@
+import logging
+
 import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 # Triple barrier algorithm
 
@@ -55,4 +59,4 @@ if __name__ == "__main__":
     dataset = load_dataset()
     df = label(dataset, N=10, M=2)
     df.to_csv("data/raw/market_data_merged.csv", index=False)
-    print(df["label"].value_counts())
+    logger.info("Label distribution:\n%s", df["label"].value_counts().to_string())

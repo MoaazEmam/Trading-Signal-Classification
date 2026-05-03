@@ -1,0 +1,15 @@
+notebooks/
+reports/
+tests/
+.github/
+*.pyc
+__pycache__/
+.env
+.env.*
+mlflow.db
+mlruns/
+htmlcov/
+.coverage
+coverage.xml
+.git/
+.pre-commit-config.yaml

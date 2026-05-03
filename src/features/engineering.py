@@ -7,11 +7,6 @@ import pandas as pd
 
 from src.utils import load_cleaned_labeled
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s — %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 logger = logging.getLogger(__name__)
 
 ENGINEERED_PATH = Path("data/processed/market_data_with_features.csv")
@@ -423,7 +418,6 @@ def build_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def run_engineering(df: pd.DataFrame) -> pd.DataFrame:
-    logger.info("run_engineering: building feature matrix...")
     result = build_feature_matrix(df)
     before = len(result)
     result = result.dropna()
@@ -436,18 +430,25 @@ def run_engineering(df: pd.DataFrame) -> pd.DataFrame:
     out_path = project_root / ENGINEERED_PATH
     out_path.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(out_path, index=False)
-    logger.info("run_engineering: saved to %s", out_path)
     return result
 
 
 def run_engineering_predict(df: pd.DataFrame, target_date: str) -> pd.DataFrame:
     """Feature engineering for prediction. Drops NaN rows only from context rows,
     keeping the target date rows even if some features are NaN from rolling warmup."""
-    logger.info("run_engineering_predict: building feature matrix...")
     result = build_feature_matrix(df)
 
-    target_ts = pd.Timestamp(target_date)
-    target_mask = result["Date"] == target_ts
+    target_ts = pd.Timestamp(target_date).normalize()
+    dates = result["Date"]
+    if dates.dt.tz is not None:
+        dates = dates.dt.tz_localize(None)
+    target_mask = dates == target_ts
+
+    logger.info(
+        "run_engineering_predict: found %d target rows for %s before NaN filtering",
+        target_mask.sum(),
+        target_date,
+    )
 
     context = result[~target_mask].dropna()
     target = result[target_mask]
@@ -460,7 +461,7 @@ def run_engineering_predict(df: pd.DataFrame, target_date: str) -> pd.DataFrame:
 
     logger.info(
         "run_engineering_predict: kept %d target rows, %d context rows after NaN drop",
-        target_mask.sum(),
+        len(target),
         len(context),
     )
     return result

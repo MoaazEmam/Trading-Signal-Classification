@@ -9,6 +9,8 @@ import joblib
 import numpy as np
 import pandas as pd
 
+from src.models.mlflow_helpers import prepare_features
+
 logger = logging.getLogger(__name__)
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -20,11 +22,6 @@ TARGET_COL = "label"
 COMPANY_COL = "Company"
 RANDOM_STATE = 42
 N_CV_SPLITS = 3
-
-
-def _prepare(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
-    drop_cols = [c for c in [TARGET_COL, COMPANY_COL] if c in df.columns]
-    return df.drop(columns=drop_cols), df[TARGET_COL]
 
 
 # def _param_grids() -> dict[str, dict]:
@@ -250,8 +247,8 @@ def train_all(
     train_df: pd.DataFrame,
     test_df: pd.DataFrame,
 ) -> dict[str, dict[str, Any]]:
-    x_train, y_train = _prepare(train_df)
-    x_test, y_test = _prepare(test_df)
+    x_train, y_train = prepare_features(train_df, TARGET_COL, COMPANY_COL)
+    x_test, y_test = prepare_features(test_df, TARGET_COL, COMPANY_COL)
 
     base_estimators = _base_estimators()
     grids = _param_grids()
