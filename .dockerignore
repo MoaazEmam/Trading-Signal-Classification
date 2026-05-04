@@ -13,3 +13,4 @@ htmlcov/
 coverage.xml
 .git/
 .pre-commit-config.yaml
+models/

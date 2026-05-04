@@ -222,6 +222,7 @@ def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
 
     mlflow.log_artifact(str(best_model_path), artifact_path="reports")
 
+    mlflow.end_run()
     with mlflow.start_run(run_name="summary"):
         mlflow.log_artifact(str(comp_path), artifact_path="reports")
         mlflow.log_param("best_model", best_model)

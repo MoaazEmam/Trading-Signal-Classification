@@ -37,24 +37,54 @@ jobs:
           build-args: |
             AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
             AZURE_STORAGE_KEY=${{ secrets.AZURE_STORAGE_KEY }}
-
+            
       - name: Deploy to Azure Container Apps — API
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-api
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            containerAppName: trading-signal-api
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8000
+            environmentVariables: |
+              SERVICE=api
+              KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}
+              KAGGLE_API_TOKEN=${{ secrets.KAGGLE_API_TOKEN }}
+              FRED_API_KEY=${{ secrets.FRED_API_KEY }}
+              MLFLOW_TRACKING_URI=sqlite:///mlflow.db
 
       - name: Deploy to Azure Container Apps — Streamlit
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-streamlit
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            containerAppName: trading-signal-streamlit
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8501
+            environmentVariables: |
+              SERVICE=streamlit
+              API_URL=${{secrets.API_URL}}
+              MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+              KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}
+              KAGGLE_API_TOKEN=${{ secrets.KAGGLE_API_TOKEN }}
+              FRED_API_KEY=${{ secrets.FRED_API_KEY }}
 
       - name: Deploy to Azure Container Apps — Scheduler
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-scheduler
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            containerAppName: trading-signal-scheduler
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8000
+            environmentVariables: |
+              SERVICE=scheduler
+              KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}
+              KAGGLE_API_TOKEN=${{ secrets.KAGGLE_API_TOKEN }}
+              FRED_API_KEY=${{ secrets.FRED_API_KEY }}
