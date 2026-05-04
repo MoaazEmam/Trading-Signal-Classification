@@ -30,6 +30,25 @@ RUN az storage blob download-batch \
     --account-key "${AZURE_STORAGE_KEY}" \
     --source mlruns \
     --destination /app/mlruns/ || echo "No mlruns/ in storage yet, skipping"
+RUN az storage file download \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --share-name "train-val-selected" \
+    --path "train_val_selected.csv" \
+    --dest /app/data/processed/train_val_selected.csv && \
+    az storage file download \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --share-name "train-val-selected" \
+    --path "test_selected.csv" \
+    --dest /app/data/processed/test_selected.csv && \
+    az storage file download \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --share-name "train-val-selected" \
+    --path "market_data_merged.csv" \
+    --dest /app/data/raw/market_data_merged.csv
+RUN echo "=== /app/data/processed/ ===" && ls -lh /app/data/processed/
 EXPOSE 8000 8501
 
 COPY docker/entrypoint.sh /entrypoint.sh

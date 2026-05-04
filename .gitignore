@@ -210,7 +210,7 @@ data/raw
 data/processed
 
 # MLflow
-mlruns/
+#mlruns/
 mlartifacts/
 
 # Default ignored files

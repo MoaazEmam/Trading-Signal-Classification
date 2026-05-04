@@ -62,15 +62,11 @@ def run_mlflow_tracking() -> None:
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
-    if settings.mlflow_artifact_root:
-        mlflow.set_experiment(EXPERIMENT_NAME)
-        client = mlflow.tracking.MlflowClient()
-        exp = client.get_experiment_by_name(EXPERIMENT_NAME)
-        if exp is None:
-            mlflow.create_experiment(
-                EXPERIMENT_NAME, artifact_location=settings.mlflow_artifact_root
-            )
-
+    client = mlflow.tracking.MlflowClient()
+    exp = client.get_experiment_by_name(EXPERIMENT_NAME)
+    if exp is None:
+        artifact_loc = settings.mlflow_artifact_root or str(_PROJECT_ROOT / "mlruns")
+        mlflow.create_experiment(EXPERIMENT_NAME, artifact_location=artifact_loc)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     results_path = ARTIFACT_DIR / "training_results.json"
