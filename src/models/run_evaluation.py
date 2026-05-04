@@ -28,6 +28,7 @@ import joblib
 import mlflow
 import pandas as pd
 
+from src.backtesting.engine import run_backtest, run_baseline_backtest
 from src.config import settings
 from src.models.evaluate import (
     build_comparison_table,
@@ -112,18 +113,19 @@ def _clear_previous_runs(experiment_name: str) -> None:
 def _save_best_model_summary(
     best_model: str,
     comparison_table: pd.DataFrame,
+    all_results: list[dict[str, Any]],
     output_path: Path,
 ) -> None:
-    row = comparison_table.loc[best_model]
+    best_eval = next((r for r in all_results if r["model_name"] == best_model), {})
 
     summary = {
         "model_name": best_model,
         "model_path": f"models/{best_model}.pkl",
-        "test_f1_macro": float(row.get("F1 Macro", 0.0)),
-        "test_accuracy": float(row.get("Accuracy", 0.0)),
-        "test_precision_macro": float(row.get("Precision Macro", 0.0)),
-        "test_recall_macro": float(row.get("Recall Macro", 0.0)),
-        "test_mcc": float(row.get("MCC", 0.0)),
+        "test_f1_macro": float(best_eval.get("test_weighted_f1", 0.0)),
+        "test_accuracy": float(best_eval.get("test_accuracy", 0.0)),
+        "test_precision_macro": float(best_eval.get("test_weighted_precision", 0.0)),
+        "test_recall_macro": float(best_eval.get("test_weighted_recall", 0.0)),
+        "test_mcc": float(best_eval.get("test_mcc", 0.0)),
         "selected_at": pd.Timestamp.utcnow().isoformat() + "Z",
     }
 
@@ -154,6 +156,32 @@ def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
         "EVALUATION START — %d train rows | %d test rows", len(x_train), len(x_test)
     )
     logger.info("Experiment: %s", EXPERIMENT_NAME)
+    logger.info(sep)
+
+    # --- Naive baseline (must run before model loop) ---
+    logger.info(sep)
+    logger.info("Running naive Buy-everything baseline for comparison")
+    try:
+        baseline_results = run_baseline_backtest()
+        baseline_metrics = baseline_results["metrics"]
+        logger.info(
+            "Baseline — return=%.2f%% sharpe=%.3f win_rate=%.2f%% trades=%d",
+            baseline_metrics["total_return_pct"],
+            baseline_metrics["sharpe_ratio"] or 0.0,
+            (baseline_metrics["win_rate"] or 0.0) * 100,
+            baseline_results["total_trades"],
+        )
+        with mlflow.start_run(run_name="naive_buy_baseline"):
+            mlflow.log_param("model_name", "naive_buy_baseline")
+            finite_baseline = {
+                f"backtest_{k}": v
+                for k, v in baseline_metrics.items()
+                if isinstance(v, float) and math.isfinite(v)
+            }
+            if finite_baseline:
+                mlflow.log_metrics(finite_baseline)
+    except Exception as exc:
+        logger.warning("Baseline backtest failed — skipping: %s", exc)
     logger.info(sep)
 
     for name in MODEL_NAMES:
@@ -191,6 +219,19 @@ def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
             _log_params(name, tr)
             log_all_metrics(cv_acc, eval_result)
 
+            try:
+                backtest_results = run_backtest(model=model, model_name=name)
+                backtest_metrics = backtest_results["metrics"]
+                finite_metrics = {
+                    f"backtest_{k}": v
+                    for k, v in backtest_metrics.items()
+                    if isinstance(v, float) and math.isfinite(v)
+                }
+                if finite_metrics:
+                    mlflow.log_metrics(finite_metrics)
+            except Exception as exc:
+                logger.warning("Backtest failed for %s — skipping: %s", name, exc)
+
             mlflow.log_artifact(str(model_path), artifact_path="models")
 
             cm_df = pd.DataFrame(
@@ -218,12 +259,11 @@ def run_evaluation(train_df: pd.DataFrame, test_df: pd.DataFrame) -> None:
 
     best_model = str(comparison_table["MCC"].idxmax())
     best_model_path = ARTIFACT_DIR / "best_model.json"
-    _save_best_model_summary(best_model, comparison_table, best_model_path)
-
-    mlflow.log_artifact(str(best_model_path), artifact_path="reports")
+    _save_best_model_summary(best_model, comparison_table, all_results, best_model_path)
 
     mlflow.end_run()
     with mlflow.start_run(run_name="summary"):
+        mlflow.log_artifact(str(best_model_path), artifact_path="reports")
         mlflow.log_artifact(str(comp_path), artifact_path="reports")
         mlflow.log_param("best_model", best_model)
         for model_name, row in comparison_table.iterrows():
