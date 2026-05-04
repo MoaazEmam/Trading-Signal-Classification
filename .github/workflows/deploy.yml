@@ -52,7 +52,7 @@ jobs:
               --name trading-signal-api \
               --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
               --command "uvicorn" \
-              --args "src.serving.api:app,--host,0.0.0.0,--port,8000,--workers,2"
+              --args "src.serving.api:app" "--host" "0.0.0.0" "--port" "8000" "--workers" "2"
 
       - name: Deploy to Azure Container Apps — Streamlit
         uses: azure/container-apps-deploy-action@v1
@@ -67,7 +67,7 @@ jobs:
               --name trading-signal-streamlit \
               --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
               --command "streamlit" \
-              --args "run,app/streamlit_app.py,--server.port,8501,--server.address,0.0.0.0,--server.headless,true"
+              --args "run" "app/streamlit_app.py" "--server.port" "8501" "--server.address" "0.0.0.0" "--server.headless" "true"
 
 
       - name: Deploy to Azure Container Apps — Scheduler
