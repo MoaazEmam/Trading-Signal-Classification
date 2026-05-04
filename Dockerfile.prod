@@ -40,7 +40,6 @@ RUN az storage blob download-batch \
     --source models \
     --destination /app/models/
 
-RUN echo "=== /app/models/ ===" && ls -lh /app/models/*.pkl && \
-    echo "=== /app/models/artifacts/ ===" && ls -lh /app/models/artifacts/
+RUN echo "=== /app/models/artifacts/ ===" && ls -lh /app/models/artifacts/
 
 EXPOSE 8000 8501
