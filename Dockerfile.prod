@@ -46,6 +46,18 @@ RUN az storage file download \
     --account-name "${AZURE_STORAGE_ACCOUNT}" \
     --account-key "${AZURE_STORAGE_KEY}" \
     --share-name "train-val-selected" \
+    --path "train_val.csv" \
+    --dest /app/data/processed/train_val.csv && \
+    az storage file download \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --share-name "train-val-selected" \
+    --path "test.csv" \
+    --dest /app/data/processed/test.csv && \
+    az storage file download \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --share-name "train-val-selected" \
     --path "market_data_merged.csv" \
     --dest /app/data/raw/market_data_merged.csv
 RUN echo "=== /app/data/processed/ ===" && ls -lh /app/data/processed/
