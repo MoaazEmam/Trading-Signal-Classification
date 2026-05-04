@@ -1,10 +1,10 @@
 {
   "model_name": "lightgbm",
   "model_path": "models/lightgbm.pkl",
-  "test_f1_macro": 0.0,
-  "test_accuracy": 0.0,
-  "test_precision_macro": 0.0,
-  "test_recall_macro": 0.0,
-  "test_mcc": 0.1183,
-  "selected_at": "2026-05-04T15:21:09.345798+00:00Z"
+  "test_f1_macro": 0.4073584602583696,
+  "test_accuracy": 0.417024663986895,
+  "test_precision_macro": 0.43576849537949297,
+  "test_recall_macro": 0.417024663986895,
+  "test_mcc": 0.10451422641901091,
+  "selected_at": "2026-05-04T21:13:44.737894+00:00Z"
 }
