@@ -37,49 +37,39 @@ jobs:
           build-args: |
             AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
             AZURE_STORAGE_KEY=${{ secrets.AZURE_STORAGE_KEY }}
-
+            
       - name: Deploy to Azure Container Apps — API
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-api
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-          targetPort: 8000
-
-      - name: Set API command
-        run: |
-            az containerapp update \
-              --name trading-signal-api \
-              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-              --command "uvicorn" \
-              --args "src.serving.api:app" "--host" "0.0.0.0" "--port" "8000" "--workers" "2"
+            containerAppName: trading-signal-api
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8000
+            environmentVariables: SERVICE=api
 
       - name: Deploy to Azure Container Apps — Streamlit
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-streamlit
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-
-      - name: Set Streamlit command
-        run: |
-            az containerapp update \
-              --name trading-signal-streamlit \
-              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-              --command "streamlit" \
-              --args "run" "app/streamlit_app.py" "--server.port" "8501" "--server.address" "0.0.0.0" "--server.headless" "true"
-
+            containerAppName: trading-signal-streamlit
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8501
+            environmentVariables: SERVICE=streamlit
 
       - name: Deploy to Azure Container Apps — Scheduler
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: trading-signal-scheduler
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-
-      - name: Set Scheduler command
-        run: |
-            az containerapp update \
-              --name trading-signal-scheduler \
-              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-              --command "/app/scheduler/entrypoint.sh"
+            containerAppName: trading-signal-scheduler
+            resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+            imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+            acrName: ${{ secrets.ACR_NAME }}
+            acrUsername: ${{ secrets.ACR_USERNAME }}
+            acrPassword: ${{ secrets.ACR_PASSWORD }}
+            targetPort: 8000
+            environmentVariables: SERVICE=scheduler
