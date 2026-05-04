@@ -6,10 +6,15 @@ services:
       - "8000:8000"
     env_file:
       - .env.prod
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+      - MLFLOW_ARTIFACT_ROOT=${MLFLOW_ARTIFACT_ROOT:-}
+      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT:-}
     volumes:
       - predictions:/app/predictions
       - logs:/app/logs
       - raw_data:/app/data/raw
+      - mlflow_db:/app/mlflow.db
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -27,11 +32,15 @@ services:
     environment:
       - API_URL=http://api:8000
       - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_ARTIFACT_ROOT=${MLFLOW_ARTIFACT_ROOT:-}
+      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT:-}
     volumes:
       - predictions:/app/predictions
     depends_on:
       api:
         condition: service_healthy
+      mlflow:
+        condition: service_started
     restart: unless-stopped
 
   scheduler:
@@ -39,6 +48,9 @@ services:
     command: /app/scheduler/entrypoint.sh
     env_file:
       - .env.prod
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT:-}
     volumes:
       - predictions:/app/predictions
       - logs:/app/logs
@@ -66,3 +78,4 @@ volumes:
   logs:
   raw_data:
   mlflow_data:
+  mlflow_db:

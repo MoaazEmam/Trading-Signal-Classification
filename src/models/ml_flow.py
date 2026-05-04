@@ -33,6 +33,7 @@ from typing import Any
 import mlflow
 import pandas as pd
 
+from src.config import settings
 from src.models.trainer import ARTIFACT_DIR, MODELS_DIR
 
 logger = logging.getLogger(__name__)
@@ -59,6 +60,16 @@ def run_mlflow_tracking() -> None:
     """
     ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
+
+    mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
+    if settings.mlflow_artifact_root:
+        mlflow.set_experiment(EXPERIMENT_NAME)
+        client = mlflow.tracking.MlflowClient()
+        exp = client.get_experiment_by_name(EXPERIMENT_NAME)
+        if exp is None:
+            mlflow.create_experiment(
+                EXPERIMENT_NAME, artifact_location=settings.mlflow_artifact_root
+            )
 
     mlflow.set_experiment(EXPERIMENT_NAME)
 

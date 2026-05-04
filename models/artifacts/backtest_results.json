@@ -1,0 +1,86 @@
+{
+  "logistic_regression": {
+    "model_name": "logistic_regression",
+    "initial_capital": 500000.0,
+    "final_capital": 493204.1575020498,
+    "total_trades": 136738,
+    "metrics": {
+      "total_return_pct": -0.7007231456740204,
+      "sharpe_ratio": 0.009860509042075846,
+      "win_rate": 0.49995612046395294,
+      "profit_factor": 0.9927246230177307
+    }
+  },
+  "decision_tree": {
+    "model_name": "decision_tree",
+    "initial_capital": 500000.0,
+    "final_capital": 578881.831804675,
+    "total_trades": 131809,
+    "metrics": {
+      "total_return_pct": 15.009130022201145,
+      "sharpe_ratio": 1.106539644244743,
+      "win_rate": 0.5029929670963288,
+      "profit_factor": 1.0827461283809072
+    }
+  },
+  "adaboost": {
+    "model_name": "adaboost",
+    "initial_capital": 500000.0,
+    "final_capital": 527884.436830822,
+    "total_trades": 138862,
+    "metrics": {
+      "total_return_pct": 6.16692067536555,
+      "sharpe_ratio": 0.5479899310298146,
+      "win_rate": 0.5121199464216273,
+      "profit_factor": 1.0302239065896193
+    }
+  },
+  "random_forest": {
+    "model_name": "random_forest",
+    "initial_capital": 500000.0,
+    "final_capital": 535141.0293030565,
+    "total_trades": 137898,
+    "metrics": {
+      "total_return_pct": 6.959293080633122,
+      "sharpe_ratio": 0.5176854615114458,
+      "win_rate": 0.5085715528869165,
+      "profit_factor": 1.0360523930337522
+    }
+  },
+  "lightgbm": {
+    "model_name": "lightgbm",
+    "initial_capital": 500000.0,
+    "final_capital": 502976.41332192585,
+    "total_trades": 133002,
+    "metrics": {
+      "total_return_pct": 1.2614237556337615,
+      "sharpe_ratio": 0.14759871549408887,
+      "win_rate": 0.49972932737853565,
+      "profit_factor": 1.0030046186448662
+    }
+  },
+  "voting_classifier": {
+    "model_name": "voting_classifier",
+    "initial_capital": 500000.0,
+    "final_capital": 511678.2427597648,
+    "total_trades": 135828,
+    "metrics": {
+      "total_return_pct": 3.0150256782757623,
+      "sharpe_ratio": 0.2756268746125455,
+      "win_rate": 0.5035338810849015,
+      "profit_factor": 1.0119298707075866
+    }
+  },
+  "naive_buy_baseline": {
+    "model_name": "naive_buy_baseline",
+    "initial_capital": 500000.0,
+    "final_capital": 583926.7224497921,
+    "total_trades": 151524,
+    "metrics": {
+      "total_return_pct": 17.606993973683593,
+      "sharpe_ratio": 0.9842788949006163,
+      "win_rate": 0.5174163828832397,
+      "profit_factor": 1.0829189840007805
+    }
+  }
+}

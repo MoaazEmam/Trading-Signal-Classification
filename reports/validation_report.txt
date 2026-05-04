@@ -3,74 +3,31 @@
   0. LOADING DATASET
 ======================================================================
 
-Loaded from: data\raw\market_data_merged.csv
-Shape: 887,850 rows × 16 columns
+Loaded from: data/raw/market_data_merged.csv
+Shape: 893,107 rows × 15 columns
 
 ======================================================================
   1. Column names and data types
 ======================================================================
 
           Column          Dtype  Non-Null Count  Null Count
-            Date datetime64[ns]          887850           0
-            Open        float64          887850           0
-            High        float64          887850           0
-             Low        float64          887850           0
-           Close        float64          887850           0
-          Volume          int64          887850           0
-       Dividends        float64          887850           0
-    Stock Splits        float64          887850           0
-         Company         object          887850           0
-             vix        float64          887372         478
-  fed_funds_rate        float64          887372         478
-    treasury_10y        float64          881131        6719
-     sp500_level        float64          886894         956
-fear_greed_score          int64          887850           0
-fear_greed_label         object          887850           0
-           label         object          872629       15221
+            Date datetime64[ns]          893107           0
+            Open        float64          893107           0
+            High        float64          893107           0
+             Low        float64          893107           0
+           Close        float64          893107           0
+          Volume          int64          893107           0
+       Dividends        float64          893107           0
+    Stock Splits        float64          893107           0
+         Company         object          893107           0
+             vix        float64          892629         478
+  fed_funds_rate        float64          892629         478
+    treasury_10y        float64          886388        6719
+     sp500_level        float64          893107           0
+fear_greed_score          int64          893107           0
+fear_greed_label         object          893107           0
 
 ======================================================================
   2. Data quality checks
 ======================================================================
 
-Status: Initializing Validator...
-Status: Running all automated checks (Nulls, Outliers, Sanity)...
-Status: Complete. 29 potential issues flagged.
-
-======================================================================
-  3. Quality issues summary
-======================================================================
-
-Found 29 issue(s):
-
-   1. missing: 'vix' missing 0.05% — LOW ⚠️
-   2. missing: 'fed_funds_rate' missing 0.05% — LOW ⚠️
-   3. missing: 'treasury_10y' missing 0.76% — LOW ⚠️
-   4. missing: 'sp500_level' missing 0.11% — LOW ⚠️
-   5. missing: 'label' missing 1.71% — LOW ⚠️
-   6. Date coverage; 1800 dates have inconsistent company coverage.
-   7. Date gaps: 73 missing business days.
-   8. Balance: Class imbalance detected — ratio 1.67x.
-   9. Outliers: 'Open' has 7.19% outliers.
-  10. Outliers: 'High' has 7.2% outliers.
-  11. Outliers: 'Low' has 7.18% outliers.
-  12. Outliers: 'Close' has 7.19% outliers.
-  13. Outliers: 'Volume' has 10.85% outliers.
-  14. Sanity: 37 suspicious price jumps >50% without a stock split.
-  15. Sanity:12 rows where Close is outside High/Low.
-  16. Sanity:331 rows where 'Volume' outside [1,inf]
-  17. Sanity:8645 Fear/Greed score-label mismatches.
-  18. Sanity: 328 'stale' rows found (Price frozen + 0 Volume).
-  19. Correlation (Expected - Price Features): Open ↔ High — Pearson=1.0, Spearman=1.0
-  20. Correlation (Expected - Price Features): Open ↔ Low — Pearson=1.0, Spearman=1.0
-  21. Correlation (Expected - Price Features): Open ↔ Close — Pearson=1.0, Spearman=1.0
-  22. Correlation divergence: Open ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
-  23. Correlation (Expected - Price Features): High ↔ Low — Pearson=1.0, Spearman=1.0
-  24. Correlation (Expected - Price Features): High ↔ Close — Pearson=1.0, Spearman=1.0
-  25. Correlation divergence: High ↔ Volume — Pearson=-0.081 vs Spearman=-0.392
-  26. Correlation (Expected - Price Features): Low ↔ Close — Pearson=1.0, Spearman=1.0
-  27. Correlation divergence: Low ↔ Volume — Pearson=-0.082 vs Spearman=-0.396
-  28. Correlation divergence: Close ↔ Volume — Pearson=-0.082 vs Spearman=-0.394
-  29. Correlation: fed_funds_rate ↔ treasury_10y — Pearson=0.915, Spearman=0.85
-
-----------------------------------------------------------------------
-Report saved to: reports\validation_report.txt

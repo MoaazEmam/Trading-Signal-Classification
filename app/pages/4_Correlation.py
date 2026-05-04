@@ -3,13 +3,13 @@ from pathlib import Path
 
 import streamlit as st
 
-ROOT = Path(__file__).resolve().parent.parent.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
 from app.loaders import load_train
 from src.eda.plots import correlation_heatmap
 from src.eda.stats import correlation_clusters
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 st.set_page_config(page_title="Correlation Lab", layout="wide")
 st.title("Correlation Lab")
@@ -23,7 +23,9 @@ X = train.drop(columns=["Date", "Company", "label"])
 
 st.subheader("Correlation heatmap")
 cluster_order = st.toggle("Clustered order", value=True)
-st.plotly_chart(correlation_heatmap(X, cluster_order=cluster_order), use_container_width=True)
+st.plotly_chart(
+    correlation_heatmap(X, cluster_order=cluster_order), use_container_width=True
+)
 
 st.divider()
 
@@ -47,7 +49,9 @@ col3.metric("Singleton features", n_singletons)
 
 tab1, tab2 = st.tabs(["Redundancy groups", "All clusters"])
 with tab1:
-    st.caption("Features in the same group are interchangeable from a linear-model perspective.")
+    st.caption(
+        "Features in the same group are interchangeable from a linear-model perspective."
+    )
     st.dataframe(
         multi.sort_values(["n_in_cluster", "cluster_id"], ascending=[False, True]),
         use_container_width=True,
