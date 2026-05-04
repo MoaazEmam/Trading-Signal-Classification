@@ -3,12 +3,13 @@ from pathlib import Path
 
 import streamlit as st
 
+from app.loaders import load_mi, load_selector
+from src.eda.plots import mi_ranking_bar
+
 ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.loaders import load_mi, load_selector
-from src.eda.plots import mi_ranking_bar
 
 st.set_page_config(page_title="MI & Importance", layout="wide")
 st.title("Mutual Information & LightGBM Gain")
@@ -30,7 +31,9 @@ st.subheader("MI vs LightGBM gain")
 selector = load_selector()
 
 if selector is None:
-    st.warning("feature_selector.pkl not found in models/artifacts/. Run the selection pipeline first.")
+    st.warning(
+        "feature_selector.pkl not found in models/artifacts/. Run the selection pipeline first."
+    )
 else:
     gain = selector.importance_scores_.rename("lgbm_gain").reset_index()
     gain.columns = ["feature", "lgbm_gain"]
@@ -53,7 +56,9 @@ else:
             "likely redundant with a correlated feature it preferred."
         )
         st.dataframe(
-            compare.sort_values("rank_delta", ascending=False).head(10)[COLS].style.format(FLOAT_COLS),
+            compare.sort_values("rank_delta", ascending=False)
+            .head(10)[COLS]
+            .style.format(FLOAT_COLS),
             use_container_width=True,
         )
     with tab2:

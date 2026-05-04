@@ -25,6 +25,11 @@ RUN az storage blob download-batch \
     --source models \
     --destination /app/models/
 RUN echo "=== /app/models/artifacts/ ===" && ls -lh /app/models/artifacts/
+RUN az storage blob download-batch \
+    --account-name "${AZURE_STORAGE_ACCOUNT}" \
+    --account-key "${AZURE_STORAGE_KEY}" \
+    --source mlruns \
+    --destination /app/mlruns/ || echo "No mlruns/ in storage yet, skipping"
 EXPOSE 8000 8501
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

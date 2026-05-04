@@ -1,18 +1,30 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import subprocess
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PREDICTIONS_DIR = PROJECT_ROOT / "predictions"
+BACKTEST_RESULTS_PATH = PROJECT_ROOT / "models" / "artifacts" / "backtest_results.json"
+
+
+class BacktestRequest(BaseModel):
+    model_name: str | None = None
+    initial_capital: float = 100_000.0
+    hold_days: int = 10
+
 
 app = FastAPI(
     title="Trading Signal Prediction API",
@@ -131,6 +143,64 @@ def trigger_prediction(date: str | None = None):
         }
     except subprocess.TimeoutExpired:
         raise HTTPException(status_code=504, detail="Prediction pipeline timed out.")
+
+
+@app.post("/backtest/run")
+async def run_backtest_endpoint(req: BacktestRequest):
+    from src.backtesting.engine import run_backtest
+
+    logger.info(
+        "Backtest requested — model=%s capital=%.0f hold_days=%d",
+        req.model_name or "best_model",
+        req.initial_capital,
+        req.hold_days,
+    )
+    start = time.monotonic()
+
+    def _run():
+        kwargs = dict(
+            initial_capital=req.initial_capital,
+            hold_days=req.hold_days,
+        )
+        if req.model_name:
+            kwargs["model_name"] = req.model_name
+        return run_backtest(**kwargs)
+
+    try:
+        loop = asyncio.get_event_loop()
+        results = await loop.run_in_executor(None, _run)
+    except Exception as exc:
+        logger.error("Backtest failed: %s", exc)
+        raise HTTPException(status_code=500, detail={"error": str(exc)})
+
+    duration = time.monotonic() - start
+    metrics = results.get("metrics", {})
+    logger.info(
+        "Backtest complete — duration=%.1fs return=%.2f%%",
+        duration,
+        metrics.get("total_return_pct", 0),
+    )
+
+    return {
+        "status": "success",
+        "model_name": results.get("model_name", req.model_name or "best_model"),
+        "metrics": {
+            "total_return_pct": metrics.get("total_return_pct"),
+            "sharpe_ratio": metrics.get("sharpe_ratio"),
+            "win_rate": metrics.get("win_rate"),
+            "profit_factor": metrics.get("profit_factor"),
+        },
+        "trades_count": results.get("total_trades", 0),
+        "run_duration_seconds": round(duration, 2),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+@app.get("/backtest/results")
+def get_backtest_results():
+    if not BACKTEST_RESULTS_PATH.exists():
+        raise HTTPException(status_code=404, detail="backtest_results.json not found.")
+    return json.loads(BACKTEST_RESULTS_PATH.read_text())
 
 
 if __name__ == "__main__":

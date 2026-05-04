@@ -38,6 +38,16 @@ jobs:
             AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
             AZURE_STORAGE_KEY=${{ secrets.AZURE_STORAGE_KEY }}
             
+      - name: Upload MLflow artifacts to Azure Blob
+        run: |
+          az storage blob upload-batch \
+            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+            --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
+            --destination mlruns \
+            --source ./mlruns \
+            --overwrite true \
+            || echo "No mlruns/ to upload, skipping"
+
       - name: Deploy to Azure Container Apps — API
         uses: azure/container-apps-deploy-action@v1
         with:
@@ -54,6 +64,8 @@ jobs:
               KAGGLE_API_TOKEN=${{ secrets.KAGGLE_API_TOKEN }}
               FRED_API_KEY=${{ secrets.FRED_API_KEY }}
               MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+              MLFLOW_ARTIFACT_ROOT=${{ secrets.MLFLOW_ARTIFACT_ROOT }}
+              AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
 
       - name: Deploy to Azure Container Apps — Streamlit
         uses: azure/container-apps-deploy-action@v1
@@ -69,6 +81,8 @@ jobs:
               SERVICE=streamlit
               API_URL=${{secrets.API_URL}}
               MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+              MLFLOW_ARTIFACT_ROOT=${{ secrets.MLFLOW_ARTIFACT_ROOT }}
+              AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
               KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}
               KAGGLE_API_TOKEN=${{ secrets.KAGGLE_API_TOKEN }}
               FRED_API_KEY=${{ secrets.FRED_API_KEY }}

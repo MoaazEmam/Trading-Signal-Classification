@@ -3,13 +3,14 @@ from pathlib import Path
 
 import streamlit as st
 
+from app.loaders import load_mi, load_train
+from src.eda.plots import class_conditional_box
+from src.eda.stats import class_conditional_stats
+
 ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.loaders import load_mi, load_train
-from src.eda.plots import class_conditional_box
-from src.eda.stats import class_conditional_stats
 
 st.set_page_config(page_title="Class-Conditional View", layout="wide")
 st.title("Class-Conditional View")
@@ -35,16 +36,22 @@ with col_stats:
 
     st.subheader("Per-class mean")
     st.dataframe(
-        stats.pivot(index="feature", columns="class", values="mean").style.format("{:.4f}"),
+        stats.pivot(index="feature", columns="class", values="mean").style.format(
+            "{:.4f}"
+        ),
         use_container_width=True,
     )
     st.subheader("Per-class median")
     st.dataframe(
-        stats.pivot(index="feature", columns="class", values="median").style.format("{:.4f}"),
+        stats.pivot(index="feature", columns="class", values="median").style.format(
+            "{:.4f}"
+        ),
         use_container_width=True,
     )
     st.subheader("Per-class std")
     st.dataframe(
-        stats.pivot(index="feature", columns="class", values="std").style.format("{:.4f}"),
+        stats.pivot(index="feature", columns="class", values="std").style.format(
+            "{:.4f}"
+        ),
         use_container_width=True,
     )

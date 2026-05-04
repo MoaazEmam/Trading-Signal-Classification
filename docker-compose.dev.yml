@@ -40,8 +40,18 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  # daily prediction scheduler
-  # runs make predict at 1 AM EET (22:00 UTC)
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow.db:/app/mlflow.db
+      - ./mlruns:/app/mlruns
+    restart: unless-stopped
+
   scheduler:
     build:
       context: .
