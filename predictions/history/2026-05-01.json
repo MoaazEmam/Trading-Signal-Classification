@@ -3,3824 +3,3816 @@
     "Company": "A",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30643542100274473,
-    "proba_hold": 0.2959369147632819,
-    "proba_sell": 0.3976276642339734
+    "proba_buy": 0.26254957863350165,
+    "proba_hold": 0.22165896911640875,
+    "proba_sell": 0.5157914522500896
   },
   {
     "Company": "AAPL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3448068447865518,
-    "proba_hold": 0.2180392330404973,
-    "proba_sell": 0.4371539221729504
+    "proba_buy": 0.2799915078228522,
+    "proba_hold": 0.20739617482763534,
+    "proba_sell": 0.5126123173495125
   },
   {
     "Company": "ABBV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3452772217636838,
-    "proba_hold": 0.24939253612371381,
-    "proba_sell": 0.40533024211260227
+    "proba_buy": 0.31184270873216796,
+    "proba_hold": 0.21168000507126694,
+    "proba_sell": 0.47647728619656493
   },
   {
     "Company": "ABEV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3278588718468549,
-    "proba_hold": 0.23877521411697342,
-    "proba_sell": 0.43336591403617186
+    "proba_buy": 0.2541622620935109,
+    "proba_hold": 0.22155904740593832,
+    "proba_sell": 0.5242786905005509
   },
   {
     "Company": "ABNB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3049958351648979,
-    "proba_hold": 0.2793469845294464,
-    "proba_sell": 0.4156571803056562
+    "proba_buy": 0.25151821703849714,
+    "proba_hold": 0.2132073674652478,
+    "proba_sell": 0.5352744154962551
   },
   {
     "Company": "ABT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3184749325603416,
-    "proba_hold": 0.2514559402867911,
-    "proba_sell": 0.43006912715286744
+    "proba_buy": 0.27539434529648665,
+    "proba_hold": 0.19446093907409753,
+    "proba_sell": 0.5301447156294158
   },
   {
     "Company": "ACGL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3420117266271037,
-    "proba_hold": 0.22258961381329265,
-    "proba_sell": 0.4353986595596031
+    "proba_buy": 0.29503413093209363,
+    "proba_hold": 0.2339944898600823,
+    "proba_sell": 0.4709713792078241
   },
   {
     "Company": "ACN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3007498045076347,
-    "proba_hold": 0.27559999078718994,
-    "proba_sell": 0.42365020470517534
+    "proba_buy": 0.2435850977488808,
+    "proba_hold": 0.21473883857585815,
+    "proba_sell": 0.541676063675261
   },
   {
     "Company": "ADBE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2993411630840284,
-    "proba_hold": 0.29825030059072855,
-    "proba_sell": 0.4024085363252429
+    "proba_buy": 0.22020509889435014,
+    "proba_hold": 0.21871242368253047,
+    "proba_sell": 0.5610824774231195
   },
   {
     "Company": "ADI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30044531879139513,
-    "proba_hold": 0.30223163450778745,
-    "proba_sell": 0.3973230467008175
+    "proba_buy": 0.1993275157664766,
+    "proba_hold": 0.31128470107158157,
+    "proba_sell": 0.4893877831619419
   },
   {
     "Company": "ADM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3249796539763014,
-    "proba_hold": 0.23999756824336033,
-    "proba_sell": 0.43502277778033843
+    "proba_buy": 0.24954463940422542,
+    "proba_hold": 0.2254869073118588,
+    "proba_sell": 0.5249684532839157
   },
   {
     "Company": "ADP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2955767482073407,
-    "proba_hold": 0.31308096007916947,
-    "proba_sell": 0.39134229171348983
+    "proba_buy": 0.18538161881405138,
+    "proba_hold": 0.3672041281942593,
+    "proba_sell": 0.4474142529916893
   },
   {
     "Company": "ADSK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3004261753835557,
-    "proba_hold": 0.2955669787638194,
-    "proba_sell": 0.4040068458526247
+    "proba_buy": 0.21911906896332675,
+    "proba_hold": 0.24949232755472095,
+    "proba_sell": 0.5313886034819524
   },
   {
     "Company": "AEE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3881496971443949,
-    "proba_hold": 0.184207520420612,
-    "proba_sell": 0.42764278243499293
+    "proba_buy": 0.37426485656738484,
+    "proba_hold": 0.17183747432910065,
+    "proba_sell": 0.45389766910351464
   },
   {
     "Company": "AEM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30646712491658756,
-    "proba_hold": 0.2928310576119331,
-    "proba_sell": 0.40070181747147926
+    "proba_buy": 0.2717181013666954,
+    "proba_hold": 0.16355855538283806,
+    "proba_sell": 0.5647233432504666
   },
   {
     "Company": "AEP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39651460621085166,
-    "proba_hold": 0.17033134126945706,
-    "proba_sell": 0.4331540525196913
+    "proba_buy": 0.39145117195066353,
+    "proba_hold": 0.16467170643279672,
+    "proba_sell": 0.44387712161653975
   },
   {
     "Company": "AFL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3975107977683848,
-    "proba_hold": 0.17225724283084326,
-    "proba_sell": 0.430231959400772
+    "proba_buy": 0.3521821754841531,
+    "proba_hold": 0.1268410694381336,
+    "proba_sell": 0.5209767550777132
   },
   {
     "Company": "AIG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34355027291224616,
-    "proba_hold": 0.24496752908978459,
-    "proba_sell": 0.41148219799796865
+    "proba_buy": 0.25521971794764575,
+    "proba_hold": 0.339324264868714,
+    "proba_sell": 0.4054560171836402
   },
   {
     "Company": "AJG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3578431688285012,
-    "proba_hold": 0.21490129143837466,
-    "proba_sell": 0.42725553973312425
+    "proba_buy": 0.2919643077505323,
+    "proba_hold": 0.18663756366788548,
+    "proba_sell": 0.5213981285815823
   },
   {
     "Company": "ALC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3183362675282163,
-    "proba_hold": 0.24495707350192197,
-    "proba_sell": 0.43670665896986194
+    "proba_buy": 0.25257770644538713,
+    "proba_hold": 0.2243713499720097,
+    "proba_sell": 0.5230509435826032
   },
   {
     "Company": "ALL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38292473906636476,
-    "proba_hold": 0.19230755152881934,
-    "proba_sell": 0.42476770940481573
+    "proba_buy": 0.3367160177854026,
+    "proba_hold": 0.1467664590465845,
+    "proba_sell": 0.5165175231680129
   },
   {
     "Company": "ALNY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.302148395977439,
-    "proba_hold": 0.2689132119554865,
-    "proba_sell": 0.4289383920670746
+    "proba_buy": 0.2828011232640665,
+    "proba_hold": 0.1405726495318307,
+    "proba_sell": 0.5766262272041028
   },
   {
     "Company": "AMAT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2998240597362465,
-    "proba_hold": 0.2983613744751652,
-    "proba_sell": 0.4018145657885882
+    "proba_buy": 0.2016348118082021,
+    "proba_hold": 0.2836206306041983,
+    "proba_sell": 0.5147445575875996
   },
   {
     "Company": "AMD",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.25220510521373296,
-    "proba_hold": 0.40088216997913884,
-    "proba_sell": 0.346912724807129
+    "proba_buy": 0.1328945720999087,
+    "proba_hold": 0.43379671344774,
+    "proba_sell": 0.4333087144523513
   },
   {
     "Company": "AME",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31645149178046095,
-    "proba_hold": 0.25070863376629526,
-    "proba_sell": 0.43283987445324384
+    "proba_buy": 0.26396816158272696,
+    "proba_hold": 0.21174139721415602,
+    "proba_sell": 0.5242904412031171
   },
   {
     "Company": "AMGN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3399554012895798,
-    "proba_hold": 0.22353030046031797,
-    "proba_sell": 0.4365142982501019
+    "proba_buy": 0.2851422142345933,
+    "proba_hold": 0.2181679636592139,
+    "proba_sell": 0.4966898221061928
   },
   {
     "Company": "AMP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34058019474914597,
-    "proba_hold": 0.22787420079005166,
-    "proba_sell": 0.43154560446080237
+    "proba_buy": 0.2846204694046643,
+    "proba_hold": 0.18946028474111673,
+    "proba_sell": 0.525919245854219
   },
   {
     "Company": "AMT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35405298387278544,
-    "proba_hold": 0.21290723715181406,
-    "proba_sell": 0.4330397789754
+    "proba_buy": 0.2926063744624813,
+    "proba_hold": 0.23728882479056343,
+    "proba_sell": 0.4701048007469552
   },
   {
     "Company": "AMZN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.33679143823151136,
-    "proba_hold": 0.23832446014456451,
-    "proba_sell": 0.4248841016239244
+    "proba_buy": 0.2914127423181626,
+    "proba_hold": 0.17355994762930516,
+    "proba_sell": 0.5350273100525322
   },
   {
     "Company": "ANET",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30015065262574914,
-    "proba_hold": 0.2969493913804533,
-    "proba_sell": 0.4028999559937976
+    "proba_buy": 0.21655322821817471,
+    "proba_hold": 0.20980670249691719,
+    "proba_sell": 0.5736400692849082
   },
   {
     "Company": "AON",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3083292550340261,
-    "proba_hold": 0.2549616454081535,
-    "proba_sell": 0.43670909955782045
+    "proba_buy": 0.22772512199732978,
+    "proba_hold": 0.25314953417303643,
+    "proba_sell": 0.5191253438296337
   },
   {
     "Company": "APD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.4012653691100227,
-    "proba_hold": 0.16691805359580245,
-    "proba_sell": 0.4318165772941747
+    "proba_buy": 0.4038804369648677,
+    "proba_hold": 0.09471057579017,
+    "proba_sell": 0.5014089872449623
   },
   {
     "Company": "APH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3085306074442954,
-    "proba_hold": 0.2681084215535309,
-    "proba_sell": 0.4233609710021737
+    "proba_buy": 0.2716493640476671,
+    "proba_hold": 0.15011817126723342,
+    "proba_sell": 0.5782324646850995
   },
   {
     "Company": "APO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30200690292384563,
-    "proba_hold": 0.2927891771553856,
-    "proba_sell": 0.4052039199207688
+    "proba_buy": 0.24242406590959384,
+    "proba_hold": 0.21666851536246834,
+    "proba_sell": 0.5409074187279378
   },
   {
     "Company": "APTV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3138815556761089,
-    "proba_hold": 0.25484467168683955,
-    "proba_sell": 0.43127377263705163
+    "proba_buy": 0.2879995369291583,
+    "proba_hold": 0.1644700210195351,
+    "proba_sell": 0.5475304420513066
   },
   {
     "Company": "ARES",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29093912220722873,
-    "proba_hold": 0.29974138102840764,
-    "proba_sell": 0.40931949676436363
+    "proba_buy": 0.22153452571694646,
+    "proba_hold": 0.17080748332577728,
+    "proba_sell": 0.6076579909572764
   },
   {
     "Company": "ARGX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3401815486018303,
-    "proba_hold": 0.21862150284046322,
-    "proba_sell": 0.4411969485577063
+    "proba_buy": 0.26477715100364774,
+    "proba_hold": 0.20041250340169836,
+    "proba_sell": 0.5348103455946539
   },
   {
     "Company": "ARM",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.21575408992764306,
-    "proba_hold": 0.48572575772667503,
-    "proba_sell": 0.298520152345682
+    "proba_buy": 0.094129502268653,
+    "proba_hold": 0.5392213962306563,
+    "proba_sell": 0.3666491015006906
   },
   {
     "Company": "ASML",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2939383910756975,
-    "proba_hold": 0.2841471701787197,
-    "proba_sell": 0.42191443874558276
+    "proba_buy": 0.21426916267783827,
+    "proba_hold": 0.23105997556901292,
+    "proba_sell": 0.5546708617531487
   },
   {
     "Company": "AVB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.36097468833459745,
-    "proba_hold": 0.21877807821458528,
-    "proba_sell": 0.42024723345081705
+    "proba_buy": 0.2645317095949183,
+    "proba_hold": 0.359322464457119,
+    "proba_sell": 0.3761458259479626
   },
   {
     "Company": "AVGO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2977973574758556,
-    "proba_hold": 0.30131982896945286,
-    "proba_sell": 0.4008828135546914
+    "proba_buy": 0.19001315315589748,
+    "proba_hold": 0.32986897076061483,
+    "proba_sell": 0.48011787608348766
   },
   {
     "Company": "AWK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38349826368188905,
-    "proba_hold": 0.20825659474868252,
-    "proba_sell": 0.4082451415694285
+    "proba_buy": 0.33593490046635627,
+    "proba_hold": 0.138767110148401,
+    "proba_sell": 0.5252979893852427
   },
   {
     "Company": "AXP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32368590312075524,
-    "proba_hold": 0.2428566741890648,
-    "proba_sell": 0.4334574226901801
+    "proba_buy": 0.266870343715879,
+    "proba_hold": 0.22074217670546026,
+    "proba_sell": 0.5123874795786608
   },
   {
     "Company": "AZN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38515284529386135,
-    "proba_hold": 0.1866540985372585,
-    "proba_sell": 0.4281930561688799
+    "proba_buy": 0.33237579123799016,
+    "proba_hold": 0.16080901029609504,
+    "proba_sell": 0.5068151984659148
   },
   {
     "Company": "AZO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31040764514166763,
-    "proba_hold": 0.25836637668333334,
-    "proba_sell": 0.43122597817499886
+    "proba_buy": 0.23857865880928647,
+    "proba_hold": 0.26489468805786215,
+    "proba_sell": 0.4965266531328515
   },
   {
     "Company": "BA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3050636557064906,
-    "proba_hold": 0.29722682102190295,
-    "proba_sell": 0.3977095232716065
+    "proba_buy": 0.2509833676148271,
+    "proba_hold": 0.2625967724747343,
+    "proba_sell": 0.48641985991043857
   },
   {
     "Company": "BABA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3043861834046102,
-    "proba_hold": 0.2666425805096255,
-    "proba_sell": 0.4289712360857642
+    "proba_buy": 0.23551378398968245,
+    "proba_hold": 0.22025164295745722,
+    "proba_sell": 0.5442345730528604
   },
   {
     "Company": "BAC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38534584202041006,
-    "proba_hold": 0.1922491641891568,
-    "proba_sell": 0.4224049937904332
+    "proba_buy": 0.34330079490404386,
+    "proba_hold": 0.1589625780786535,
+    "proba_sell": 0.49773662701730265
   },
   {
     "Company": "BBD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30221081011744944,
-    "proba_hold": 0.26234599005200293,
-    "proba_sell": 0.43544319983054774
+    "proba_buy": 0.2215433389101114,
+    "proba_hold": 0.24625008193555217,
+    "proba_sell": 0.5322065791543364
   },
   {
     "Company": "BBVA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2962414566798259,
-    "proba_hold": 0.30291606913080815,
-    "proba_sell": 0.4008424741893659
+    "proba_buy": 0.1959754970933625,
+    "proba_hold": 0.318310152398431,
+    "proba_sell": 0.48571435050820655
   },
   {
     "Company": "BCE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.383025216634586,
-    "proba_hold": 0.18520962743572567,
-    "proba_sell": 0.4317651559296879
+    "proba_buy": 0.3184704909111538,
+    "proba_hold": 0.22844373212051944,
+    "proba_sell": 0.4530857769683268
   },
   {
     "Company": "BCS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26590418623122714,
-    "proba_hold": 0.30370899314746774,
-    "proba_sell": 0.43038682062130545
+    "proba_buy": 0.17737848023607974,
+    "proba_hold": 0.3344292306373418,
+    "proba_sell": 0.48819228912657836
   },
   {
     "Company": "BDX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38777642616330643,
-    "proba_hold": 0.1944983415616071,
-    "proba_sell": 0.41772523227508607
+    "proba_buy": 0.34260163584783554,
+    "proba_hold": 0.16155223352491657,
+    "proba_sell": 0.4958461306272479
   },
   {
     "Company": "BEKE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30201676708351854,
-    "proba_hold": 0.30117650833312537,
-    "proba_sell": 0.396806724583356
+    "proba_buy": 0.21012233373228056,
+    "proba_hold": 0.30621774595195494,
+    "proba_sell": 0.4836599203157646
   },
   {
     "Company": "BHP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3143688805700585,
-    "proba_hold": 0.24907720387702884,
-    "proba_sell": 0.4365539155529126
+    "proba_buy": 0.2508822982348685,
+    "proba_hold": 0.2875016305452048,
+    "proba_sell": 0.46161607121992665
   },
   {
     "Company": "BIDU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.299060497071319,
-    "proba_hold": 0.30061582165939404,
-    "proba_sell": 0.40032368126928686
+    "proba_buy": 0.2199493947957107,
+    "proba_hold": 0.24133178318878326,
+    "proba_sell": 0.538718822015506
   },
   {
     "Company": "BIIB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3021168106778478,
-    "proba_hold": 0.3003825316895504,
-    "proba_sell": 0.3975006576326015
+    "proba_buy": 0.20945084046046308,
+    "proba_hold": 0.2980789962623142,
+    "proba_sell": 0.4924701632772227
   },
   {
     "Company": "BK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.387471399070082,
-    "proba_hold": 0.1818980473510616,
-    "proba_sell": 0.4306305535788561
+    "proba_buy": 0.34549617520864234,
+    "proba_hold": 0.14022359128358727,
+    "proba_sell": 0.5142802335077704
   },
   {
     "Company": "BKNG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29896592457444215,
-    "proba_hold": 0.2933788875866254,
-    "proba_sell": 0.4076551878389324
+    "proba_buy": 0.23802427053145264,
+    "proba_hold": 0.20386329554259022,
+    "proba_sell": 0.5581124339259572
   },
   {
     "Company": "BKR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30448248949990087,
-    "proba_hold": 0.2991195902820283,
-    "proba_sell": 0.3963979202180707
+    "proba_buy": 0.23150474144548347,
+    "proba_hold": 0.24851952521282555,
+    "proba_sell": 0.5199757333416909
   },
   {
     "Company": "BLK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32464025500267923,
-    "proba_hold": 0.24304416347092023,
-    "proba_sell": 0.43231558152640076
+    "proba_buy": 0.25020738925233177,
+    "proba_hold": 0.21318226148273572,
+    "proba_sell": 0.5366103492649325
   },
   {
     "Company": "BMO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3997693040507086,
-    "proba_hold": 0.16910208282120007,
-    "proba_sell": 0.43112861312809136
+    "proba_buy": 0.40341896678281974,
+    "proba_hold": 0.14975055136628382,
+    "proba_sell": 0.44683048185089635
   },
   {
     "Company": "BMY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30291836841543057,
-    "proba_hold": 0.2997027972619576,
-    "proba_sell": 0.39737883432261173
+    "proba_buy": 0.23165098228913752,
+    "proba_hold": 0.3225550108363968,
+    "proba_sell": 0.4457940068744656
   },
   {
     "Company": "BN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3118467375026563,
-    "proba_hold": 0.253219524054449,
-    "proba_sell": 0.434933738442895
+    "proba_buy": 0.2597116310208078,
+    "proba_hold": 0.2080229943059371,
+    "proba_sell": 0.5322653746732551
   },
   {
     "Company": "BNS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39096354137373623,
-    "proba_hold": 0.17615669904880238,
-    "proba_sell": 0.4328797595774612
+    "proba_buy": 0.35329562089653943,
+    "proba_hold": 0.20519853464036766,
+    "proba_sell": 0.441505844463093
   },
   {
     "Company": "BNTX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30104652829016826,
-    "proba_hold": 0.30176015719871624,
-    "proba_sell": 0.39719331451111556
+    "proba_buy": 0.24490256979514127,
+    "proba_hold": 0.21205881082615027,
+    "proba_sell": 0.5430386193787085
   },
   {
     "Company": "BP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26186684433242957,
-    "proba_hold": 0.3325682664353979,
-    "proba_sell": 0.40556488923217293
+    "proba_buy": 0.193424359140588,
+    "proba_hold": 0.29728155937003437,
+    "proba_sell": 0.5092940814893777
   },
   {
     "Company": "BR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3143280025578967,
-    "proba_hold": 0.25337379036456986,
-    "proba_sell": 0.4322982070775337
+    "proba_buy": 0.2817156634716808,
+    "proba_hold": 0.1725289781122775,
+    "proba_sell": 0.5457553584160417
   },
   {
     "Company": "BRO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3064852243366747,
-    "proba_hold": 0.2631615253909102,
-    "proba_sell": 0.4303532502724153
+    "proba_buy": 0.2792964978879741,
+    "proba_hold": 0.174377966063289,
+    "proba_sell": 0.5463255360487369
   },
   {
     "Company": "BSBR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3738965064907387,
-    "proba_hold": 0.1997829110971779,
-    "proba_sell": 0.42632058241208315
+    "proba_buy": 0.2995582184640153,
+    "proba_hold": 0.18555019895906547,
+    "proba_sell": 0.5148915825769192
   },
   {
     "Company": "BSX",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.2806889566224826,
-    "proba_hold": 0.36451751565654633,
-    "proba_sell": 0.35479352772097145
+    "predicted_label": "Sell",
+    "proba_buy": 0.187630846887851,
+    "proba_hold": 0.3411301003277969,
+    "proba_sell": 0.471239052784352
   },
   {
     "Company": "BTI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32724092784074726,
-    "proba_hold": 0.2546139776121456,
-    "proba_sell": 0.4181450945471068
+    "proba_buy": 0.25799917263203254,
+    "proba_hold": 0.32751586970700647,
+    "proba_sell": 0.41448495766096094
   },
   {
     "Company": "BUD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3370930210671366,
-    "proba_hold": 0.22338479269401684,
-    "proba_sell": 0.439522186238846
+    "proba_buy": 0.27636323400135554,
+    "proba_hold": 0.3231748065515763,
+    "proba_sell": 0.40046195944706814
   },
   {
     "Company": "BX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3008963251110203,
-    "proba_hold": 0.29496147069534245,
-    "proba_sell": 0.4041422041936371
+    "proba_buy": 0.23184546044384277,
+    "proba_hold": 0.1964691926538907,
+    "proba_sell": 0.5716853469022665
   },
   {
     "Company": "C",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31078349666664623,
-    "proba_hold": 0.29962900293827227,
-    "proba_sell": 0.3895875003950816
+    "proba_buy": 0.23321837418280839,
+    "proba_hold": 0.3072497763986908,
+    "proba_sell": 0.45953184941850084
   },
   {
     "Company": "CAH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3295182406793702,
-    "proba_hold": 0.30084852858498273,
-    "proba_sell": 0.3696332307356473
+    "proba_buy": 0.28759889055816584,
+    "proba_hold": 0.26187214523387703,
+    "proba_sell": 0.4505289642079572
   },
   {
     "Company": "CARR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2740375338979975,
-    "proba_hold": 0.31358878809776836,
-    "proba_sell": 0.4123736780042342
+    "proba_buy": 0.16834599309823023,
+    "proba_hold": 0.26878307013083075,
+    "proba_sell": 0.562870936770939
   },
   {
     "Company": "CAT",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2963644550998723,
-    "proba_hold": 0.31199023567928325,
-    "proba_sell": 0.3916453092208444
+    "predicted_label": "Hold",
+    "proba_buy": 0.1659073639879734,
+    "proba_hold": 0.42479755068924874,
+    "proba_sell": 0.4092950853227779
   },
   {
     "Company": "CB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3919347159267313,
-    "proba_hold": 0.17978668445869547,
-    "proba_sell": 0.42827859961457315
+    "proba_buy": 0.3782447207310722,
+    "proba_hold": 0.1481014823642927,
+    "proba_sell": 0.47365379690463505
   },
   {
     "Company": "CBRE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3325724240683503,
-    "proba_hold": 0.24266359340285,
-    "proba_sell": 0.42476398252879993
+    "proba_buy": 0.30854826164754323,
+    "proba_hold": 0.1401505907248492,
+    "proba_sell": 0.5513011476276075
   },
   {
     "Company": "CCEP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34323330893478243,
-    "proba_hold": 0.22025038564348823,
-    "proba_sell": 0.43651630542172903
+    "proba_buy": 0.2678394578513226,
+    "proba_hold": 0.22776456754844823,
+    "proba_sell": 0.5043959746002291
   },
   {
     "Company": "CCI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.311923883457633,
-    "proba_hold": 0.29736494520228424,
-    "proba_sell": 0.3907111713400829
+    "proba_buy": 0.2704494719682049,
+    "proba_hold": 0.2810488078317514,
+    "proba_sell": 0.44850172020004375
   },
   {
     "Company": "CCJ",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.2564045887497136,
-    "proba_hold": 0.4006273722025274,
-    "proba_sell": 0.3429680390477596
+    "predicted_label": "Sell",
+    "proba_buy": 0.17659899152000852,
+    "proba_hold": 0.3360020356111173,
+    "proba_sell": 0.4873989728688741
   },
   {
     "Company": "CCL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24810428403430948,
-    "proba_hold": 0.37292059937593175,
-    "proba_sell": 0.37897511658975924
+    "proba_buy": 0.1456463507371805,
+    "proba_hold": 0.26296620660027836,
+    "proba_sell": 0.5913874426625411
   },
   {
     "Company": "CDNS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2800271739137022,
-    "proba_hold": 0.3058080289914857,
-    "proba_sell": 0.41416479709481213
+    "proba_buy": 0.1740774503695042,
+    "proba_hold": 0.26753142066225166,
+    "proba_sell": 0.5583911289682442
   },
   {
     "Company": "CDW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31322520356731404,
-    "proba_hold": 0.2728973562388299,
-    "proba_sell": 0.4138774401938561
+    "proba_buy": 0.2648461049508729,
+    "proba_hold": 0.2212882106002334,
+    "proba_sell": 0.5138656844488937
   },
   {
     "Company": "CEG",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.28385539216405525,
-    "proba_hold": 0.36053774178556564,
-    "proba_sell": 0.3556068660503792
+    "predicted_label": "Sell",
+    "proba_buy": 0.1961986379312612,
+    "proba_hold": 0.37086989229415523,
+    "proba_sell": 0.4329314697745835
   },
   {
     "Company": "CHD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38312727694708165,
-    "proba_hold": 0.2009981508048297,
-    "proba_sell": 0.4158745722480884
+    "proba_buy": 0.32383620285423964,
+    "proba_hold": 0.17899073396398932,
+    "proba_sell": 0.49717306318177096
   },
   {
     "Company": "CHT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.400971427802818,
-    "proba_hold": 0.16402569492216237,
-    "proba_sell": 0.43500287727501946
+    "proba_buy": 0.44131591548070065,
+    "proba_hold": 0.11208386299720885,
+    "proba_sell": 0.4466002215220905
   },
   {
     "Company": "CHTR",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2177919109215523,
-    "proba_hold": 0.49572930068042736,
-    "proba_sell": 0.28647878839802127
+    "proba_buy": 0.09749850478630087,
+    "proba_hold": 0.6288246081133901,
+    "proba_sell": 0.27367688710030896
   },
   {
     "Company": "CI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3472252888347598,
-    "proba_hold": 0.22431065047394821,
-    "proba_sell": 0.4284640606912921
+    "proba_buy": 0.3065821967276183,
+    "proba_hold": 0.17695609785102984,
+    "proba_sell": 0.516461705421352
   },
   {
     "Company": "CL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3561208456154369,
-    "proba_hold": 0.2106299840488672,
-    "proba_sell": 0.4332491703356956
+    "proba_buy": 0.289911395082107,
+    "proba_hold": 0.2222214934246595,
+    "proba_sell": 0.4878671114932336
   },
   {
     "Company": "CM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3864524770251191,
-    "proba_hold": 0.19089293619246342,
-    "proba_sell": 0.4226545867824171
+    "proba_buy": 0.36905097819036486,
+    "proba_hold": 0.21856887462593189,
+    "proba_sell": 0.4123801471837033
   },
   {
     "Company": "CMCSA",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2454142012917344,
-    "proba_hold": 0.42914522721005033,
-    "proba_sell": 0.32544057149821554
+    "proba_buy": 0.12057950624488029,
+    "proba_hold": 0.5334810646459686,
+    "proba_sell": 0.3459394291091511
   },
   {
     "Company": "CME",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3763733170433911,
-    "proba_hold": 0.20935665590734642,
-    "proba_sell": 0.4142700270492626
+    "proba_buy": 0.3446044650228064,
+    "proba_hold": 0.1653664037769028,
+    "proba_sell": 0.4900291312002908
   },
   {
     "Company": "CMG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32827904658366286,
-    "proba_hold": 0.2558572890809434,
-    "proba_sell": 0.41586366433539396
+    "proba_buy": 0.3258782284856826,
+    "proba_hold": 0.15613699422118915,
+    "proba_sell": 0.5179847772931283
   },
   {
     "Company": "CMI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3003699054139924,
-    "proba_hold": 0.2952940112501737,
-    "proba_sell": 0.404336083335834
+    "proba_buy": 0.21675070489142878,
+    "proba_hold": 0.26080697615512005,
+    "proba_sell": 0.5224423189534512
   },
   {
     "Company": "CNC",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2674468846398298,
-    "proba_hold": 0.3612041514110498,
-    "proba_sell": 0.3713489639491209
+    "predicted_label": "Hold",
+    "proba_buy": 0.15204828758608285,
+    "proba_hold": 0.437585629420282,
+    "proba_sell": 0.4103660829936351
   },
   {
     "Company": "CNI",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2859959370770827,
-    "proba_hold": 0.35603432551282216,
-    "proba_sell": 0.3579697374100953
+    "predicted_label": "Hold",
+    "proba_buy": 0.16528906312004923,
+    "proba_hold": 0.5333664480711772,
+    "proba_sell": 0.3013444888087735
   },
   {
     "Company": "CNQ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2517640700130318,
-    "proba_hold": 0.3479936172189351,
-    "proba_sell": 0.40024231276803346
+    "proba_buy": 0.15365470550760488,
+    "proba_hold": 0.36755105504468866,
+    "proba_sell": 0.4787942394477065
   },
   {
     "Company": "COF",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.25894769604239587,
-    "proba_hold": 0.33740843805485754,
-    "proba_sell": 0.403643865902747
+    "proba_buy": 0.20640246484248603,
+    "proba_hold": 0.27618690640403293,
+    "proba_sell": 0.517410628753481
   },
   {
     "Company": "COIN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27391260974281023,
-    "proba_hold": 0.3161445289227047,
-    "proba_sell": 0.4099428613344852
+    "proba_buy": 0.20503320882846696,
+    "proba_hold": 0.154245042259279,
+    "proba_sell": 0.640721748912254
   },
   {
     "Company": "COP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3040428949469319,
-    "proba_hold": 0.27011330998181793,
-    "proba_sell": 0.42584379507125014
+    "proba_buy": 0.23828501731413965,
+    "proba_hold": 0.22357173038970196,
+    "proba_sell": 0.5381432522961584
   },
   {
     "Company": "COR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3900929778187409,
-    "proba_hold": 0.18896873737607162,
-    "proba_sell": 0.4209382848051873
+    "proba_buy": 0.3538640053452441,
+    "proba_hold": 0.1195826734670046,
+    "proba_sell": 0.5265533211877513
   },
   {
     "Company": "COST",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3846015053524532,
-    "proba_hold": 0.19082032435365107,
-    "proba_sell": 0.42457817029389544
+    "proba_buy": 0.34689492503545405,
+    "proba_hold": 0.21569655082874653,
+    "proba_sell": 0.43740852413579945
   },
   {
     "Company": "CP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34027471569791296,
-    "proba_hold": 0.24539158266113945,
-    "proba_sell": 0.4143337016409471
+    "proba_buy": 0.2619765412980947,
+    "proba_hold": 0.33902921878602843,
+    "proba_sell": 0.39899423991587685
   },
   {
     "Company": "CPNG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31828805427902884,
-    "proba_hold": 0.2571779767198856,
-    "proba_sell": 0.4245339690010853
+    "proba_buy": 0.3111436932126041,
+    "proba_hold": 0.16269505691556296,
+    "proba_sell": 0.526161249871833
   },
   {
     "Company": "CPRT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.40150494384732,
-    "proba_hold": 0.1663487180890524,
-    "proba_sell": 0.43214633806362746
+    "proba_buy": 0.41423817440179794,
+    "proba_hold": 0.08770663451673152,
+    "proba_sell": 0.4980551910814704
   },
   {
     "Company": "CQP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3604571173591091,
-    "proba_hold": 0.21401385561938946,
-    "proba_sell": 0.4255290270215014
+    "proba_buy": 0.3168936702654377,
+    "proba_hold": 0.14923670310949075,
+    "proba_sell": 0.5338696266250715
   },
   {
     "Company": "CRH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30057390326147126,
-    "proba_hold": 0.2642428365593629,
-    "proba_sell": 0.435183260179166
+    "proba_buy": 0.2157264444195189,
+    "proba_hold": 0.2592657978885206,
+    "proba_sell": 0.5250077576919604
   },
   {
     "Company": "CRM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.295889393647504,
-    "proba_hold": 0.3036075570148039,
-    "proba_sell": 0.40050304933769204
+    "proba_buy": 0.21450192869019613,
+    "proba_hold": 0.23968324645501793,
+    "proba_sell": 0.5458148248547859
   },
   {
     "Company": "CRWD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2803923866123453,
-    "proba_hold": 0.3090988255118627,
-    "proba_sell": 0.41050878787579215
+    "proba_buy": 0.16671995689822514,
+    "proba_hold": 0.28286106938645383,
+    "proba_sell": 0.550418973715321
   },
   {
     "Company": "CSCO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35789455403744186,
-    "proba_hold": 0.20806724948947572,
-    "proba_sell": 0.43403819647308195
+    "proba_buy": 0.2959993281271582,
+    "proba_hold": 0.20219788826279456,
+    "proba_sell": 0.5018027836100473
   },
   {
     "Company": "CSGP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3013397805158409,
-    "proba_hold": 0.2707361618725504,
-    "proba_sell": 0.42792405761160873
+    "proba_buy": 0.29428251205241657,
+    "proba_hold": 0.12232950522817142,
+    "proba_sell": 0.5833879827194121
   },
   {
     "Company": "CSX",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.3060861573621513,
-    "proba_hold": 0.3346081185976432,
-    "proba_sell": 0.3593057240402054
+    "predicted_label": "Hold",
+    "proba_buy": 0.19858647508498992,
+    "proba_hold": 0.48609726817615684,
+    "proba_sell": 0.3153162567388532
   },
   {
     "Company": "CTAS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3880825288144596,
-    "proba_hold": 0.1855350067240792,
-    "proba_sell": 0.42638246446146083
+    "proba_buy": 0.3472729397332881,
+    "proba_hold": 0.1540276579973059,
+    "proba_sell": 0.49869940226940607
   },
   {
     "Company": "CTRA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3035320688548098,
-    "proba_hold": 0.2695043579640033,
-    "proba_sell": 0.42696357318118694
+    "proba_buy": 0.2347650824779874,
+    "proba_hold": 0.20309553609978187,
+    "proba_sell": 0.5621393814222307
   },
   {
     "Company": "CTSH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3101832256309916,
-    "proba_hold": 0.266758496060164,
-    "proba_sell": 0.4230582783088444
+    "proba_buy": 0.3001466574202874,
+    "proba_hold": 0.13573330447765075,
+    "proba_sell": 0.5641200381020618
   },
   {
     "Company": "CTVA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.4019982489971343,
-    "proba_hold": 0.16923724478905977,
-    "proba_sell": 0.4287645062138058
+    "proba_buy": 0.3860253486538055,
+    "proba_hold": 0.08110746195650749,
+    "proba_sell": 0.532867189389687
   },
   {
     "Company": "CVE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24072043220858735,
-    "proba_hold": 0.3692947620706194,
-    "proba_sell": 0.38998480572079325
+    "proba_buy": 0.16717769363511928,
+    "proba_hold": 0.33802711539301217,
+    "proba_sell": 0.4947951909718684
   },
   {
     "Company": "CVS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29484790316745596,
-    "proba_hold": 0.2963735595114022,
-    "proba_sell": 0.4087785373211418
+    "proba_buy": 0.18488478693916477,
+    "proba_hold": 0.3082983747032162,
+    "proba_sell": 0.506816838357619
   },
   {
     "Company": "CVX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3374295770824055,
-    "proba_hold": 0.22699094097692085,
-    "proba_sell": 0.43557948194067336
+    "proba_buy": 0.25296822668066543,
+    "proba_hold": 0.23038959027735265,
+    "proba_sell": 0.516642183041982
   },
   {
     "Company": "D",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3833881663292133,
-    "proba_hold": 0.19839395485815017,
-    "proba_sell": 0.4182178788126361
+    "proba_buy": 0.3218835149621698,
+    "proba_hold": 0.21611356752292948,
+    "proba_sell": 0.4620029175149008
   },
   {
     "Company": "DAL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27654154613351123,
-    "proba_hold": 0.3157554860696783,
-    "proba_sell": 0.40770296779681103
+    "proba_buy": 0.230424984058314,
+    "proba_hold": 0.18527895438476139,
+    "proba_sell": 0.5842960615569246
   },
   {
     "Company": "DASH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29016370055557766,
-    "proba_hold": 0.30159619591517994,
-    "proba_sell": 0.4082401035292424
+    "proba_buy": 0.19569265808916184,
+    "proba_hold": 0.21051308404657876,
+    "proba_sell": 0.5937942578642594
   },
   {
     "Company": "DB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2990358921799648,
-    "proba_hold": 0.26249543290887817,
-    "proba_sell": 0.43846867491115715
+    "proba_buy": 0.1933695463866486,
+    "proba_hold": 0.2862871338957717,
+    "proba_sell": 0.5203433197175797
   },
   {
     "Company": "DD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3393838617262483,
-    "proba_hold": 0.23080764280386074,
-    "proba_sell": 0.42980849546989086
+    "proba_buy": 0.2635049432481721,
+    "proba_hold": 0.20937691145767487,
+    "proba_sell": 0.5271181452941531
   },
   {
     "Company": "DDOG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2699092525011537,
-    "proba_hold": 0.3226575660074402,
-    "proba_sell": 0.4074331814914061
+    "proba_buy": 0.17887803283079504,
+    "proba_hold": 0.22325229774951452,
+    "proba_sell": 0.5978696694196903
   },
   {
     "Company": "DE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2985052951993129,
-    "proba_hold": 0.3054423498931749,
-    "proba_sell": 0.39605235490751217
+    "proba_buy": 0.1927668548514921,
+    "proba_hold": 0.3421046324673002,
+    "proba_sell": 0.4651285126812076
   },
   {
     "Company": "DELL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27028472733697695,
-    "proba_hold": 0.3251554817294365,
-    "proba_sell": 0.4045597909335868
+    "proba_buy": 0.17369276532005282,
+    "proba_hold": 0.24096631494644216,
+    "proba_sell": 0.5853409197335051
   },
   {
     "Company": "DEO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3132146906451963,
-    "proba_hold": 0.24750523394662693,
-    "proba_sell": 0.4392800754081768
+    "proba_buy": 0.23776957256249515,
+    "proba_hold": 0.26838567114547834,
+    "proba_sell": 0.4938447562920264
   },
   {
     "Company": "DG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24074166289702542,
-    "proba_hold": 0.3768995750119973,
-    "proba_sell": 0.38235876209097747
+    "proba_buy": 0.1977126861358442,
+    "proba_hold": 0.28697499612304456,
+    "proba_sell": 0.5153123177411112
   },
   {
     "Company": "DHI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3030828726594489,
-    "proba_hold": 0.2978190344236943,
-    "proba_sell": 0.3990980929168568
+    "proba_buy": 0.22489396558221258,
+    "proba_hold": 0.2673652503390028,
+    "proba_sell": 0.5077407840787845
   },
   {
     "Company": "DHR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31356285681058416,
-    "proba_hold": 0.25813589444849816,
-    "proba_sell": 0.4283012487409177
+    "proba_buy": 0.282988106913474,
+    "proba_hold": 0.18836339102418503,
+    "proba_sell": 0.5286485020623409
   },
   {
     "Company": "DIS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3774181818963251,
-    "proba_hold": 0.19547888064261648,
-    "proba_sell": 0.42710293746105793
+    "proba_buy": 0.3001728425657202,
+    "proba_hold": 0.2102673587376309,
+    "proba_sell": 0.48955979869664895
   },
   {
     "Company": "DLR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38469954552023516,
-    "proba_hold": 0.19248038617465377,
-    "proba_sell": 0.42282006830511065
+    "proba_buy": 0.3404700733452038,
+    "proba_hold": 0.1474479992584223,
+    "proba_sell": 0.5120819273963738
   },
   {
     "Company": "DLTR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2996403027519391,
-    "proba_hold": 0.2934518885395316,
-    "proba_sell": 0.40690780870852933
+    "proba_buy": 0.257554211782957,
+    "proba_hold": 0.17450820452357202,
+    "proba_sell": 0.567937583693471
   },
   {
     "Company": "DOV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3099766308695689,
-    "proba_hold": 0.28483168670109144,
-    "proba_sell": 0.4051916824293395
+    "proba_buy": 0.27289465675901214,
+    "proba_hold": 0.2553586442249022,
+    "proba_sell": 0.4717466990160858
   },
   {
     "Company": "DOW",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.2281080374087108,
-    "proba_hold": 0.4124948914490005,
-    "proba_sell": 0.3593970711422891
+    "predicted_label": "Sell",
+    "proba_buy": 0.17441047162773907,
+    "proba_hold": 0.2565781346939213,
+    "proba_sell": 0.5690113936783396
   },
   {
     "Company": "DTE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38271945883944075,
-    "proba_hold": 0.19733863371764354,
-    "proba_sell": 0.4199419074429153
+    "proba_buy": 0.32389270410757,
+    "proba_hold": 0.26600862702975503,
+    "proba_sell": 0.410098668862675
   },
   {
     "Company": "DUK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39535925578886266,
-    "proba_hold": 0.17319350670948938,
-    "proba_sell": 0.43144723750164815
+    "proba_buy": 0.39861078221004304,
+    "proba_hold": 0.17917263551559887,
+    "proba_sell": 0.42221658227435815
   },
   {
     "Company": "DVN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3032862218112764,
-    "proba_hold": 0.26995339660686923,
-    "proba_sell": 0.42676038158185436
+    "proba_buy": 0.23075422046143865,
+    "proba_hold": 0.21308482648398175,
+    "proba_sell": 0.5561609530545797
   },
   {
     "Company": "DXCM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3036056151309983,
-    "proba_hold": 0.293605247099432,
-    "proba_sell": 0.4027891377695697
+    "proba_buy": 0.272766507154078,
+    "proba_hold": 0.16209816933204896,
+    "proba_sell": 0.5651353235138731
   },
   {
     "Company": "E",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2599828861387865,
-    "proba_hold": 0.32423676862239353,
-    "proba_sell": 0.4157803452388204
+    "proba_buy": 0.1796864029394046,
+    "proba_hold": 0.3236716665797592,
+    "proba_sell": 0.4966419304808362
   },
   {
     "Company": "EA",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.3939830895643479,
-    "proba_hold": 0.17703043076140973,
-    "proba_sell": 0.428986479674243
+    "predicted_label": "Buy",
+    "proba_buy": 0.4743308012291019,
+    "proba_hold": 0.1472779362256869,
+    "proba_sell": 0.3783912625452111
   },
   {
     "Company": "EBAY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30712192890735734,
-    "proba_hold": 0.2926252847602537,
-    "proba_sell": 0.4002527863323889
+    "proba_buy": 0.27832803064644696,
+    "proba_hold": 0.16169386621208418,
+    "proba_sell": 0.5599781031414689
   },
   {
     "Company": "EC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.300867758250784,
-    "proba_hold": 0.29449453555803745,
-    "proba_sell": 0.40463770619117845
+    "proba_buy": 0.24522253750310394,
+    "proba_hold": 0.1859454273697823,
+    "proba_sell": 0.5688320351271138
   },
   {
     "Company": "ECL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3437057397261738,
-    "proba_hold": 0.220424401122959,
-    "proba_sell": 0.43586985915086707
+    "proba_buy": 0.29110245047453326,
+    "proba_hold": 0.18249379734706617,
+    "proba_sell": 0.5264037521784005
   },
   {
     "Company": "ED",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3972417328050338,
-    "proba_hold": 0.17198512187662815,
-    "proba_sell": 0.43077314531833805
+    "proba_buy": 0.3986550207935375,
+    "proba_hold": 0.1609239391054918,
+    "proba_sell": 0.44042104010097066
   },
   {
     "Company": "EFX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30410615706867716,
-    "proba_hold": 0.29397943281580247,
-    "proba_sell": 0.4019144101155204
+    "proba_buy": 0.272850135974214,
+    "proba_hold": 0.15872640873693886,
+    "proba_sell": 0.5684234552888472
   },
   {
     "Company": "EIX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35409648612874806,
-    "proba_hold": 0.20574596777303986,
-    "proba_sell": 0.4401575460982119
+    "proba_buy": 0.2772759861756601,
+    "proba_hold": 0.19514700937513058,
+    "proba_sell": 0.5275770044492093
   },
   {
     "Company": "EL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31818622988186085,
-    "proba_hold": 0.25105667379035773,
-    "proba_sell": 0.4307570963277816
+    "proba_buy": 0.317611286622106,
+    "proba_hold": 0.11783362610963159,
+    "proba_sell": 0.5645550872682624
   },
   {
     "Company": "ELV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31281415091805054,
-    "proba_hold": 0.2904532341617315,
-    "proba_sell": 0.3967326149202179
+    "proba_buy": 0.29151978355891917,
+    "proba_hold": 0.22068153646816108,
+    "proba_sell": 0.4877986799729197
   },
   {
     "Company": "EMR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.294446160271507,
-    "proba_hold": 0.27576820498493465,
-    "proba_sell": 0.4297856347435586
+    "proba_buy": 0.19945871432582482,
+    "proba_hold": 0.2732636922286486,
+    "proba_sell": 0.5272775934455266
   },
   {
     "Company": "ENB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38329896606477215,
-    "proba_hold": 0.19469559045807702,
-    "proba_sell": 0.4220054434771503
+    "proba_buy": 0.3350535732113677,
+    "proba_hold": 0.2692661445310988,
+    "proba_sell": 0.39568028225753354
   },
   {
     "Company": "EOG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.296407036292085,
-    "proba_hold": 0.27260693449548656,
-    "proba_sell": 0.43098602921242885
+    "proba_buy": 0.2328922374868422,
+    "proba_hold": 0.22967014289721877,
+    "proba_sell": 0.537437619615939
   },
   {
     "Company": "EPD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39953642633453135,
-    "proba_hold": 0.16676156832055175,
-    "proba_sell": 0.4337020053449169
+    "proba_buy": 0.3943276971955592,
+    "proba_hold": 0.13150320142876035,
+    "proba_sell": 0.4741691013756804
   },
   {
     "Company": "EQIX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3897640641879711,
-    "proba_hold": 0.18538353377734482,
-    "proba_sell": 0.42485240203468394
+    "proba_buy": 0.3435573319245583,
+    "proba_hold": 0.13176582944423929,
+    "proba_sell": 0.5246768386312025
   },
   {
     "Company": "EQNR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2851689839398897,
-    "proba_hold": 0.31228793572340857,
-    "proba_sell": 0.4025430803367016
+    "proba_buy": 0.1846115363577124,
+    "proba_hold": 0.26292890081540204,
+    "proba_sell": 0.5524595628268856
   },
   {
     "Company": "EQR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3539742068782772,
-    "proba_hold": 0.21283852549358465,
-    "proba_sell": 0.43318726762813775
+    "proba_buy": 0.28721301479536887,
+    "proba_hold": 0.2653330940357192,
+    "proba_sell": 0.44745389116891193
   },
   {
     "Company": "ES",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38686444603944736,
-    "proba_hold": 0.19341067343540502,
-    "proba_sell": 0.4197248805251473
+    "proba_buy": 0.35155552736134715,
+    "proba_hold": 0.21912544659727548,
+    "proba_sell": 0.42931902604137734
   },
   {
     "Company": "ET",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.4004493647032643,
-    "proba_hold": 0.16790990122104943,
-    "proba_sell": 0.43164073407568615
+    "proba_buy": 0.40930204461568653,
+    "proba_hold": 0.14466838211931737,
+    "proba_sell": 0.44602957326499615
   },
   {
     "Company": "ETN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3078522666845286,
-    "proba_hold": 0.2704670134177847,
-    "proba_sell": 0.42168071989768663
+    "proba_buy": 0.2624660247489643,
+    "proba_hold": 0.21597413223987202,
+    "proba_sell": 0.5215598430111636
   },
   {
     "Company": "ETR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38048220253318,
-    "proba_hold": 0.20456711750232337,
-    "proba_sell": 0.41495067996449625
+    "proba_buy": 0.318886906422914,
+    "proba_hold": 0.2515657470247617,
+    "proba_sell": 0.42954734655232435
   },
   {
     "Company": "EW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30857470279982885,
-    "proba_hold": 0.29607262306185056,
-    "proba_sell": 0.39535267413832054
+    "proba_buy": 0.25838057504147227,
+    "proba_hold": 0.2734026045420981,
+    "proba_sell": 0.4682168204164296
   },
   {
     "Company": "EXC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3980663152346419,
-    "proba_hold": 0.17453790972015262,
-    "proba_sell": 0.42739577504520554
+    "proba_buy": 0.3794229477140355,
+    "proba_hold": 0.1207912846576622,
+    "proba_sell": 0.49978576762830246
   },
   {
     "Company": "EXR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37572296260524546,
-    "proba_hold": 0.20314065054934652,
-    "proba_sell": 0.4211363868454076
+    "proba_buy": 0.2956101204449764,
+    "proba_hold": 0.20744348615049937,
+    "proba_sell": 0.4969463934045241
   },
   {
     "Company": "F",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.24283792360879197,
-    "proba_hold": 0.3883818782745554,
-    "proba_sell": 0.3687801981166528
+    "predicted_label": "Sell",
+    "proba_buy": 0.20339497829054665,
+    "proba_hold": 0.3335859555863041,
+    "proba_sell": 0.46301906612314936
   },
   {
     "Company": "FANG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.28671389349192905,
-    "proba_hold": 0.30117608412219055,
-    "proba_sell": 0.41211002238588124
+    "proba_buy": 0.24144036592691004,
+    "proba_hold": 0.22542056934626026,
+    "proba_sell": 0.5331390647268298
   },
   {
     "Company": "FAST",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2590854379394476,
-    "proba_hold": 0.3317250444162548,
-    "proba_sell": 0.4091895176442983
+    "proba_buy": 0.13546507868161742,
+    "proba_hold": 0.41924527117388083,
+    "proba_sell": 0.4452896501445018
   },
   {
     "Company": "FCNCA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3783013925991088,
-    "proba_hold": 0.20449465147335777,
-    "proba_sell": 0.4172039559275333
+    "proba_buy": 0.32448237007718805,
+    "proba_hold": 0.16897401661887193,
+    "proba_sell": 0.5065436133039399
   },
   {
     "Company": "FCX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2694883883890649,
-    "proba_hold": 0.3293893512522357,
-    "proba_sell": 0.40112226035869997
+    "proba_buy": 0.17352974218091188,
+    "proba_hold": 0.2841232486034163,
+    "proba_sell": 0.5423470092156718
   },
   {
     "Company": "FDX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31037159897257816,
-    "proba_hold": 0.2547873572572724,
-    "proba_sell": 0.4348410437701497
+    "proba_buy": 0.25401270489148114,
+    "proba_hold": 0.21590434678959028,
+    "proba_sell": 0.5300829483189285
   },
   {
     "Company": "FE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39189358206484676,
-    "proba_hold": 0.18500499328856929,
-    "proba_sell": 0.4231014246465839
+    "proba_buy": 0.3762820805227413,
+    "proba_hold": 0.1587261089265545,
+    "proba_sell": 0.46499181055070415
   },
   {
     "Company": "FERG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3142954413091605,
-    "proba_hold": 0.24645936851794326,
-    "proba_sell": 0.4392451901728965
+    "proba_buy": 0.24685762265962713,
+    "proba_hold": 0.25111573825588945,
+    "proba_sell": 0.5020266390844833
   },
   {
     "Company": "FICO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24523327278550056,
-    "proba_hold": 0.3749486814584288,
-    "proba_sell": 0.3798180457560709
+    "proba_buy": 0.1533391705097143,
+    "proba_hold": 0.178848109019725,
+    "proba_sell": 0.6678127204705607
   },
   {
     "Company": "FIS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24396174363293072,
-    "proba_hold": 0.3622240218029956,
-    "proba_sell": 0.39381423456407405
+    "proba_buy": 0.1605946366625987,
+    "proba_hold": 0.3477967452799653,
+    "proba_sell": 0.491608618057436
   },
   {
     "Company": "FITB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3805995071351607,
-    "proba_hold": 0.19687666552477495,
-    "proba_sell": 0.42252382734006394
+    "proba_buy": 0.31410823248856357,
+    "proba_hold": 0.1834554398279196,
+    "proba_sell": 0.5024363276835168
   },
   {
     "Company": "FMX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35207882083964653,
-    "proba_hold": 0.22292795080425165,
-    "proba_sell": 0.42499322835610154
+    "proba_buy": 0.27854031615766384,
+    "proba_hold": 0.29894439079784396,
+    "proba_sell": 0.42251529304449215
   },
   {
     "Company": "FNV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3599370299940576,
-    "proba_hold": 0.2158424847528032,
-    "proba_sell": 0.4242204852531389
+    "proba_buy": 0.33056650672652593,
+    "proba_hold": 0.12324461745239887,
+    "proba_sell": 0.5461888758210752
   },
   {
     "Company": "FTNT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3012598183918417,
-    "proba_hold": 0.29706180771440943,
-    "proba_sell": 0.4016783738937489
+    "proba_buy": 0.22314539218748508,
+    "proba_hold": 0.25210665874090066,
+    "proba_sell": 0.5247479490716143
   },
   {
     "Company": "FTS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3977060969389369,
-    "proba_hold": 0.16751284419449988,
-    "proba_sell": 0.4347810588665632
+    "proba_buy": 0.4107151077071278,
+    "proba_hold": 0.16250252197618284,
+    "proba_sell": 0.4267823703166894
   },
   {
     "Company": "FTV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3394642258356012,
-    "proba_hold": 0.22502855925796528,
-    "proba_sell": 0.43550721490643335
+    "proba_buy": 0.2567531477977273,
+    "proba_hold": 0.21313999715310722,
+    "proba_sell": 0.5301068550491654
   },
   {
     "Company": "GD",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.28612563250621437,
-    "proba_hold": 0.35584149654900804,
-    "proba_sell": 0.35803287094477776
+    "predicted_label": "Hold",
+    "proba_buy": 0.16573727377273945,
+    "proba_hold": 0.47554225205219997,
+    "proba_sell": 0.3587204741750605
   },
   {
     "Company": "GE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3002032521752019,
-    "proba_hold": 0.29531279934746946,
-    "proba_sell": 0.4044839484773285
+    "proba_buy": 0.22342454002272563,
+    "proba_hold": 0.20643105960604397,
+    "proba_sell": 0.5701444003712304
   },
   {
     "Company": "GEHC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27314698457086833,
-    "proba_hold": 0.333463488203078,
-    "proba_sell": 0.3933895272260539
+    "proba_buy": 0.17947867583813135,
+    "proba_hold": 0.33361919567238485,
+    "proba_sell": 0.48690212848948367
   },
   {
     "Company": "GFS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29052033262323596,
-    "proba_hold": 0.30018504893768627,
-    "proba_sell": 0.4092946184390777
+    "proba_buy": 0.2030260095421192,
+    "proba_hold": 0.19447542641508297,
+    "proba_sell": 0.6024985640427978
   },
   {
     "Company": "GIB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2987200520819558,
-    "proba_hold": 0.30374107668878286,
-    "proba_sell": 0.39753887122926146
+    "proba_buy": 0.22521418931196666,
+    "proba_hold": 0.256659486245705,
+    "proba_sell": 0.5181263244423284
   },
   {
     "Company": "GILD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38653086710885654,
-    "proba_hold": 0.19439481644435677,
-    "proba_sell": 0.41907431644678644
+    "proba_buy": 0.3455237439293304,
+    "proba_hold": 0.1459529158706131,
+    "proba_sell": 0.5085233402000565
   },
   {
     "Company": "GIS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38227968299379017,
-    "proba_hold": 0.19478658850382932,
-    "proba_sell": 0.42293372850238015
+    "proba_buy": 0.31626119922488566,
+    "proba_hold": 0.17212183184648236,
+    "proba_sell": 0.5116169689286321
   },
   {
     "Company": "GLW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2666913220973483,
-    "proba_hold": 0.32794623054260547,
-    "proba_sell": 0.4053624473600467
+    "proba_buy": 0.17556469088505794,
+    "proba_hold": 0.20574991374538065,
+    "proba_sell": 0.6186853953695615
   },
   {
     "Company": "GM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.25558728550336984,
-    "proba_hold": 0.3461360550770837,
-    "proba_sell": 0.39827665941954676
+    "proba_buy": 0.21406683644697863,
+    "proba_hold": 0.2437485391232285,
+    "proba_sell": 0.542184624429793
   },
   {
     "Company": "GMAB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3209390037400741,
-    "proba_hold": 0.2510424920345911,
-    "proba_sell": 0.4280185042253351
+    "proba_buy": 0.28451732772864574,
+    "proba_hold": 0.190777442939004,
+    "proba_sell": 0.5247052293323502
   },
   {
     "Company": "GOLD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3001263199740377,
-    "proba_hold": 0.296191649480586,
-    "proba_sell": 0.40368203054537616
+    "proba_buy": 0.25722746740830754,
+    "proba_hold": 0.14033075639563827,
+    "proba_sell": 0.6024417761960542
   },
   {
     "Company": "GOOGL",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2798715018497803,
-    "proba_hold": 0.3673128382344879,
-    "proba_sell": 0.35281565991573194
+    "proba_buy": 0.13022304167489307,
+    "proba_hold": 0.5716625575672627,
+    "proba_sell": 0.29811440075784423
   },
   {
     "Company": "GPN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3039384941120429,
-    "proba_hold": 0.2985693907177068,
-    "proba_sell": 0.39749211517025024
+    "proba_buy": 0.22342760888566288,
+    "proba_hold": 0.25875197374468833,
+    "proba_sell": 0.5178204173696488
   },
   {
     "Company": "GRMN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31713637354932067,
-    "proba_hold": 0.2512108963643577,
-    "proba_sell": 0.4316527300863217
+    "proba_buy": 0.2737228594759513,
+    "proba_hold": 0.20005874737081036,
+    "proba_sell": 0.5262183931532383
   },
   {
     "Company": "GS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.332884708707731,
-    "proba_hold": 0.23355940147548984,
-    "proba_sell": 0.43355588981677906
+    "proba_buy": 0.25948666428760225,
+    "proba_hold": 0.219969575803115,
+    "proba_sell": 0.5205437599092827
   },
   {
     "Company": "GSK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31328586316970464,
-    "proba_hold": 0.252989442154582,
-    "proba_sell": 0.4337246946757133
+    "proba_buy": 0.259437069996895,
+    "proba_hold": 0.22862717702540977,
+    "proba_sell": 0.5119357529776952
   },
   {
     "Company": "GWW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3736197227173879,
-    "proba_hold": 0.19899081582427397,
-    "proba_sell": 0.4273894614583378
+    "proba_buy": 0.29132462943715587,
+    "proba_hold": 0.22182030569349895,
+    "proba_sell": 0.48685506486934516
   },
   {
     "Company": "HAL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3168812205146795,
-    "proba_hold": 0.2538000937974917,
-    "proba_sell": 0.42931868568782894
+    "proba_buy": 0.28823875139149435,
+    "proba_hold": 0.16155827967907643,
+    "proba_sell": 0.5502029689294292
   },
   {
     "Company": "HCA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30067327589536114,
-    "proba_hold": 0.30060255444287814,
-    "proba_sell": 0.3987241696617608
+    "proba_buy": 0.22910429093654014,
+    "proba_hold": 0.24973832076159158,
+    "proba_sell": 0.5211573883018682
   },
   {
     "Company": "HD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2660142561226707,
-    "proba_hold": 0.314499846420444,
-    "proba_sell": 0.4194858974568858
+    "proba_buy": 0.1907416963972606,
+    "proba_hold": 0.3098160349818775,
+    "proba_sell": 0.4994422686208618
   },
   {
     "Company": "HDB",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.22987346535166228,
-    "proba_hold": 0.3853936209612364,
-    "proba_sell": 0.3847329136871015
+    "predicted_label": "Sell",
+    "proba_buy": 0.14119292661911365,
+    "proba_hold": 0.37990454223557923,
+    "proba_sell": 0.4789025311453072
   },
   {
     "Company": "HEI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3005626219744715,
-    "proba_hold": 0.2944693860494328,
-    "proba_sell": 0.4049679919760958
+    "proba_buy": 0.23297517503756315,
+    "proba_hold": 0.23371533433239458,
+    "proba_sell": 0.5333094906300423
   },
   {
     "Company": "HIG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3794016021417038,
-    "proba_hold": 0.20303135622184965,
-    "proba_sell": 0.41756704163644615
+    "proba_buy": 0.3174297451556263,
+    "proba_hold": 0.20278513627501701,
+    "proba_sell": 0.4797851185693567
   },
   {
     "Company": "HLN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39712227676714706,
-    "proba_hold": 0.17276570126320256,
-    "proba_sell": 0.4301120219696504
+    "proba_buy": 0.4013939992892935,
+    "proba_hold": 0.16386653506877052,
+    "proba_sell": 0.4347394656419359
   },
   {
     "Company": "HLT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3116528601622629,
-    "proba_hold": 0.25067113009007763,
-    "proba_sell": 0.43767600974765986
+    "proba_buy": 0.2538997352811589,
+    "proba_hold": 0.21758606877730377,
+    "proba_sell": 0.5285141959415373
   },
   {
     "Company": "HMC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35839724235823184,
-    "proba_hold": 0.20902589762639945,
-    "proba_sell": 0.43257686001536866
+    "proba_buy": 0.27149491047663565,
+    "proba_hold": 0.31928735388403673,
+    "proba_sell": 0.4092177356393277
   },
   {
     "Company": "HON",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34671353763307167,
-    "proba_hold": 0.21895614614314823,
-    "proba_sell": 0.43433031622378016
+    "proba_buy": 0.29084672622318997,
+    "proba_hold": 0.1826229436289228,
+    "proba_sell": 0.5265303301478872
   },
   {
     "Company": "HPE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3112564651313722,
-    "proba_hold": 0.28850797440709547,
-    "proba_sell": 0.4002355604615324
+    "proba_buy": 0.2986840006731905,
+    "proba_hold": 0.18727269496408605,
+    "proba_sell": 0.5140433043627234
   },
   {
     "Company": "HPQ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3003311097768082,
-    "proba_hold": 0.30059406786405374,
-    "proba_sell": 0.3990748223591379
+    "proba_buy": 0.2176925778984845,
+    "proba_hold": 0.2600788084923777,
+    "proba_sell": 0.5222286136091377
   },
   {
     "Company": "HSBC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.33953013460656783,
-    "proba_hold": 0.216867857387831,
-    "proba_sell": 0.44360200800560096
+    "proba_buy": 0.24314254743193772,
+    "proba_hold": 0.35218773300983464,
+    "proba_sell": 0.4046697195582276
   },
   {
     "Company": "HSY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3623392785663313,
-    "proba_hold": 0.20872994648195367,
-    "proba_sell": 0.42893077495171494
+    "proba_buy": 0.3086112355368583,
+    "proba_hold": 0.16096292503503284,
+    "proba_sell": 0.5304258394281088
   },
   {
     "Company": "HUBS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26409687680552363,
-    "proba_hold": 0.3238612299592362,
-    "proba_sell": 0.41204189323524026
+    "proba_buy": 0.15586732733530653,
+    "proba_hold": 0.1991573920226243,
+    "proba_sell": 0.6449752806420691
   },
   {
     "Company": "HUM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3018236955168358,
-    "proba_hold": 0.29629082563295794,
-    "proba_sell": 0.4018854788502062
+    "proba_buy": 0.2322468716386489,
+    "proba_hold": 0.183119987444773,
+    "proba_sell": 0.5846331409165781
   },
   {
     "Company": "HWM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30610579236633567,
-    "proba_hold": 0.26136143724793437,
-    "proba_sell": 0.4325327703857302
+    "proba_buy": 0.26440748711293516,
+    "proba_hold": 0.1905588368852042,
+    "proba_sell": 0.5450336760018606
   },
   {
     "Company": "IBKR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2991596450001923,
-    "proba_hold": 0.26813327734278813,
-    "proba_sell": 0.43270707765701966
+    "proba_buy": 0.21891586467749538,
+    "proba_hold": 0.24011494522550691,
+    "proba_sell": 0.5409691900969977
   },
   {
     "Company": "IBM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30202362158449747,
-    "proba_hold": 0.29947478678217293,
-    "proba_sell": 0.3985015916333295
+    "proba_buy": 0.22206903556641586,
+    "proba_hold": 0.2946897792132287,
+    "proba_sell": 0.48324118522035536
   },
   {
     "Company": "IBN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3178906810294797,
-    "proba_hold": 0.29327811510435836,
-    "proba_sell": 0.388831203866162
+    "proba_buy": 0.24420305101817508,
+    "proba_hold": 0.28430808683757014,
+    "proba_sell": 0.47148886214425484
   },
   {
     "Company": "ICE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.36108769263650004,
-    "proba_hold": 0.22261471192348395,
-    "proba_sell": 0.416297595440016
+    "proba_buy": 0.28748453382135675,
+    "proba_hold": 0.20572013216874524,
+    "proba_sell": 0.506795334009898
   },
   {
     "Company": "ICLR",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.250815965449923,
-    "proba_hold": 0.40035172478638903,
-    "proba_sell": 0.34883230976368873
+    "predicted_label": "Sell",
+    "proba_buy": 0.14748113616927336,
+    "proba_hold": 0.360257668093253,
+    "proba_sell": 0.4922611957374737
   },
   {
     "Company": "IDXX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31101580616751123,
-    "proba_hold": 0.25610369704893005,
-    "proba_sell": 0.4328804967835589
+    "proba_buy": 0.26965422120396176,
+    "proba_hold": 0.18547489697524353,
+    "proba_sell": 0.5448708818207947
   },
   {
     "Company": "IFF",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29387519822837493,
-    "proba_hold": 0.27723959624029887,
-    "proba_sell": 0.42888520553132653
+    "proba_buy": 0.18468895959578555,
+    "proba_hold": 0.28898056377035003,
+    "proba_sell": 0.5263304766338645
   },
   {
     "Company": "IMO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3159265308576948,
-    "proba_hold": 0.25747707218954946,
-    "proba_sell": 0.4265963969527556
+    "proba_buy": 0.27708188078671975,
+    "proba_hold": 0.2175894682011462,
+    "proba_sell": 0.5053286510121341
   },
   {
     "Company": "INFY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.304108987230803,
-    "proba_hold": 0.2646764694021263,
-    "proba_sell": 0.43121454336707077
+    "proba_buy": 0.26160130654481484,
+    "proba_hold": 0.19119405431334466,
+    "proba_sell": 0.5472046391418405
   },
   {
     "Company": "ING",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31486512427467944,
-    "proba_hold": 0.2460909287417962,
-    "proba_sell": 0.4390439469835243
+    "proba_buy": 0.2538376124240558,
+    "proba_hold": 0.29346192627064016,
+    "proba_sell": 0.45270046130530406
   },
   {
     "Company": "INTC",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2169013836133888,
-    "proba_hold": 0.4900872636995697,
-    "proba_sell": 0.29301135268704204
+    "proba_buy": 0.09480511751935253,
+    "proba_hold": 0.6064088517558789,
+    "proba_sell": 0.2987860307247686
   },
   {
     "Company": "INTU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2739440813640242,
-    "proba_hold": 0.31275084515025825,
-    "proba_sell": 0.41330507348571766
+    "proba_buy": 0.1790572580363299,
+    "proba_hold": 0.23506882513874308,
+    "proba_sell": 0.585873916824927
   },
   {
     "Company": "INVH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37858601694934796,
-    "proba_hold": 0.2046390459301458,
-    "proba_sell": 0.4167749371205058
+    "proba_buy": 0.31873531736144856,
+    "proba_hold": 0.24290068043243498,
+    "proba_sell": 0.4383640022061163
   },
   {
     "Company": "IQV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30278031115506976,
-    "proba_hold": 0.29805816202677404,
-    "proba_sell": 0.3991615268181561
+    "proba_buy": 0.254013759815125,
+    "proba_hold": 0.18132284498873938,
+    "proba_sell": 0.5646633951961357
   },
   {
     "Company": "IR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2997634080721324,
-    "proba_hold": 0.2949678924295143,
-    "proba_sell": 0.4052686994983532
+    "proba_buy": 0.23145694617040488,
+    "proba_hold": 0.21280730734355477,
+    "proba_sell": 0.5557357464860404
   },
   {
     "Company": "ISRG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3024507972326213,
-    "proba_hold": 0.3080600538692638,
-    "proba_sell": 0.38948914889811476
+    "proba_buy": 0.21121911953018138,
+    "proba_hold": 0.33678663349377397,
+    "proba_sell": 0.4519942469760447
   },
   {
     "Company": "IT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29301527945413736,
-    "proba_hold": 0.27501015572065135,
-    "proba_sell": 0.4319745648252114
+    "proba_buy": 0.25645592956594276,
+    "proba_hold": 0.1635579484622212,
+    "proba_sell": 0.5799861219718361
   },
   {
     "Company": "ITUB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3154280184025635,
-    "proba_hold": 0.247437665340757,
-    "proba_sell": 0.4371343162566797
+    "proba_buy": 0.24630180972872392,
+    "proba_hold": 0.2238849257097347,
+    "proba_sell": 0.5298132645615414
   },
   {
     "Company": "ITW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3398564954093997,
-    "proba_hold": 0.23242649623989003,
-    "proba_sell": 0.42771700835071047
+    "proba_buy": 0.28255097768954346,
+    "proba_hold": 0.18533609569548232,
+    "proba_sell": 0.5321129266149742
   },
   {
     "Company": "IX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29837866479944103,
-    "proba_hold": 0.30647249119111397,
-    "proba_sell": 0.3951488440094449
+    "proba_buy": 0.21776009191765774,
+    "proba_hold": 0.3749897238948472,
+    "proba_sell": 0.4072501841874951
   },
   {
     "Company": "JCI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3388341059342842,
-    "proba_hold": 0.22060400258216645,
-    "proba_sell": 0.44056189148354913
+    "proba_buy": 0.26013030546311583,
+    "proba_hold": 0.21863818331957613,
+    "proba_sell": 0.521231511217308
   },
   {
     "Company": "JD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2750420717339568,
-    "proba_hold": 0.30088009529990434,
-    "proba_sell": 0.4240778329661392
+    "proba_buy": 0.16989855310801588,
+    "proba_hold": 0.3229081625449764,
+    "proba_sell": 0.5071932843470077
   },
   {
     "Company": "JNJ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.393609518023968,
-    "proba_hold": 0.17877693944794754,
-    "proba_sell": 0.4276135425280845
+    "proba_buy": 0.38276777428775144,
+    "proba_hold": 0.13486798731971947,
+    "proba_sell": 0.482364238392529
   },
   {
     "Company": "JPM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3814399834750346,
-    "proba_hold": 0.18902749087776208,
-    "proba_sell": 0.4295325256472027
+    "proba_buy": 0.32481104700670194,
+    "proba_hold": 0.20874106167496523,
+    "proba_sell": 0.46644789131833286
   },
   {
     "Company": "KDP",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2889261842769682,
-    "proba_hold": 0.3498495995968176,
-    "proba_sell": 0.3612242161262143
+    "predicted_label": "Hold",
+    "proba_buy": 0.18587041289596892,
+    "proba_hold": 0.43173995167027013,
+    "proba_sell": 0.3823896354337608
   },
   {
     "Company": "KEYS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3171240114464578,
-    "proba_hold": 0.25092227125526834,
-    "proba_sell": 0.43195371729827414
+    "proba_buy": 0.2770816753646136,
+    "proba_hold": 0.20018671459392579,
+    "proba_sell": 0.5227316100414606
   },
   {
     "Company": "KHC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3527446923304431,
-    "proba_hold": 0.21288069986925226,
-    "proba_sell": 0.43437460780030457
+    "proba_buy": 0.25847895608566973,
+    "proba_hold": 0.27295839363077185,
+    "proba_sell": 0.4685626502835584
   },
   {
     "Company": "KKR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30038352719207123,
-    "proba_hold": 0.29415737862838104,
-    "proba_sell": 0.40545909417954773
+    "proba_buy": 0.23816985653149658,
+    "proba_hold": 0.21572807723932122,
+    "proba_sell": 0.5461020662291822
   },
   {
     "Company": "KLAC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29932459883183926,
-    "proba_hold": 0.29873744697511095,
-    "proba_sell": 0.4019379541930498
+    "proba_buy": 0.2407590436806184,
+    "proba_hold": 0.17188413936291305,
+    "proba_sell": 0.5873568169564685
   },
   {
     "Company": "KMB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3322170605797122,
-    "proba_hold": 0.2334849193256041,
-    "proba_sell": 0.4342980200946838
+    "proba_buy": 0.25582388184619365,
+    "proba_hold": 0.24167763152414387,
+    "proba_sell": 0.5024984866296625
   },
   {
     "Company": "KMI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38467445359293534,
-    "proba_hold": 0.2013203223311278,
-    "proba_sell": 0.4140052240759367
+    "proba_buy": 0.33937414170906516,
+    "proba_hold": 0.19070585621889688,
+    "proba_sell": 0.4699200020720381
   },
   {
     "Company": "KO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3808758810324006,
-    "proba_hold": 0.20011429720011623,
-    "proba_sell": 0.4190098217674827
+    "proba_buy": 0.32555711122131004,
+    "proba_hold": 0.24604461317322104,
+    "proba_sell": 0.4283982756054689
   },
   {
     "Company": "KR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3691651249959599,
-    "proba_hold": 0.20703959525081894,
-    "proba_sell": 0.4237952797532208
+    "proba_buy": 0.2959904752407912,
+    "proba_hold": 0.1862588549008216,
+    "proba_sell": 0.5177506698583871
   },
   {
     "Company": "KVUE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37402686882484837,
-    "proba_hold": 0.201011988298992,
-    "proba_sell": 0.42496114287615944
+    "proba_buy": 0.2912593421760717,
+    "proba_hold": 0.27188834985112476,
+    "proba_sell": 0.43685230797280344
   },
   {
     "Company": "LEN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3159412774769966,
-    "proba_hold": 0.25375969913448615,
-    "proba_sell": 0.43029902338851733
+    "proba_buy": 0.2756651616741357,
+    "proba_hold": 0.17610766576682618,
+    "proba_sell": 0.5482271725590381
   },
   {
     "Company": "LHX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38391736488629846,
-    "proba_hold": 0.20875814950612048,
-    "proba_sell": 0.40732448560758094
+    "proba_buy": 0.34014507364838775,
+    "proba_hold": 0.14472685382071432,
+    "proba_sell": 0.5151280725308979
   },
   {
     "Company": "LI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31579449211913974,
-    "proba_hold": 0.253445676821168,
-    "proba_sell": 0.43075983105969295
+    "proba_buy": 0.2531447292273553,
+    "proba_hold": 0.21063758479437591,
+    "proba_sell": 0.5362176859782688
   },
   {
     "Company": "LIN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39586047233324345,
-    "proba_hold": 0.17245572353723557,
-    "proba_sell": 0.431683804129521
+    "proba_buy": 0.37388080051752165,
+    "proba_hold": 0.14170745602879517,
+    "proba_sell": 0.4844117434536831
   },
   {
     "Company": "LLY",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2793967407259915,
-    "proba_hold": 0.37187902077294444,
-    "proba_sell": 0.3487242385010642
+    "proba_buy": 0.15614576526522794,
+    "proba_hold": 0.5077872384011054,
+    "proba_sell": 0.33606699633366666
   },
   {
     "Company": "LMT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35158777067249297,
-    "proba_hold": 0.2226894855001283,
-    "proba_sell": 0.42572274382737857
+    "proba_buy": 0.33380085014372196,
+    "proba_hold": 0.1315020555627087,
+    "proba_sell": 0.5346970942935694
   },
   {
     "Company": "LNG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3094988980429719,
-    "proba_hold": 0.2608023516073303,
-    "proba_sell": 0.4296987503496981
+    "proba_buy": 0.2518358290970393,
+    "proba_hold": 0.2187722938764829,
+    "proba_sell": 0.5293918770264779
   },
   {
     "Company": "LOW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30305103875269707,
-    "proba_hold": 0.26306990431933924,
-    "proba_sell": 0.43387905692796386
+    "proba_buy": 0.2236263448764652,
+    "proba_hold": 0.24848735195852187,
+    "proba_sell": 0.527886303165013
   },
   {
     "Company": "LRCX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29260206466358524,
-    "proba_hold": 0.29947852269815844,
-    "proba_sell": 0.40791941263825626
+    "proba_buy": 0.19884216842340544,
+    "proba_hold": 0.19987576252027237,
+    "proba_sell": 0.6012820690563222
   },
   {
     "Company": "LULU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27389298196819545,
-    "proba_hold": 0.32758622276902855,
-    "proba_sell": 0.3985207952627763
+    "proba_buy": 0.17265513755216477,
+    "proba_hold": 0.2721628241616111,
+    "proba_sell": 0.5551820382862241
   },
   {
     "Company": "LVS",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2907535118053365,
-    "proba_hold": 0.34556080712510867,
-    "proba_sell": 0.36368568106955507
+    "predicted_label": "Hold",
+    "proba_buy": 0.1743904417902649,
+    "proba_hold": 0.4384197462689444,
+    "proba_sell": 0.3871898119407906
   },
   {
     "Company": "LYB",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.19574379127594427,
-    "proba_hold": 0.5113502381960795,
-    "proba_sell": 0.2929059705279758
+    "proba_buy": 0.1378377188973082,
+    "proba_hold": 0.48191216925544245,
+    "proba_sell": 0.3802501118472494
   },
   {
     "Company": "LYG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3030525864707354,
-    "proba_hold": 0.25719156477065747,
-    "proba_sell": 0.43975584875860724
+    "proba_buy": 0.21326418330555177,
+    "proba_hold": 0.3117256547206334,
+    "proba_sell": 0.47501016197381485
   },
   {
     "Company": "LYV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2607183438815904,
-    "proba_hold": 0.32973774303840664,
-    "proba_sell": 0.40954391308000365
+    "proba_buy": 0.1882130326831606,
+    "proba_hold": 0.2589227429004598,
+    "proba_sell": 0.5528642244163796
   },
   {
     "Company": "MA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34259712737721465,
-    "proba_hold": 0.22105937979024415,
-    "proba_sell": 0.4363434928325407
+    "proba_buy": 0.2962394950619407,
+    "proba_hold": 0.23090664434544528,
+    "proba_sell": 0.472853860592614
   },
   {
     "Company": "MAR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.272106352492495,
-    "proba_hold": 0.3022293690296834,
-    "proba_sell": 0.42566427847782196
+    "proba_buy": 0.1903827258683824,
+    "proba_hold": 0.2823890379720609,
+    "proba_sell": 0.5272282361595567
   },
   {
     "Company": "MBLY",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.2834300259190144,
-    "proba_hold": 0.360044473615208,
-    "proba_sell": 0.3565255004657778
+    "predicted_label": "Sell",
+    "proba_buy": 0.1879698967806482,
+    "proba_hold": 0.3310137863784636,
+    "proba_sell": 0.48101631684088814
   },
   {
     "Company": "MCD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3830480389134535,
-    "proba_hold": 0.19277709641856983,
-    "proba_sell": 0.42417486466797594
+    "proba_buy": 0.3433569450583694,
+    "proba_hold": 0.20620423356166767,
+    "proba_sell": 0.45043882137996305
   },
   {
     "Company": "MCHP",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.27816458834650776,
-    "proba_hold": 0.37130044224243797,
-    "proba_sell": 0.3505349694110545
+    "proba_buy": 0.16749642812865628,
+    "proba_hold": 0.4323541959749342,
+    "proba_sell": 0.4001493758964095
   },
   {
     "Company": "MCK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39665085981495163,
-    "proba_hold": 0.17154085250217854,
-    "proba_sell": 0.4318082876828699
+    "proba_buy": 0.36143759291736516,
+    "proba_hold": 0.12211687488954176,
+    "proba_sell": 0.5164455321930931
   },
   {
     "Company": "MCO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35213160891675427,
-    "proba_hold": 0.21279305838682053,
-    "proba_sell": 0.43507533269642507
+    "proba_buy": 0.29550282714724946,
+    "proba_hold": 0.17260494614265653,
+    "proba_sell": 0.5318922267100941
   },
   {
     "Company": "MDB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27559846840300245,
-    "proba_hold": 0.30929886917862714,
-    "proba_sell": 0.4151026624183705
+    "proba_buy": 0.20440611507281573,
+    "proba_hold": 0.15579856546056292,
+    "proba_sell": 0.6397953194666214
   },
   {
     "Company": "MDLZ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3411951283487813,
-    "proba_hold": 0.22293497067012086,
-    "proba_sell": 0.43586990098109746
+    "proba_buy": 0.2766868556518761,
+    "proba_hold": 0.2590456864690909,
+    "proba_sell": 0.46426745787903306
   },
   {
     "Company": "MDT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.36449541999601004,
-    "proba_hold": 0.20998019391367928,
-    "proba_sell": 0.4255243860903103
+    "proba_buy": 0.30293985935896245,
+    "proba_hold": 0.20549371906883743,
+    "proba_sell": 0.4915664215722001
   },
   {
     "Company": "MELI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32320473140961536,
-    "proba_hold": 0.2502013745302916,
-    "proba_sell": 0.42659389406009324
+    "proba_buy": 0.295515967864788,
+    "proba_hold": 0.187769798475108,
+    "proba_sell": 0.516714233660104
   },
   {
     "Company": "MET",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37795485484167224,
-    "proba_hold": 0.19224690813243595,
-    "proba_sell": 0.4297982370258915
+    "proba_buy": 0.316205146576394,
+    "proba_hold": 0.21148688343727645,
+    "proba_sell": 0.47230796998632957
   },
   {
     "Company": "META",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29799359650488916,
-    "proba_hold": 0.3028083783055137,
-    "proba_sell": 0.39919802518959685
+    "proba_buy": 0.19269155482980876,
+    "proba_hold": 0.3277106315438103,
+    "proba_sell": 0.47959781362638093
   },
   {
     "Company": "MFC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3769887636416829,
-    "proba_hold": 0.19029974025976404,
-    "proba_sell": 0.4327114960985528
+    "proba_buy": 0.3172247278336665,
+    "proba_hold": 0.2279598754079473,
+    "proba_sell": 0.45481539675838617
   },
   {
     "Company": "MFG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29774702545254,
-    "proba_hold": 0.2753068263051153,
-    "proba_sell": 0.4269461482423446
+    "proba_buy": 0.1893600503858183,
+    "proba_hold": 0.3251504527158035,
+    "proba_sell": 0.4854894968983782
   },
   {
     "Company": "MLM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3369470836936898,
-    "proba_hold": 0.23884010447537452,
-    "proba_sell": 0.42421281183093557
+    "proba_buy": 0.2670374310009171,
+    "proba_hold": 0.20653438053333767,
+    "proba_sell": 0.5264281884657452
   },
   {
     "Company": "MMM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35930236420204864,
-    "proba_hold": 0.21550235491675715,
-    "proba_sell": 0.42519528088119424
+    "proba_buy": 0.3187404374703653,
+    "proba_hold": 0.14571982650931803,
+    "proba_sell": 0.5355397360203168
   },
   {
     "Company": "MO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30333364313899885,
-    "proba_hold": 0.3004577100349222,
-    "proba_sell": 0.39620864682607865
+    "proba_buy": 0.24253858446595786,
+    "proba_hold": 0.35038907785307827,
+    "proba_sell": 0.4070723376809638
   },
   {
     "Company": "MOH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2732145308544054,
-    "proba_hold": 0.34485415623410115,
-    "proba_sell": 0.3819313129114937
+    "proba_buy": 0.17236336234600466,
+    "proba_hold": 0.39576524957987375,
+    "proba_sell": 0.43187138807412156
   },
   {
     "Company": "MPLX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3992410628892181,
-    "proba_hold": 0.16511395002044002,
-    "proba_sell": 0.43564498709034166
+    "proba_buy": 0.411857642021285,
+    "proba_hold": 0.11273145994170265,
+    "proba_sell": 0.4754108980370124
   },
   {
     "Company": "MPWR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2810234949677046,
-    "proba_hold": 0.3073440130898933,
-    "proba_sell": 0.41163249194240215
+    "proba_buy": 0.1862167976123903,
+    "proba_hold": 0.2507712356986702,
+    "proba_sell": 0.5630119666889396
   },
   {
     "Company": "MRK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32097559556595373,
-    "proba_hold": 0.2537141380973342,
-    "proba_sell": 0.4253102663367123
+    "proba_buy": 0.29157099667051567,
+    "proba_hold": 0.19817376676961931,
+    "proba_sell": 0.5102552365598649
   },
   {
     "Company": "MRNA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3024549705811383,
-    "proba_hold": 0.29274291970246386,
-    "proba_sell": 0.40480210971639785
+    "proba_buy": 0.28898521572784497,
+    "proba_hold": 0.07358116767331038,
+    "proba_sell": 0.6374336165988447
   },
   {
     "Company": "MRVL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3009343269335509,
-    "proba_hold": 0.3010891177643741,
-    "proba_sell": 0.39797655530207515
+    "proba_buy": 0.25065253832782847,
+    "proba_hold": 0.14822117497081896,
+    "proba_sell": 0.6011262867013526
   },
   {
     "Company": "MS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3235921779319111,
-    "proba_hold": 0.24307923315305288,
-    "proba_sell": 0.4333285889150362
+    "proba_buy": 0.2391199382429683,
+    "proba_hold": 0.23879440135751134,
+    "proba_sell": 0.5220856603995204
   },
   {
     "Company": "MSCI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32126143867557716,
-    "proba_hold": 0.25336465430068683,
-    "proba_sell": 0.42537390702373623
+    "proba_buy": 0.2901009206309445,
+    "proba_hold": 0.2095257885314571,
+    "proba_sell": 0.5003732908375984
   },
   {
     "Company": "MSFT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30506955821297094,
-    "proba_hold": 0.29515899536970264,
-    "proba_sell": 0.3997714464173265
+    "proba_buy": 0.25377543756810683,
+    "proba_hold": 0.22955190885615143,
+    "proba_sell": 0.5166726535757418
   },
   {
     "Company": "MSI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39348450686205105,
-    "proba_hold": 0.1771585198738687,
-    "proba_sell": 0.42935697326408007
+    "proba_buy": 0.3788237356697884,
+    "proba_hold": 0.17159941957059408,
+    "proba_sell": 0.4495768447596175
   },
   {
     "Company": "MT",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.21981214818755287,
-    "proba_hold": 0.43347801324853014,
-    "proba_sell": 0.34670983856391724
+    "predicted_label": "Sell",
+    "proba_buy": 0.12790747513172962,
+    "proba_hold": 0.4286323171204642,
+    "proba_sell": 0.4434602077478063
   },
   {
     "Company": "MTB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38225829740436873,
-    "proba_hold": 0.18970189228267878,
-    "proba_sell": 0.428039810312952
+    "proba_buy": 0.3188819033793817,
+    "proba_hold": 0.1703495417166797,
+    "proba_sell": 0.5107685549039386
   },
   {
     "Company": "MTD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3180843947172923,
-    "proba_hold": 0.2535395878865647,
-    "proba_sell": 0.428376017396143
+    "proba_buy": 0.28538921635501535,
+    "proba_hold": 0.16731037398682364,
+    "proba_sell": 0.5473004096581611
   },
   {
     "Company": "MU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2771174972400519,
-    "proba_hold": 0.3150699569642597,
-    "proba_sell": 0.40781254579568854
+    "proba_buy": 0.19349380814970693,
+    "proba_hold": 0.18109107425983684,
+    "proba_sell": 0.6254151175904562
   },
   {
     "Company": "MUFG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.327155086034764,
-    "proba_hold": 0.23349388265741478,
-    "proba_sell": 0.4393510313078211
+    "proba_buy": 0.26599003444969543,
+    "proba_hold": 0.26755428497047734,
+    "proba_sell": 0.46645568057982734
   },
   {
     "Company": "NDAQ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3135950031017217,
-    "proba_hold": 0.24833315917860513,
-    "proba_sell": 0.43807183771967345
+    "proba_buy": 0.23165834033758412,
+    "proba_hold": 0.23855529722204524,
+    "proba_sell": 0.5297863624403707
   },
   {
     "Company": "NEE",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2872164924619113,
-    "proba_hold": 0.3565202529600354,
-    "proba_sell": 0.35626325457805336
+    "proba_buy": 0.16129466765171052,
+    "proba_hold": 0.5019230299381426,
+    "proba_sell": 0.33678230241014695
   },
   {
     "Company": "NEM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2754414376275978,
-    "proba_hold": 0.31964286548796556,
-    "proba_sell": 0.40491569688443674
+    "proba_buy": 0.1832431925627184,
+    "proba_hold": 0.28423090230193676,
+    "proba_sell": 0.5325259051353448
   },
   {
     "Company": "NET",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.19594548478406765,
-    "proba_hold": 0.520854640122058,
-    "proba_sell": 0.283199875093874
+    "proba_buy": 0.0952371904307011,
+    "proba_hold": 0.48472741836946387,
+    "proba_sell": 0.4200353911998351
   },
   {
     "Company": "NFLX",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.22953377653308543,
-    "proba_hold": 0.40853865923365523,
-    "proba_sell": 0.3619275642332594
+    "predicted_label": "Sell",
+    "proba_buy": 0.18575087003594395,
+    "proba_hold": 0.31751201672709,
+    "proba_sell": 0.49673711323696607
   },
   {
     "Company": "NGG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3582383546824,
-    "proba_hold": 0.21042169974989558,
-    "proba_sell": 0.4313399455677041
+    "proba_buy": 0.29595159056733705,
+    "proba_hold": 0.31498673614515915,
+    "proba_sell": 0.3890616732875038
   },
   {
     "Company": "NKE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3272782186598733,
-    "proba_hold": 0.2601362549083915,
-    "proba_sell": 0.4125855264317351
+    "proba_buy": 0.2546544515977579,
+    "proba_hold": 0.22139229660270662,
+    "proba_sell": 0.5239532517995354
   },
   {
     "Company": "NOC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31848992183978403,
-    "proba_hold": 0.3033607519666792,
-    "proba_sell": 0.37814932619353714
+    "proba_buy": 0.28296511760599774,
+    "proba_hold": 0.26452004759324943,
+    "proba_sell": 0.45251483480075283
   },
   {
     "Company": "NOK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2704539226723152,
-    "proba_hold": 0.3213000461170059,
-    "proba_sell": 0.4082460312106791
+    "proba_buy": 0.16984420121277277,
+    "proba_hold": 0.23894897482237415,
+    "proba_sell": 0.5912068239648531
   },
   {
     "Company": "NOW",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.24493610068051663,
-    "proba_hold": 0.38955952334142524,
-    "proba_sell": 0.3655043759780584
+    "predicted_label": "Sell",
+    "proba_buy": 0.13653999624179763,
+    "proba_hold": 0.36290117082280426,
+    "proba_sell": 0.500558832935398
   },
   {
     "Company": "NSC",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2925815455606089,
-    "proba_hold": 0.35034625490754506,
-    "proba_sell": 0.35707219953184577
+    "predicted_label": "Hold",
+    "proba_buy": 0.16327970309001047,
+    "proba_hold": 0.553952264035625,
+    "proba_sell": 0.2827680328743645
   },
   {
     "Company": "NTES",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.35250962846691614,
-    "proba_hold": 0.2265885254743045,
-    "proba_sell": 0.420901846058779
+    "proba_buy": 0.2701189550777341,
+    "proba_hold": 0.33593063517922367,
+    "proba_sell": 0.3939504097430422
   },
   {
     "Company": "NTR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3072243622455712,
-    "proba_hold": 0.2559305991700279,
-    "proba_sell": 0.4368450385844011
+    "proba_buy": 0.2406712025696414,
+    "proba_hold": 0.23002044809197786,
+    "proba_sell": 0.5293083493383807
   },
   {
     "Company": "NU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3483029566820264,
-    "proba_hold": 0.22631141693074328,
-    "proba_sell": 0.42538562638723043
+    "proba_buy": 0.3099703883543187,
+    "proba_hold": 0.17486634777816487,
+    "proba_sell": 0.5151632638675164
   },
   {
     "Company": "NUE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32692447565937627,
-    "proba_hold": 0.2447689555698758,
-    "proba_sell": 0.42830656877074824
+    "proba_buy": 0.28477015651707055,
+    "proba_hold": 0.20396405776917767,
+    "proba_sell": 0.5112657857137518
   },
   {
     "Company": "NVDA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3036353265172728,
-    "proba_hold": 0.3033133758920867,
-    "proba_sell": 0.3930512975906404
+    "proba_buy": 0.238982482491965,
+    "proba_hold": 0.2730461952085652,
+    "proba_sell": 0.48797132229946966
   },
   {
     "Company": "NVO",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.2959238367068461,
-    "proba_hold": 0.3249150952301437,
-    "proba_sell": 0.37916106806301036
+    "predicted_label": "Hold",
+    "proba_buy": 0.18228234038097474,
+    "proba_hold": 0.41253213248531456,
+    "proba_sell": 0.4051855271337107
   },
   {
     "Company": "NVR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30461365766100024,
-    "proba_hold": 0.28443014162187713,
-    "proba_sell": 0.4109562007171227
+    "proba_buy": 0.25448277786947926,
+    "proba_hold": 0.16454065402568946,
+    "proba_sell": 0.5809765681048313
   },
   {
     "Company": "NVS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3821148922350951,
-    "proba_hold": 0.19856564771791108,
-    "proba_sell": 0.4193194600469933
+    "proba_buy": 0.3309580209775238,
+    "proba_hold": 0.2321754083325175,
+    "proba_sell": 0.4368665706899587
   },
   {
     "Company": "NWG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29830754885170985,
-    "proba_hold": 0.2650219463170806,
-    "proba_sell": 0.43667050483120945
+    "proba_buy": 0.1860020406531311,
+    "proba_hold": 0.31618700247366194,
+    "proba_sell": 0.497810956873207
   },
   {
     "Company": "NXPI",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.1997731408269475,
-    "proba_hold": 0.5316313927313084,
-    "proba_sell": 0.2685954664417444
+    "proba_buy": 0.06237170676862323,
+    "proba_hold": 0.7438067316235035,
+    "proba_sell": 0.19382156160787328
   },
   {
     "Company": "O",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39949894955733617,
-    "proba_hold": 0.16681973286130103,
-    "proba_sell": 0.43368131758136286
+    "proba_buy": 0.3984380203372686,
+    "proba_hold": 0.17918037207172113,
+    "proba_sell": 0.4223816075910103
   },
   {
     "Company": "ODFL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3058561037812486,
-    "proba_hold": 0.2932179866477647,
-    "proba_sell": 0.40092590957098645
+    "proba_buy": 0.28831729633521447,
+    "proba_hold": 0.14166107163343922,
+    "proba_sell": 0.5700216320313464
   },
   {
     "Company": "OKE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.324703622964197,
-    "proba_hold": 0.24213930114214155,
-    "proba_sell": 0.4331570758936617
+    "proba_buy": 0.2546657537428702,
+    "proba_hold": 0.21903405860738748,
+    "proba_sell": 0.5263001876497423
   },
   {
     "Company": "ON",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27647602383935405,
-    "proba_hold": 0.31754962355639516,
-    "proba_sell": 0.405974352604251
+    "proba_buy": 0.18666522997733426,
+    "proba_hold": 0.23902356121846746,
+    "proba_sell": 0.5743112088041983
   },
   {
     "Company": "ORCL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2640294551567692,
-    "proba_hold": 0.32152682327199517,
-    "proba_sell": 0.41444372157123577
+    "proba_buy": 0.15583277803580228,
+    "proba_hold": 0.19924347526663239,
+    "proba_sell": 0.6449237466975654
   },
   {
     "Company": "OTIS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3760130419057362,
-    "proba_hold": 0.20284068075177097,
-    "proba_sell": 0.4211462773424925
+    "proba_buy": 0.29903694782836326,
+    "proba_hold": 0.172105504562703,
+    "proba_sell": 0.5288575476089337
   },
   {
     "Company": "OXY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2969092459943369,
-    "proba_hold": 0.2724493248336058,
-    "proba_sell": 0.43064142917205733
+    "proba_buy": 0.22143626356647805,
+    "proba_hold": 0.25147808824635104,
+    "proba_sell": 0.527085648187171
   },
   {
     "Company": "PANW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30023573689650335,
-    "proba_hold": 0.296276478424547,
-    "proba_sell": 0.40348778467894947
+    "proba_buy": 0.2178902412766915,
+    "proba_hold": 0.25069666989078077,
+    "proba_sell": 0.5314130888325277
   },
   {
     "Company": "PAYX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31707052520647294,
-    "proba_hold": 0.2475277337476232,
-    "proba_sell": 0.4354017410459041
+    "proba_buy": 0.2584243685229154,
+    "proba_hold": 0.20477997787229407,
+    "proba_sell": 0.5367956536047905
   },
   {
     "Company": "PBR",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.20812791097128513,
-    "proba_hold": 0.45584234445045246,
-    "proba_sell": 0.3360297445782623
+    "proba_buy": 0.15237165845752262,
+    "proba_hold": 0.4401550134086905,
+    "proba_sell": 0.40747332813378684
   },
   {
     "Company": "PCAR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3065012210075503,
-    "proba_hold": 0.28997076280325174,
-    "proba_sell": 0.4035280161891979
+    "proba_buy": 0.2577301046769011,
+    "proba_hold": 0.2030752315832659,
+    "proba_sell": 0.539194663739833
   },
   {
     "Company": "PCG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3306432830310765,
-    "proba_hold": 0.2414366097762363,
-    "proba_sell": 0.42792010719268697
+    "proba_buy": 0.24778303042843772,
+    "proba_hold": 0.23017213468333672,
+    "proba_sell": 0.5220448348882255
   },
   {
     "Company": "PDD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3134348429520058,
-    "proba_hold": 0.25626048533385765,
-    "proba_sell": 0.4303046717141366
+    "proba_buy": 0.2624261588278724,
+    "proba_hold": 0.22814745101559133,
+    "proba_sell": 0.5094263901565362
   },
   {
     "Company": "PDX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3984747399280993,
-    "proba_hold": 0.16568910194699638,
-    "proba_sell": 0.4358361581249043
+    "proba_buy": 0.3884772298942975,
+    "proba_hold": 0.13758826120323905,
+    "proba_sell": 0.47393450890246336
   },
   {
     "Company": "PEG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3763535657880617,
-    "proba_hold": 0.20458310961353057,
-    "proba_sell": 0.4190633245984074
+    "proba_buy": 0.30613506139619867,
+    "proba_hold": 0.22700815397918445,
+    "proba_sell": 0.466856784624617
   },
   {
     "Company": "PEP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.386513594967747,
-    "proba_hold": 0.18460267839631075,
-    "proba_sell": 0.4288837266359418
+    "proba_buy": 0.34037665467442757,
+    "proba_hold": 0.14791934363797682,
+    "proba_sell": 0.5117040016875956
   },
   {
     "Company": "PFE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38434003522798144,
-    "proba_hold": 0.18764091824173412,
-    "proba_sell": 0.42801904653028416
+    "proba_buy": 0.3258576882745088,
+    "proba_hold": 0.16293639740126323,
+    "proba_sell": 0.511205914324228
   },
   {
     "Company": "PG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3803047010374067,
-    "proba_hold": 0.19965563055638214,
-    "proba_sell": 0.42003966840621065
+    "proba_buy": 0.30695899635017254,
+    "proba_hold": 0.2122526128878753,
+    "proba_sell": 0.4807883907619522
   },
   {
     "Company": "PGR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3634920758853667,
-    "proba_hold": 0.20739371811203153,
-    "proba_sell": 0.42911420600260136
+    "proba_buy": 0.28381905781108446,
+    "proba_hold": 0.1876214383320171,
+    "proba_sell": 0.5285595038568985
   },
   {
     "Company": "PH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30502193832005997,
-    "proba_hold": 0.26158104593262593,
-    "proba_sell": 0.43339701574731426
+    "proba_buy": 0.273409297857071,
+    "proba_hold": 0.1681984003198468,
+    "proba_sell": 0.5583923018230822
   },
   {
     "Company": "PINS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3000015337170577,
-    "proba_hold": 0.2747913004834779,
-    "proba_sell": 0.42520716579946444
+    "proba_buy": 0.25144388897342235,
+    "proba_hold": 0.1844963342249961,
+    "proba_sell": 0.5640597768015816
   },
   {
     "Company": "PKX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2993379332257555,
-    "proba_hold": 0.30111317864203807,
-    "proba_sell": 0.3995488881322061
+    "proba_buy": 0.1912657084487707,
+    "proba_hold": 0.3229263343291924,
+    "proba_sell": 0.48580795722203685
   },
   {
     "Company": "PLD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3793520795583865,
-    "proba_hold": 0.19692844098915693,
-    "proba_sell": 0.42371947945245614
+    "proba_buy": 0.3083596888654187,
+    "proba_hold": 0.19157467295555256,
+    "proba_sell": 0.5000656381790287
   },
   {
     "Company": "PLTR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27477110578298897,
-    "proba_hold": 0.31296925073798904,
-    "proba_sell": 0.4122596434790221
+    "proba_buy": 0.1763891303268117,
+    "proba_hold": 0.25812936858401825,
+    "proba_sell": 0.5654815010891701
   },
   {
     "Company": "PM",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2826876375199035,
-    "proba_hold": 0.3598904797641692,
-    "proba_sell": 0.3574218827159274
+    "proba_buy": 0.16126449965456294,
+    "proba_hold": 0.5014427859853238,
+    "proba_sell": 0.33729271436011327
   },
   {
     "Company": "PNC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38333429389266327,
-    "proba_hold": 0.19075443589292568,
-    "proba_sell": 0.42591127021441083
+    "proba_buy": 0.3189235835912846,
+    "proba_hold": 0.1617850880793096,
+    "proba_sell": 0.5192913283294058
   },
   {
     "Company": "PPG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2913469186163805,
-    "proba_hold": 0.2756057951691182,
-    "proba_sell": 0.43304728621450145
+    "proba_buy": 0.21371661349255677,
+    "proba_hold": 0.26494153429175504,
+    "proba_sell": 0.5213418522156881
   },
   {
     "Company": "PPL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3925080842432216,
-    "proba_hold": 0.18212733782827872,
-    "proba_sell": 0.4253645779284995
+    "proba_buy": 0.3777203565434043,
+    "proba_hold": 0.1568433906534839,
+    "proba_sell": 0.4654362528031117
   },
   {
     "Company": "PRU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.33091009712572,
-    "proba_hold": 0.30104383399568646,
-    "proba_sell": 0.3680460688785934
+    "proba_buy": 0.23709048857552695,
+    "proba_hold": 0.37769888449663747,
+    "proba_sell": 0.38521062692783564
   },
   {
     "Company": "PSA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34090444120746616,
-    "proba_hold": 0.22332958527565214,
-    "proba_sell": 0.4357659735168813
+    "proba_buy": 0.27252192058130636,
+    "proba_hold": 0.20743820369064658,
+    "proba_sell": 0.520039875728047
   },
   {
     "Company": "PSX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29945629576615906,
-    "proba_hold": 0.2682521392295375,
-    "proba_sell": 0.4322915650043035
+    "proba_buy": 0.22233457788005614,
+    "proba_hold": 0.2479215502991496,
+    "proba_sell": 0.5297438718207942
   },
   {
     "Company": "PUK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37530425404294393,
-    "proba_hold": 0.1942587823213499,
-    "proba_sell": 0.43043696363570605
+    "proba_buy": 0.31205942136116,
+    "proba_hold": 0.2536847859295991,
+    "proba_sell": 0.4342557927092409
   },
   {
     "Company": "PWR",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.23636410631824492,
-    "proba_hold": 0.45928934647021463,
-    "proba_sell": 0.3043465472115408
+    "proba_buy": 0.07812439680338101,
+    "proba_hold": 0.7203016605904968,
+    "proba_sell": 0.2015739426061222
   },
   {
     "Company": "PYPL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3174901905368214,
-    "proba_hold": 0.2507220900099105,
-    "proba_sell": 0.4317877194532681
+    "proba_buy": 0.27503438667528457,
+    "proba_hold": 0.19932286341123018,
+    "proba_sell": 0.5256427499134853
   },
   {
     "Company": "QCOM",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.23676913425894733,
-    "proba_hold": 0.4368959455259535,
-    "proba_sell": 0.32633492021509963
+    "proba_buy": 0.11004966866581488,
+    "proba_hold": 0.49475626398654676,
+    "proba_sell": 0.39519406734763846
   },
   {
     "Company": "QSR",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38345065387735633,
-    "proba_hold": 0.19751872402467385,
-    "proba_sell": 0.41903062209796943
+    "proba_buy": 0.3337976255461605,
+    "proba_hold": 0.21561330362019088,
+    "proba_sell": 0.4505890708336485
   },
   {
     "Company": "RACE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30513834147981195,
-    "proba_hold": 0.25518893158535905,
-    "proba_sell": 0.43967272693482906
+    "proba_buy": 0.22075059209986972,
+    "proba_hold": 0.2623964518785958,
+    "proba_sell": 0.5168529560215346
   },
   {
     "Company": "RBLX",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.24543037718702865,
-    "proba_hold": 0.3907400939533672,
-    "proba_sell": 0.3638295288596045
+    "predicted_label": "Sell",
+    "proba_buy": 0.1844288540035555,
+    "proba_hold": 0.24597500299699174,
+    "proba_sell": 0.5695961429994527
   },
   {
     "Company": "RCI",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.24690924508664291,
-    "proba_hold": 0.4340648287236511,
-    "proba_sell": 0.3190259261897064
+    "proba_buy": 0.07564256401837893,
+    "proba_hold": 0.742316390926614,
+    "proba_sell": 0.18204104505500718
   },
   {
     "Company": "RCL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3001530905892974,
-    "proba_hold": 0.29675257963889495,
-    "proba_sell": 0.4030943297718075
+    "proba_buy": 0.26319009822976863,
+    "proba_hold": 0.1433303088770743,
+    "proba_sell": 0.5934795928931571
   },
   {
     "Company": "REGN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3096270343253237,
-    "proba_hold": 0.31221321340812147,
-    "proba_sell": 0.3781597522665549
+    "proba_buy": 0.25649143376335287,
+    "proba_hold": 0.3019796135826309,
+    "proba_sell": 0.44152895265401615
   },
   {
     "Company": "RELX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.377444151414191,
-    "proba_hold": 0.19810921569295403,
-    "proba_sell": 0.42444663289285456
+    "proba_buy": 0.30141093679567277,
+    "proba_hold": 0.19656948602791433,
+    "proba_sell": 0.5020195771764129
   },
   {
     "Company": "RIO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32628654112273936,
-    "proba_hold": 0.24331703541216562,
-    "proba_sell": 0.4303964234650949
+    "proba_buy": 0.25388345965686404,
+    "proba_hold": 0.3209381548244985,
+    "proba_sell": 0.42517838551863757
   },
   {
     "Company": "RJF",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34632251620699706,
-    "proba_hold": 0.2395011424554332,
-    "proba_sell": 0.4141763413375699
+    "proba_buy": 0.26476320382926066,
+    "proba_hold": 0.2215305307085377,
+    "proba_sell": 0.5137062654622017
   },
   {
     "Company": "RMD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3742894190042481,
-    "proba_hold": 0.21223062428038655,
-    "proba_sell": 0.4134799567153651
+    "proba_buy": 0.3350525302215589,
+    "proba_hold": 0.147579641763815,
+    "proba_sell": 0.517367828014626
   },
   {
     "Company": "ROK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29887055643123683,
-    "proba_hold": 0.26589917437004906,
-    "proba_sell": 0.4352302691987146
+    "proba_buy": 0.21438504038113798,
+    "proba_hold": 0.2716599130081385,
+    "proba_sell": 0.5139550466107234
   },
   {
     "Company": "ROL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38084965681297384,
-    "proba_hold": 0.19406003408471212,
-    "proba_sell": 0.4250903091023137
+    "proba_buy": 0.3133433915610295,
+    "proba_hold": 0.18788908601432472,
+    "proba_sell": 0.4987675224246457
   },
   {
     "Company": "ROST",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3613129148279238,
-    "proba_hold": 0.23845132352114434,
-    "proba_sell": 0.4002357616509319
+    "proba_buy": 0.30547912486318546,
+    "proba_hold": 0.32625936272815165,
+    "proba_sell": 0.36826151240866295
   },
   {
     "Company": "RSG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3808878586934724,
-    "proba_hold": 0.2026406129847613,
-    "proba_sell": 0.4164715283217659
+    "proba_buy": 0.3038915825708348,
+    "proba_hold": 0.30564377180042707,
+    "proba_sell": 0.3904646456287381
   },
   {
     "Company": "RTX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3337898595081468,
-    "proba_hold": 0.24542577478201313,
-    "proba_sell": 0.4207843657098399
+    "proba_buy": 0.31565704538408057,
+    "proba_hold": 0.17159514274696275,
+    "proba_sell": 0.5127478118689567
   },
   {
     "Company": "RY",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.3986629148547926,
-    "proba_hold": 0.1680906567389005,
-    "proba_sell": 0.433246428406307
+    "predicted_label": "Buy",
+    "proba_buy": 0.4341124889986377,
+    "proba_hold": 0.18550598021301387,
+    "proba_sell": 0.3803815307883484
   },
   {
     "Company": "RYAAY",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.1805004771405262,
-    "proba_hold": 0.5379195846314793,
-    "proba_sell": 0.28157993822799454
+    "proba_buy": 0.1051415029497395,
+    "proba_hold": 0.5348721871803221,
+    "proba_sell": 0.3599863098699384
   },
   {
     "Company": "SAN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27424271653954685,
-    "proba_hold": 0.30376580525954316,
-    "proba_sell": 0.42199147820091054
+    "proba_buy": 0.15774295791239012,
+    "proba_hold": 0.33648200572138737,
+    "proba_sell": 0.5057750363662225
   },
   {
     "Company": "SAP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30075708882780594,
-    "proba_hold": 0.3012106589900693,
-    "proba_sell": 0.3980322521821246
+    "proba_buy": 0.21318941781943324,
+    "proba_hold": 0.30540893449875306,
+    "proba_sell": 0.4814016476818138
   },
   {
     "Company": "SBAC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.294454563826989,
-    "proba_hold": 0.2731769356967443,
-    "proba_sell": 0.4323685004762668
+    "proba_buy": 0.18843478927409968,
+    "proba_hold": 0.3271174602959399,
+    "proba_sell": 0.48444775042996024
   },
   {
     "Company": "SBUX",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.29297441807007557,
-    "proba_hold": 0.32304571699475615,
-    "proba_sell": 0.38397986493516834
+    "predicted_label": "Hold",
+    "proba_buy": 0.17066385114770782,
+    "proba_hold": 0.4599520963077132,
+    "proba_sell": 0.36938405254457896
   },
   {
     "Company": "SCCO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2999029281733808,
-    "proba_hold": 0.2822828617061134,
-    "proba_sell": 0.41781421012050574
+    "proba_buy": 0.2512076775476473,
+    "proba_hold": 0.1860544539644432,
+    "proba_sell": 0.5627378684879095
   },
   {
     "Company": "SCHW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.24860637308532924,
-    "proba_hold": 0.35773642778104625,
-    "proba_sell": 0.39365719913362496
+    "proba_buy": 0.18206268310373086,
+    "proba_hold": 0.28131224487291046,
+    "proba_sell": 0.5366250720233586
   },
   {
     "Company": "SE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30505057233807287,
-    "proba_hold": 0.2858708458367802,
-    "proba_sell": 0.40907858182514695
+    "proba_buy": 0.283711537621304,
+    "proba_hold": 0.138863056723733,
+    "proba_sell": 0.577425405654963
   },
   {
     "Company": "SHEL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.344841347086948,
-    "proba_hold": 0.21586097441191068,
-    "proba_sell": 0.439297678501141
+    "proba_buy": 0.272563811393941,
+    "proba_hold": 0.23547141741260705,
+    "proba_sell": 0.491964771193452
   },
   {
     "Company": "SHOP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27390404672870877,
-    "proba_hold": 0.3131782023592058,
-    "proba_sell": 0.41291775091208555
+    "proba_buy": 0.17952516707581948,
+    "proba_hold": 0.22822363715949326,
+    "proba_sell": 0.5922511957646873
   },
   {
     "Company": "SHW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2956472889382762,
-    "proba_hold": 0.2800904959628879,
-    "proba_sell": 0.42426221509883627
+    "proba_buy": 0.21297649683476447,
+    "proba_hold": 0.22375879598453866,
+    "proba_sell": 0.5632647071806969
   },
   {
     "Company": "SLB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38558703190277654,
-    "proba_hold": 0.20572688058563596,
-    "proba_sell": 0.4086860875115873
+    "proba_buy": 0.35437861715426777,
+    "proba_hold": 0.11103890277023783,
+    "proba_sell": 0.5345824800754944
   },
   {
     "Company": "SLF",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38514099257384254,
-    "proba_hold": 0.1808338634786758,
-    "proba_sell": 0.4340251439474814
+    "proba_buy": 0.3283189640305796,
+    "proba_hold": 0.23184205768672692,
+    "proba_sell": 0.4398389782826936
   },
   {
     "Company": "SMFG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30891597657416203,
-    "proba_hold": 0.25207335524677804,
-    "proba_sell": 0.43901066817905987
+    "proba_buy": 0.24303331178859833,
+    "proba_hold": 0.30740167147839764,
+    "proba_sell": 0.44956501673300414
   },
   {
     "Company": "SNAP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26820109552406435,
-    "proba_hold": 0.31957742408214673,
-    "proba_sell": 0.41222148039378914
+    "proba_buy": 0.1637609034472786,
+    "proba_hold": 0.2085168016653184,
+    "proba_sell": 0.627722294887403
   },
   {
     "Company": "SNOW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2484525859843085,
-    "proba_hold": 0.3616175208580101,
-    "proba_sell": 0.38992989315768156
+    "proba_buy": 0.11332054392886155,
+    "proba_hold": 0.2925551048826086,
+    "proba_sell": 0.5941243511885299
   },
   {
     "Company": "SNPS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2915519972745855,
-    "proba_hold": 0.30781778499512696,
-    "proba_sell": 0.40063021773028756
+    "proba_buy": 0.18873038078164123,
+    "proba_hold": 0.30936773878968726,
+    "proba_sell": 0.5019018804286715
   },
   {
     "Company": "SNY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.39839624220340797,
-    "proba_hold": 0.17010787562060162,
-    "proba_sell": 0.43149588217599033
+    "proba_buy": 0.3949298450214044,
+    "proba_hold": 0.14555819162963277,
+    "proba_sell": 0.4595119633489629
   },
   {
     "Company": "SO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38552157480509075,
-    "proba_hold": 0.19061381645071018,
-    "proba_sell": 0.4238646087441986
+    "proba_buy": 0.3520073278769934,
+    "proba_hold": 0.2747476005736203,
+    "proba_sell": 0.37324507154938624
   },
   {
     "Company": "SONY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3786384381733974,
-    "proba_hold": 0.19529651293237238,
-    "proba_sell": 0.42606504889422986
+    "proba_buy": 0.31057648304245955,
+    "proba_hold": 0.1936918323335548,
+    "proba_sell": 0.4957316846239856
   },
   {
     "Company": "SPG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38428053143691665,
-    "proba_hold": 0.18695043791744773,
-    "proba_sell": 0.4287690306456352
+    "proba_buy": 0.33631816447137436,
+    "proba_hold": 0.19680647469024504,
+    "proba_sell": 0.46687536083838066
   },
   {
     "Company": "SPGI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3476005400476098,
-    "proba_hold": 0.2397857291359286,
-    "proba_sell": 0.4126137308164617
+    "proba_buy": 0.26821861243370754,
+    "proba_hold": 0.2233009170354741,
+    "proba_sell": 0.5084804705308184
   },
   {
     "Company": "SPOT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27628789830078676,
-    "proba_hold": 0.31600267434366486,
-    "proba_sell": 0.40770942735554855
+    "proba_buy": 0.19618358557068105,
+    "proba_hold": 0.2300572529813091,
+    "proba_sell": 0.5737591614480099
   },
   {
     "Company": "SRE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3876539563424493,
-    "proba_hold": 0.18292441311627658,
-    "proba_sell": 0.4294216305412737
+    "proba_buy": 0.3612762210518705,
+    "proba_hold": 0.16549794427380807,
+    "proba_sell": 0.47322583467432144
   },
   {
     "Company": "STE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3571495039716472,
-    "proba_hold": 0.21539076926790776,
-    "proba_sell": 0.42745972676044497
+    "proba_buy": 0.31099006375358357,
+    "proba_hold": 0.17968449606714362,
+    "proba_sell": 0.5093254401792727
   },
   {
     "Company": "STLA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2513055217850367,
-    "proba_hold": 0.35868673873878243,
-    "proba_sell": 0.3900077394761813
+    "proba_buy": 0.22173582868397437,
+    "proba_hold": 0.20625262785593035,
+    "proba_sell": 0.5720115434600953
   },
   {
     "Company": "STM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29789288307768746,
-    "proba_hold": 0.3058882340329174,
-    "proba_sell": 0.396218882889395
+    "proba_buy": 0.21859239418337964,
+    "proba_hold": 0.28335671513307636,
+    "proba_sell": 0.498050890683544
   },
   {
     "Company": "STT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.37740136597919516,
-    "proba_hold": 0.2052132303427472,
-    "proba_sell": 0.4173854036780575
+    "proba_buy": 0.3147991715101529,
+    "proba_hold": 0.1841546448814591,
+    "proba_sell": 0.501046183608388
   },
   {
     "Company": "STZ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2921520396106714,
-    "proba_hold": 0.2755241020716792,
-    "proba_sell": 0.4323238583176494
+    "proba_buy": 0.18019264954425465,
+    "proba_hold": 0.3525662047364541,
+    "proba_sell": 0.4672411457192912
   },
   {
     "Company": "SU",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30844944760209997,
-    "proba_hold": 0.25362216910751895,
-    "proba_sell": 0.4379283832903815
+    "proba_buy": 0.2187830563825563,
+    "proba_hold": 0.24784934638512693,
+    "proba_sell": 0.5333675972323169
   },
   {
     "Company": "SYK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31615761854549773,
-    "proba_hold": 0.2807185905568527,
-    "proba_sell": 0.40312379089764955
+    "proba_buy": 0.2845895352276915,
+    "proba_hold": 0.191572313604721,
+    "proba_sell": 0.5238381511675875
   },
   {
     "Company": "SYM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3019001910054658,
-    "proba_hold": 0.29432639007312694,
-    "proba_sell": 0.4037734189214073
+    "proba_buy": 0.2663346869885857,
+    "proba_hold": 0.08225160802353361,
+    "proba_sell": 0.6514137049878806
   },
   {
     "Company": "SYY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3422035646036378,
-    "proba_hold": 0.21648087744665684,
-    "proba_sell": 0.441315557949705
+    "proba_buy": 0.2698689728664595,
+    "proba_hold": 0.22371449543852254,
+    "proba_sell": 0.506416531695018
   },
   {
     "Company": "T",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3332817309277474,
-    "proba_hold": 0.23930312517786312,
-    "proba_sell": 0.4274151438943898
+    "proba_buy": 0.27558019897424,
+    "proba_hold": 0.19302753959859842,
+    "proba_sell": 0.5313922614271616
   },
   {
     "Company": "TAK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3736844834798583,
-    "proba_hold": 0.20112808625041,
-    "proba_sell": 0.4251874302697314
+    "proba_buy": 0.2949275169259153,
+    "proba_hold": 0.28163700513931555,
+    "proba_sell": 0.42343547793476927
   },
   {
     "Company": "TCOM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3732736913599392,
-    "proba_hold": 0.19929697037582897,
-    "proba_sell": 0.4274293382642314
+    "proba_buy": 0.29322341584505734,
+    "proba_hold": 0.20703143016566056,
+    "proba_sell": 0.49974515398928204
   },
   {
     "Company": "TD",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.3965097613305978,
-    "proba_hold": 0.17090037764809438,
-    "proba_sell": 0.43258986102130803
+    "predicted_label": "Buy",
+    "proba_buy": 0.4066568064229732,
+    "proba_hold": 0.19969501895989872,
+    "proba_sell": 0.39364817461712803
   },
   {
     "Company": "TDG",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29643082299346957,
-    "proba_hold": 0.27062227542650097,
-    "proba_sell": 0.43294690158002985
+    "proba_buy": 0.22683346330396767,
+    "proba_hold": 0.24646943078551092,
+    "proba_sell": 0.5266971059105214
   },
   {
     "Company": "TEAM",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.22709429036870307,
-    "proba_hold": 0.45189055909862846,
-    "proba_sell": 0.3210151505326689
+    "proba_buy": 0.08609837395083887,
+    "proba_hold": 0.6299629002801848,
+    "proba_sell": 0.2839387257689764
   },
   {
     "Company": "TEL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29974594956621486,
-    "proba_hold": 0.2991107725555046,
-    "proba_sell": 0.4011432778782804
+    "proba_buy": 0.242214702924286,
+    "proba_hold": 0.17732822172492627,
+    "proba_sell": 0.5804570753507877
   },
   {
     "Company": "TFC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3822056671618617,
-    "proba_hold": 0.19206233579396834,
-    "proba_sell": 0.42573199704416964
+    "proba_buy": 0.3163258837832411,
+    "proba_hold": 0.17836570571105118,
+    "proba_sell": 0.5053084105057077
   },
   {
     "Company": "TGT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3112310988473601,
-    "proba_hold": 0.24878297380617287,
-    "proba_sell": 0.43998592734646735
+    "proba_buy": 0.22787472864148167,
+    "proba_hold": 0.2453944073883609,
+    "proba_sell": 0.5267308639701574
   },
   {
     "Company": "TJX",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.362105458719548,
-    "proba_hold": 0.24168774868090048,
-    "proba_sell": 0.39620679259955144
+    "predicted_label": "Hold",
+    "proba_buy": 0.27876835492284774,
+    "proba_hold": 0.36257709576627284,
+    "proba_sell": 0.3586545493108794
   },
   {
     "Company": "TLK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.36327337324284026,
-    "proba_hold": 0.21478061075517554,
-    "proba_sell": 0.42194601600198406
+    "proba_buy": 0.3277288013019921,
+    "proba_hold": 0.20055906051523179,
+    "proba_sell": 0.47171213818277596
   },
   {
     "Company": "TM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3064608708575781,
-    "proba_hold": 0.2517378738808025,
-    "proba_sell": 0.44180125526161945
+    "proba_buy": 0.2163605273727104,
+    "proba_hold": 0.3013133091733173,
+    "proba_sell": 0.4823261634539723
   },
   {
     "Company": "TMO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3002155832181837,
-    "proba_hold": 0.3005985085979371,
-    "proba_sell": 0.3991859081838791
+    "proba_buy": 0.21515314433165528,
+    "proba_hold": 0.2916384064589112,
+    "proba_sell": 0.4932084492094335
   },
   {
     "Company": "TMUS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30083420928284654,
-    "proba_hold": 0.314146161613467,
-    "proba_sell": 0.3850196291036866
+    "proba_buy": 0.2306795525108791,
+    "proba_hold": 0.31278670457928,
+    "proba_sell": 0.4565337429098409
   },
   {
     "Company": "TRGP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32412440868607106,
-    "proba_hold": 0.2433416947337314,
-    "proba_sell": 0.4325338965801974
+    "proba_buy": 0.2684730623097447,
+    "proba_hold": 0.25654571509853813,
+    "proba_sell": 0.47498122259171716
   },
   {
     "Company": "TRI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3019733191541308,
-    "proba_hold": 0.2944342829546702,
-    "proba_sell": 0.403592397891199
+    "proba_buy": 0.24085128336842151,
+    "proba_hold": 0.1903558332980044,
+    "proba_sell": 0.568792883333574
   },
   {
     "Company": "TROW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3823693773603025,
-    "proba_hold": 0.18871386083953026,
-    "proba_sell": 0.4289167618001666
+    "proba_buy": 0.3232772259331013,
+    "proba_hold": 0.17894259533799586,
+    "proba_sell": 0.4977801787289027
   },
   {
     "Company": "TRP",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.36437500781746984,
-    "proba_hold": 0.2077008166853107,
-    "proba_sell": 0.42792417549721895
+    "proba_buy": 0.2966848791203467,
+    "proba_hold": 0.2273765608508007,
+    "proba_sell": 0.47593856002885254
   },
   {
     "Company": "TRV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3844937828329864,
-    "proba_hold": 0.18906097737371863,
-    "proba_sell": 0.42644523979329435
+    "proba_buy": 0.3574308374797982,
+    "proba_hold": 0.1730853561171217,
+    "proba_sell": 0.4694838064030802
   },
   {
     "Company": "TS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3894640974643107,
-    "proba_hold": 0.17833451354364688,
-    "proba_sell": 0.4322013889920424
+    "proba_buy": 0.3489249191971744,
+    "proba_hold": 0.16047419118288997,
+    "proba_sell": 0.49060088961993564
   },
   {
     "Company": "TSCO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2926594157611241,
-    "proba_hold": 0.3046189752332393,
-    "proba_sell": 0.40272160900563686
+    "proba_buy": 0.21750787307271707,
+    "proba_hold": 0.19064673932370527,
+    "proba_sell": 0.5918453876035776
   },
   {
     "Company": "TSLA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29757236546533666,
-    "proba_hold": 0.2682614258565599,
-    "proba_sell": 0.4341662086781038
+    "proba_buy": 0.2483073181820342,
+    "proba_hold": 0.18128518448952188,
+    "proba_sell": 0.5704074973284439
   },
   {
     "Company": "TSM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30375498518149463,
-    "proba_hold": 0.2957859862187277,
-    "proba_sell": 0.40045902859977767
+    "proba_buy": 0.24176750435087493,
+    "proba_hold": 0.23167093160065247,
+    "proba_sell": 0.5265615640484727
   },
   {
     "Company": "TT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.351382924693309,
-    "proba_hold": 0.20896842396778187,
-    "proba_sell": 0.4396486513389091
+    "proba_buy": 0.2803056654262441,
+    "proba_hold": 0.18155406405100222,
+    "proba_sell": 0.5381402705227537
   },
   {
     "Company": "TTD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26735228601554384,
-    "proba_hold": 0.32297670478386914,
-    "proba_sell": 0.4096710092005874
+    "proba_buy": 0.16730022890934676,
+    "proba_hold": 0.24982676687367605,
+    "proba_sell": 0.5828730042169772
   },
   {
     "Company": "TTE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.23306985113006434,
-    "proba_hold": 0.3786161686121601,
-    "proba_sell": 0.388313980257776
+    "proba_buy": 0.17056069765234852,
+    "proba_hold": 0.37059348787263874,
+    "proba_sell": 0.4588458144750126
   },
   {
     "Company": "TTWO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32743118157737816,
-    "proba_hold": 0.24544382490092187,
-    "proba_sell": 0.42712499352170047
-  },
-  {
-    "Company": "TU",
-    "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.26896655814690834,
-    "proba_hold": 0.2958429769292537,
-    "proba_sell": 0.43519046492383817
+    "proba_buy": 0.28935753427159816,
+    "proba_hold": 0.17092370629485326,
+    "proba_sell": 0.5397187594335485
   },
   {
     "Company": "TW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30838041087212864,
-    "proba_hold": 0.2913076173567213,
-    "proba_sell": 0.40031197177115
+    "proba_buy": 0.2965484019336283,
+    "proba_hold": 0.18587462972665944,
+    "proba_sell": 0.5175769683397122
   },
   {
     "Company": "TXN",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2227742156289349,
-    "proba_hold": 0.47661195049952776,
-    "proba_sell": 0.30061383387153773
+    "proba_buy": 0.0704909531746104,
+    "proba_hold": 0.7123432789957466,
+    "proba_sell": 0.21716576782964309
   },
   {
     "Company": "UBER",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3163730180879906,
-    "proba_hold": 0.25342038502896225,
-    "proba_sell": 0.430206596883047
+    "proba_buy": 0.28976577061378145,
+    "proba_hold": 0.16280586110042172,
+    "proba_sell": 0.5474283682857968
   },
   {
     "Company": "UBS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.33757097838204286,
-    "proba_hold": 0.2310162647942412,
-    "proba_sell": 0.43141275682371566
+    "proba_buy": 0.27402478880511183,
+    "proba_hold": 0.2152005897005726,
+    "proba_sell": 0.5107746214943156
   },
   {
     "Company": "UL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.33937229720446327,
-    "proba_hold": 0.21670532367101442,
-    "proba_sell": 0.44392237912452204
+    "proba_buy": 0.26308398974069513,
+    "proba_hold": 0.29295003996193203,
+    "proba_sell": 0.44396597029737284
   },
   {
     "Company": "ULTA",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34984628386814115,
-    "proba_hold": 0.22355162824718045,
-    "proba_sell": 0.4266020878846784
+    "proba_buy": 0.31899189209324424,
+    "proba_hold": 0.17100936555632149,
+    "proba_sell": 0.5099987423504343
   },
   {
     "Company": "UMC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2653048869082097,
-    "proba_hold": 0.335253295604814,
-    "proba_sell": 0.39944181748697694
+    "proba_buy": 0.16391531764061054,
+    "proba_hold": 0.24318098288525028,
+    "proba_sell": 0.5929036994741391
   },
   {
     "Company": "UNH",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29517137129028703,
-    "proba_hold": 0.3028589967914714,
-    "proba_sell": 0.4019696319182415
+    "proba_buy": 0.18444733133616759,
+    "proba_hold": 0.3430424529138331,
+    "proba_sell": 0.4725102157499994
   },
   {
     "Company": "UNP",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2807303023365686,
-    "proba_hold": 0.36399990264254783,
-    "proba_sell": 0.35526979502088374
+    "proba_buy": 0.1464112270209242,
+    "proba_hold": 0.5424035748797024,
+    "proba_sell": 0.3111851980993734
   },
   {
     "Company": "UPS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3475853455441583,
-    "proba_hold": 0.22337882794442468,
-    "proba_sell": 0.42903582651141664
+    "proba_buy": 0.28819355725188806,
+    "proba_hold": 0.2604578624728016,
+    "proba_sell": 0.45134858027531033
   },
   {
     "Company": "URI",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.20397490273107807,
-    "proba_hold": 0.5174080202207734,
-    "proba_sell": 0.27861707704814864
+    "proba_buy": 0.06160775581486437,
+    "proba_hold": 0.7370201035456749,
+    "proba_sell": 0.20137214063946066
   },
   {
     "Company": "USB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3738885242728741,
-    "proba_hold": 0.2152691747131723,
-    "proba_sell": 0.41084230101395364
+    "proba_buy": 0.3226807361676652,
+    "proba_hold": 0.17766470754583752,
+    "proba_sell": 0.49965455628649746
   },
   {
     "Company": "V",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.28391901615268783,
-    "proba_hold": 0.36090812842856484,
-    "proba_sell": 0.35517285541874744
+    "proba_buy": 0.14954965115397262,
+    "proba_hold": 0.5664767718619523,
+    "proba_sell": 0.283973576984075
   },
   {
     "Company": "VALE",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.30170738607880737,
-    "proba_hold": 0.30125112683396404,
-    "proba_sell": 0.3970414870872284
+    "proba_buy": 0.23074946855664966,
+    "proba_hold": 0.2881210735027169,
+    "proba_sell": 0.4811294579406334
   },
   {
     "Company": "VEEV",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27521715706519545,
-    "proba_hold": 0.3186726636444193,
-    "proba_sell": 0.40611017929038545
+    "proba_buy": 0.18500143354811913,
+    "proba_hold": 0.23669467127231458,
+    "proba_sell": 0.5783038951795663
   },
   {
     "Company": "VICI",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3971285103708195,
-    "proba_hold": 0.17120178716641576,
-    "proba_sell": 0.4316697024627647
+    "proba_buy": 0.3953049689158826,
+    "proba_hold": 0.1602068421788925,
+    "proba_sell": 0.44448818890522485
   },
   {
     "Company": "VLO",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26848138645901154,
-    "proba_hold": 0.32162544224882256,
-    "proba_sell": 0.40989317129216646
+    "proba_buy": 0.1948941113189576,
+    "proba_hold": 0.2982971201036864,
+    "proba_sell": 0.506808768577356
   },
   {
     "Company": "VMC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3374904697693482,
-    "proba_hold": 0.22873018669252512,
-    "proba_sell": 0.4337793435381265
+    "proba_buy": 0.24945666202441508,
+    "proba_hold": 0.2227740785290588,
+    "proba_sell": 0.5277692594465261
   },
   {
     "Company": "VOD",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3734127693963142,
-    "proba_hold": 0.20575347815445588,
-    "proba_sell": 0.4208337524492297
+    "proba_buy": 0.3078102817131347,
+    "proba_hold": 0.2669443299941464,
+    "proba_sell": 0.425245388292719
   },
   {
     "Company": "VRSK",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3037309619524373,
-    "proba_hold": 0.2950829504045766,
-    "proba_sell": 0.4011860876429861
+    "proba_buy": 0.24333612679238562,
+    "proba_hold": 0.22794091621123105,
+    "proba_sell": 0.5287229569963833
   },
   {
     "Company": "VRSN",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2982235531071267,
-    "proba_hold": 0.27161971573553223,
-    "proba_sell": 0.4301567311573413
+    "proba_buy": 0.20365986992805443,
+    "proba_hold": 0.27188033597246136,
+    "proba_sell": 0.5244597940994843
   },
   {
     "Company": "VRTX",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3844405225383696,
-    "proba_hold": 0.19237476517959798,
-    "proba_sell": 0.42318471228203225
+    "proba_buy": 0.3306273106587687,
+    "proba_hold": 0.17402075169785622,
+    "proba_sell": 0.4953519376433752
   },
   {
     "Company": "VZ",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3440794498968655,
-    "proba_hold": 0.21721016561659742,
-    "proba_sell": 0.4387103844865369
+    "proba_buy": 0.2778344989074527,
+    "proba_hold": 0.19113334925123227,
+    "proba_sell": 0.531032151841315
   },
   {
     "Company": "WAB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3034332180159198,
-    "proba_hold": 0.2634025882398962,
-    "proba_sell": 0.43316419374418424
+    "proba_buy": 0.242810630362344,
+    "proba_hold": 0.22656628722108266,
+    "proba_sell": 0.5306230824165733
   },
   {
     "Company": "WBD",
     "Date": "2026-05-01",
-    "predicted_label": "Sell",
-    "proba_buy": 0.40104065357083735,
-    "proba_hold": 0.16421896624142326,
-    "proba_sell": 0.4347403801877395
+    "predicted_label": "Buy",
+    "proba_buy": 0.5312916407114315,
+    "proba_hold": 0.17019474919533614,
+    "proba_sell": 0.2985136100932324
   },
   {
     "Company": "WCN",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2855055535859575,
-    "proba_hold": 0.3583636396459209,
-    "proba_sell": 0.3561308067681217
+    "proba_buy": 0.15109743590796,
+    "proba_hold": 0.520803647344586,
+    "proba_sell": 0.3280989167474542
   },
   {
     "Company": "WDAY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26907075998796526,
-    "proba_hold": 0.3204520076369227,
-    "proba_sell": 0.4104772323751122
+    "proba_buy": 0.17351915757489875,
+    "proba_hold": 0.21522628049206136,
+    "proba_sell": 0.61125456193304
   },
   {
     "Company": "WDS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.29673817488632276,
-    "proba_hold": 0.266296885738117,
-    "proba_sell": 0.43696493937556036
+    "proba_buy": 0.19676653937837718,
+    "proba_hold": 0.2931789587937645,
+    "proba_sell": 0.5100545018278583
   },
   {
     "Company": "WEC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38748057971563327,
-    "proba_hold": 0.1854799401940164,
-    "proba_sell": 0.42703948009035
+    "proba_buy": 0.381251606887163,
+    "proba_hold": 0.2012445962118898,
+    "proba_sell": 0.41750379690094713
   },
   {
     "Company": "WELL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.34518229892877633,
-    "proba_hold": 0.24718022378540805,
-    "proba_sell": 0.4076374772858153
+    "proba_buy": 0.2880674972806696,
+    "proba_hold": 0.27400728333024377,
+    "proba_sell": 0.4379252193890867
   },
   {
     "Company": "WFC",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.27613282389184385,
-    "proba_hold": 0.31287455854351975,
-    "proba_sell": 0.41099261756463706
+    "proba_buy": 0.20836038776093269,
+    "proba_hold": 0.28031703391470536,
+    "proba_sell": 0.5113225783243619
   },
   {
     "Company": "WIT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2663233280359539,
-    "proba_hold": 0.3212518419514241,
-    "proba_sell": 0.41242483001262237
+    "proba_buy": 0.20904273698571635,
+    "proba_hold": 0.2315599963809643,
+    "proba_sell": 0.5593972666333193
   },
   {
     "Company": "WM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.38570819230622744,
-    "proba_hold": 0.19822728298889739,
-    "proba_sell": 0.41606452470487487
+    "proba_buy": 0.3369417933788734,
+    "proba_hold": 0.2151905846189289,
+    "proba_sell": 0.44786762200219765
   },
   {
     "Company": "WMB",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3831963844124523,
-    "proba_hold": 0.19765233711407418,
-    "proba_sell": 0.41915127847347317
+    "proba_buy": 0.3319969557855146,
+    "proba_hold": 0.2000222092630571,
+    "proba_sell": 0.46798083495142845
   },
   {
     "Company": "WMT",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.32414100630511994,
-    "proba_hold": 0.23690042067143313,
-    "proba_sell": 0.4389585730234469
+    "proba_buy": 0.24855694144888918,
+    "proba_hold": 0.2662260594410612,
+    "proba_sell": 0.4852169991100496
   },
   {
     "Company": "WPM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2999222208843851,
-    "proba_hold": 0.2932872972078877,
-    "proba_sell": 0.4067904819077273
+    "proba_buy": 0.2580889211086286,
+    "proba_hold": 0.16525159142811893,
+    "proba_sell": 0.5766594874632525
   },
   {
     "Company": "WST",
     "Date": "2026-05-01",
     "predicted_label": "Hold",
-    "proba_buy": 0.2657195990784728,
-    "proba_hold": 0.3978656131706489,
-    "proba_sell": 0.3364147877508784
+    "proba_buy": 0.12826959430586984,
+    "proba_hold": 0.5591022619214271,
+    "proba_sell": 0.3126281437727031
   },
   {
     "Company": "WTW",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2980836855237145,
-    "proba_hold": 0.311031193004532,
-    "proba_sell": 0.3908851214717533
+    "proba_buy": 0.20389552473113556,
+    "proba_hold": 0.34893778490975463,
+    "proba_sell": 0.44716669035910994
   },
   {
     "Company": "WY",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3436772035237556,
-    "proba_hold": 0.2169215691914712,
-    "proba_sell": 0.43940122728477293
+    "proba_buy": 0.2790512236290562,
+    "proba_hold": 0.18952113644140858,
+    "proba_sell": 0.5314276399295352
   },
   {
     "Company": "XEL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3263148125116849,
-    "proba_hold": 0.24070710016478736,
-    "proba_sell": 0.4329780873235277
+    "proba_buy": 0.2657651082312855,
+    "proba_hold": 0.27784234253935175,
+    "proba_sell": 0.45639254922936273
   },
   {
     "Company": "XOM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2964172933377722,
-    "proba_hold": 0.28213633000883404,
-    "proba_sell": 0.4214463766533941
+    "proba_buy": 0.24239614906092147,
+    "proba_hold": 0.22373220467039043,
+    "proba_sell": 0.5338716462686881
   },
   {
     "Company": "XYL",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.31445267622550865,
-    "proba_hold": 0.26039898884949897,
-    "proba_sell": 0.4251483349249924
+    "proba_buy": 0.2815954106017802,
+    "proba_hold": 0.19743859533149433,
+    "proba_sell": 0.5209659940667254
   },
   {
     "Company": "YUM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3873916161541798,
-    "proba_hold": 0.1949506771104217,
-    "proba_sell": 0.4176577067353982
+    "proba_buy": 0.3424607100938587,
+    "proba_hold": 0.16557009207819412,
+    "proba_sell": 0.4919691978279472
   },
   {
     "Company": "ZBH",
     "Date": "2026-05-01",
-    "predicted_label": "Hold",
-    "proba_buy": 0.2837691387819451,
-    "proba_hold": 0.3630999222954716,
-    "proba_sell": 0.35313093892258335
+    "predicted_label": "Sell",
+    "proba_buy": 0.17928118116230637,
+    "proba_hold": 0.4024495080015243,
+    "proba_sell": 0.41826931083616925
   },
   {
     "Company": "ZM",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.2957672820349679,
-    "proba_hold": 0.2960629859937265,
-    "proba_sell": 0.4081697319713056
+    "proba_buy": 0.20505263835618032,
+    "proba_hold": 0.21782629288303845,
+    "proba_sell": 0.5771210687607812
   },
   {
     "Company": "ZS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.26408363626415654,
-    "proba_hold": 0.3240650844987794,
-    "proba_sell": 0.41185127923706444
+    "proba_buy": 0.1457047673558334,
+    "proba_hold": 0.24062880812555815,
+    "proba_sell": 0.6136664245186085
   },
   {
     "Company": "ZTS",
     "Date": "2026-05-01",
     "predicted_label": "Sell",
-    "proba_buy": 0.3458414141515986,
-    "proba_hold": 0.217998220609274,
-    "proba_sell": 0.43616036523912727
+    "proba_buy": 0.2872541419327898,
+    "proba_hold": 0.1789861361852146,
+    "proba_sell": 0.5337597218819956
   }
 ]

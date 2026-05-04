@@ -9,7 +9,7 @@ set -e
 mkdir -p /app/logs
 
 # 22:00 UTC = 01:00 EET (UTC+3)
-CRON_EXPR="0 10 * * *"
+CRON_EXPR="0 22 * * 1-5"
 CRON_CMD="cd /app && make predict >> /app/logs/scheduler.log 2>&1"
 
 echo "$CRON_EXPR $CRON_CMD" > /etc/cron.d/predict-job

@@ -1,7 +1,6 @@
 import json
 import logging
 import traceback
-from datetime import datetime, timedelta
 from pathlib import Path
 
 import joblib
@@ -31,8 +30,15 @@ CONTEXT_ROWS = 300
 
 def _resolve_target_date(target_date: str | None) -> str:
     if target_date is not None:
+        ts = pd.Timestamp(target_date)
+        if ts.dayofweek >= 5:
+            raise ValueError(f"{target_date} is a weekend, no trading data available.")
         return target_date
-    return (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+        # for cron
+    ts = pd.Timestamp.now().normalize()
+    if ts.dayofweek >= 5:
+        ts = ts - pd.offsets.BDay(1)
+    return ts.strftime("%Y-%m-%d")
 
 
 def _clean_daily(df: pd.DataFrame) -> pd.DataFrame:
@@ -147,22 +153,30 @@ def run_predict_pipeline(target_date: str | None = None) -> pd.DataFrame | None:
         logger.error(f"Daily fetch failed for {date}: {e}")
         _copy_latest_from_archive(pred_dir)
         return None
-
+    logger.info(f"Shape after fetch: {daily_df.shape}")
     try:
         cleaned_daily = _clean_daily(daily_df)
         if cleaned_daily.empty:
             raise RuntimeError("Cleaning removed all rows from daily fetch.")
+        logger.info(f"Shape after fetch: {cleaned_daily.shape}")
 
         history_df = load_last_n_rows_per_company(n_rows=CONTEXT_ROWS)
         history_df = history_df[history_df["Date"] < pd.Timestamp(date)]
+        logger.info(f"History df shape: {history_df.shape}")
 
         combined_df = pd.concat([history_df, cleaned_daily], ignore_index=True)
         combined_df = combined_df.sort_values(["Company", "Date"]).reset_index(
             drop=True
         )
+        logger.info(f"Combined df shape: {combined_df.shape}")
         featured_df = run_engineering_predict(combined_df, date)
+        logger.info(f"Featured df shape: {featured_df.shape}")
+        logger.info(f"Date dtype: {featured_df['Date'].dtype}")
+        logger.info(f"Sample dates: {featured_df['Date'].tail(3).tolist()}")
+        logger.info(f"Looking for: {pd.Timestamp(date)}")
 
         todays_features = featured_df[featured_df["Date"] == pd.Timestamp(date)].copy()
+        logger.info(f"Today's features shape: {todays_features.shape}")
         if todays_features.empty:
             raise RuntimeError(
                 f"Feature engineering produced no rows for {date}. "
@@ -203,6 +217,7 @@ def run_predict_pipeline(target_date: str | None = None) -> pd.DataFrame | None:
 
 if __name__ == "__main__":
     import argparse
+    import sys
 
     parser = argparse.ArgumentParser(description="Run the daily prediction pipeline.")
     parser.add_argument(
@@ -212,4 +227,6 @@ if __name__ == "__main__":
         help="Target date in YYYY-MM-DD format. Defaults to yesterday.",
     )
     args = parser.parse_args()
-    run_predict_pipeline(target_date=args.date)
+    result = run_predict_pipeline(target_date=args.date)
+    if result is None:
+        sys.exit(1)

@@ -240,3 +240,4 @@ notebooks/*
 /models/lightgbm.pkl
 /models/voting_classifier.pkl
 /.env.prod
+/graphify-out/

@@ -116,10 +116,19 @@ def trigger_prediction(date: str | None = None):
             text=True,
             timeout=600,
         )
+        if result.stdout:
+            logger.info(f"Pipeline stdout:\n{result.stdout}")
         if result.returncode != 0:
-            logger.error(f"Prediction failed: {result.stderr}")
-            raise HTTPException(status_code=500, detail=result.stderr[-500:])
-        return {"status": "success", "date": date or "yesterday"}
+            logger.error(f"Prediction failed:\n{result.stderr}")
+            raise HTTPException(
+                status_code=500,
+                detail=result.stderr[-2000:] or result.stdout[-2000:],
+            )
+        return {
+            "status": "success",
+            "date": date or "yesterday",
+            "output": result.stdout[-2000:],
+        }
     except subprocess.TimeoutExpired:
         raise HTTPException(status_code=504, detail="Prediction pipeline timed out.")
 

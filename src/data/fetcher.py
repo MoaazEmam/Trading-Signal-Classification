@@ -1,4 +1,7 @@
+import json
 import logging
+import random
+import time
 from pathlib import Path
 
 import pandas as pd
@@ -17,6 +20,7 @@ FRED_TICKER_MAP = {
     "DGS10": "treasury_10y",
     "SP500": "sp500_level",
 }
+FRED_NAME_TO_ID = {v: k for k, v in FRED_TICKER_MAP.items()}
 
 fred = Fred(api_key=settings.fred_api_key)
 
@@ -37,6 +41,21 @@ RAW_SCHEMA_COLS = [
     "fear_greed_score",
     "fear_greed_label",
 ]
+CACHE_DIR = Path(__file__).parent / "cache"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+FRED_CACHE_PATH = CACHE_DIR / "fred_last_known.json"
+
+
+def _load_fred_cache() -> dict:
+    if FRED_CACHE_PATH.exists():
+        return json.loads(FRED_CACHE_PATH.read_text())
+    return {}
+
+
+def _save_fred_cache(row: dict):
+    cache = _load_fred_cache()
+    cache.update({k: v for k, v in row.items() if k != "Date" and not pd.isna(v)})
+    FRED_CACHE_PATH.write_text(json.dumps(cache))
 
 
 def _get_active_companies(path: Path = RAW_DATA_PATH) -> list[str]:
@@ -46,76 +65,105 @@ def _get_active_companies(path: Path = RAW_DATA_PATH) -> list[str]:
     return df["Company"].unique().tolist()
 
 
-def _fetch_daily_yfinance(ticker: str, date: str) -> pd.DataFrame:
-    try:
-        # yfinance end is exclusive so we need the next calendar day
-        end = (pd.Timestamp(date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
-        df = yf.download(ticker, start=date, end=end, auto_adjust=True, progress=False)
-        if df is None or df.empty:
-            logger.warning(f"{ticker}: no data for {date}, skipping")
-            return pd.DataFrame()
-        df.columns = [col[0] for col in df.columns]  # flatten MultiIndex
-        for col in ["Dividends", "Stock Splits"]:
-            if col not in df.columns:
-                df[col] = 0.0
-        df["Company"] = ticker
-        df = df.reset_index()
-        df["Date"] = pd.to_datetime(df["Date"]).dt.tz_localize(None).dt.normalize()
-        return df[
-            [
-                "Date",
-                "Open",
-                "High",
-                "Low",
-                "Close",
-                "Volume",
-                "Dividends",
-                "Stock Splits",
-                "Company",
-            ]
-        ]
-    except Exception as e:
-        logger.error(f"Skipped {ticker} due to error: {e}", exc_info=True)
-        return pd.DataFrame()
-
-
 def _fetch_all_yfinance(companies: list[str], date: str) -> pd.DataFrame:
-    dfs = [_fetch_daily_yfinance(ticker, date) for ticker in companies]
-    valid = [df for df in dfs if not df.empty]
-    if not valid:
+    end = (pd.Timestamp(date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
+    try:
+        raw = yf.download(
+            companies,
+            start=date,
+            end=end,
+            auto_adjust=True,
+            progress=False,
+            group_by="ticker",
+        )
+    except Exception as e:
+        raise RuntimeError(f"yfinance bulk download failed for {date}: {e}") from e
+
+    if raw is None or raw.empty:
         raise RuntimeError(
             f"No yfinance data returned for any company on {date}. "
             "This is likely a weekend or market holiday."
         )
-    result = pd.concat(valid, ignore_index=True)
+
+    ohlcv_cols = ["Open", "High", "Low", "Close", "Volume", "Dividends", "Stock Splits"]
+    frames = []
+    for ticker in companies:
+        try:
+            if len(companies) == 1:
+                df = raw.copy()
+                df.columns = [
+                    col[0] if isinstance(col, tuple) else col for col in df.columns
+                ]
+            else:
+                df = raw[ticker].copy()
+            df = df.dropna(subset=["Close"])
+            if df.empty:
+                logger.warning(f"{ticker}: no data for {date}, skipping")
+                continue
+            for col in ["Dividends", "Stock Splits"]:
+                if col not in df.columns:
+                    df[col] = 0.0
+            df = df[ohlcv_cols].reset_index()
+            df["Date"] = pd.to_datetime(df["Date"]).dt.tz_localize(None).dt.normalize()
+            df["Company"] = ticker
+            frames.append(
+                df[
+                    [
+                        "Date",
+                        "Open",
+                        "High",
+                        "Low",
+                        "Close",
+                        "Volume",
+                        "Dividends",
+                        "Stock Splits",
+                        "Company",
+                    ]
+                ]
+            )
+        except Exception as e:
+            logger.warning(f"Skipped {ticker}: {e}")
+
+    if not frames:
+        raise RuntimeError(
+            f"No yfinance data returned for any company on {date}. "
+            "This is likely a weekend or market holiday."
+        )
+
+    result = pd.concat(frames, ignore_index=True)
     logger.info(f"Done — got data for {result['Company'].nunique()} companies")
     return result
 
 
 def _fetch_fred_series_single(
-    series_id: str, date: str, name: str
+    series_id: str, date: str, name: str, retries: int = 3
 ) -> pd.DataFrame | None:
-    try:
-        s = fred.get_series(series_id, observation_start=date, observation_end=date)
-        if s.empty:
-            # fetch the last known value if yesterday isnt available
-            s = fred.get_series(series_id, observation_end=date)
-            s = s.dropna().tail(1)
-        if s.empty:
-            logger.warning(
-                f"FRED {series_id}: no data available up to {date}, skipping"
+    for attempt in range(retries):
+        try:
+            s = fred.get_series(series_id, observation_start=date, observation_end=date)
+            if s.empty:
+                # fetch the last known value if yesterday isnt available
+                s = fred.get_series(series_id, observation_end=date)
+                s = s.dropna().tail(1)
+            if s.empty:
+                logger.warning(
+                    f"FRED {series_id}: no data available up to {date}, skipping"
+                )
+                return None
+            df_fred = s.reset_index()
+            df_fred.columns = ["Date", name]
+            df_fred["Date"] = (
+                pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
             )
+            df_fred["Date"] = pd.Timestamp(date)
+            return df_fred[["Date", name]]
+        except Exception as e:
+            if attempt < retries - 1:
+                time.sleep(2**attempt + random.uniform(0, 1))
+                continue
+            logger.error(f"Skipping FRED {series_id} for {date}: {e}", exc_info=True)
             return None
-        df_fred = s.reset_index()
-        df_fred.columns = ["Date", name]
-        df_fred["Date"] = (
-            pd.to_datetime(df_fred["Date"]).dt.tz_localize(None).dt.normalize()
-        )
-        df_fred["Date"] = pd.Timestamp(date)
-        return df_fred[["Date", name]]
-    except Exception as e:
-        logger.error(f"Skipping FRED {series_id} for {date}: {e}", exc_info=True)
-        return None
+    return None
 
 
 def _fetch_fred_macros_daily(date: str) -> pd.DataFrame:
@@ -133,7 +181,7 @@ def _fetch_fred_macros_daily(date: str) -> pd.DataFrame:
             row[name] = df[name].iloc[0]
         else:
             # if series failed find the nearest date that wont
-            series_id = next(k for k, v in FRED_TICKER_MAP.items() if v == name)
+            series_id = FRED_NAME_TO_ID[name]
             try:
                 s = fred.get_series(series_id, observation_end=date).dropna()
                 row[name] = float(s.iloc[-1]) if not s.empty else float("nan")
@@ -149,13 +197,19 @@ def _fetch_fred_macros_daily(date: str) -> pd.DataFrame:
 
     merged = pd.DataFrame([row])
 
-    for name in FRED_TICKER_MAP.values():
-        if merged[name].isna().any():
-            logger.warning(
-                f"FRED {name}: still NaN after all fallbacks, defaulting to 0.0"
-            )
-            merged[name] = 0.0
+    cache = _load_fred_cache()
 
+    for name in FRED_TICKER_MAP.values():
+        if pd.isna(merged[name].iloc[0]):
+            if name in cache:
+                merged[name] = cache[name]
+                logger.warning(
+                    f"FRED {name}: using cached last known value {cache[name]}"
+                )
+            else:
+                merged[name] = 0.0  # no history found
+                logger.error(f"FRED {name}: no cache available, defaulting to 0.0")
+    _save_fred_cache(merged.iloc[0].to_dict())
     return merged
 
 

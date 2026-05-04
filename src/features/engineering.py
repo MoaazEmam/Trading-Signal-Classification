@@ -15,7 +15,7 @@ ENGINEERED_PATH = Path("data/processed/market_data_with_features.csv")
 def _calculate_price_momentum(df: pd.DataFrame) -> pd.DataFrame:
     features = pd.DataFrame(index=df.index)
     for n in [1, 2, 5, 10, 20]:
-        features[f"return_{n}d"] = df["Close"].pct_change(n)
+        features[f"return_{n}d"] = df["Close"].pct_change(n, fill_method=None)
     features["log_return"] = np.log(df["Close"] / df["Close"].shift(1))
     features["gap_open"] = df["Open"] / df["Close"].shift(1) - 1
     features["intraday_return"] = df["Close"] / df["Open"] - 1
@@ -140,7 +140,7 @@ def _calculate_volatility_features(df: pd.DataFrame) -> pd.DataFrame:
     features["atr_14"] = atr_14
     features["atr_ratio"] = atr_14 / (df["Close"] + 1e-9)
 
-    returns = df["Close"].pct_change()
+    returns = df["Close"].pct_change(fill_method=None)
 
     realized_vol_10 = returns.rolling(10).std()
     realized_vol_20 = returns.rolling(20).std()
@@ -185,17 +185,17 @@ def _calculate_sp500_relative_features(df: pd.DataFrame) -> pd.DataFrame:
     spx = df["sp500_level"]
     stock = df["Close"]
 
-    spx_ret_1d = spx.pct_change()
+    spx_ret_1d = spx.pct_change(fill_method=None)
 
     features["sp500_return_1d"] = spx_ret_1d
-    features["sp500_return_5d"] = spx.pct_change(5)
-    features["sp500_return_20d"] = spx.pct_change(20)
+    features["sp500_return_5d"] = spx.pct_change(5, fill_method=None)
+    features["sp500_return_20d"] = spx.pct_change(20, fill_method=None)
 
-    stock_ret_5d = stock.pct_change(5)
+    stock_ret_5d = stock.pct_change(5, fill_method=None)
 
     features["relative_return_5d"] = stock_ret_5d - features["sp500_return_5d"]
 
-    stock_ret_1d = stock.pct_change()
+    stock_ret_1d = stock.pct_change(fill_method=None)
     market_ret_1d = spx_ret_1d
 
     cov = stock_ret_1d.rolling(20).cov(market_ret_1d)
@@ -311,7 +311,7 @@ def _calculate_cross_feature_interactions(df: pd.DataFrame) -> pd.DataFrame:
         features["rsi_bb_position"] = df["rsi_14"] * df["bb_position"]
 
     if "volume_ratio" in df.columns:
-        daily_return = df["Close"].pct_change()
+        daily_return = df["Close"].pct_change(fill_method=None)
         features["volume_price_trend"] = df["volume_ratio"] * daily_return
 
     if "vix_percentile" in df.columns and "fear_greed_score" in df.columns:
@@ -403,7 +403,7 @@ def build_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
         _calculate_features, include_groups=False
     )
 
-    feature_blocks = feature_blocks.reset_index(drop=True)
+    feature_blocks.index = df.index
 
     assert len(feature_blocks) == len(df), (
         f"Row count mismatch after feature engineering: "
@@ -436,16 +436,29 @@ def run_engineering(df: pd.DataFrame) -> pd.DataFrame:
 def run_engineering_predict(df: pd.DataFrame, target_date: str) -> pd.DataFrame:
     """Feature engineering for prediction. Drops NaN rows only from context rows,
     keeping the target date rows even if some features are NaN from rolling warmup."""
-    result = build_feature_matrix(df)
-
     target_ts = pd.Timestamp(target_date).normalize()
-    dates = result["Date"]
+
+    dates = df["Date"]
     if dates.dt.tz is not None:
-        dates = dates.dt.tz_localize(None)
-    target_mask = dates == target_ts
+        dates = dates.dt.tz_convert(None)
+    target_mask_input = dates.dt.normalize() == target_ts
 
     logger.info(
-        "run_engineering_predict: found %d target rows for %s before NaN filtering",
+        "run_engineering_predict: found %d target rows for %s in input",
+        target_mask_input.sum(),
+        target_date,
+    )
+
+    df = df.copy()
+    df["_is_target"] = target_mask_input
+
+    result = build_feature_matrix(df)
+
+    target_mask = result["_is_target"].astype(bool)
+    result = result.drop(columns=["_is_target"])
+
+    logger.info(
+        "run_engineering_predict: found %d target rows for %s after feature engineering",
         target_mask.sum(),
         target_date,
     )

@@ -1,79 +1,50 @@
 {
-  "generated_at": "2026-05-02T18:50:46.678737+00:00",
+  "generated_at": "2026-05-03T15:50:43.337296+00:00",
   "models": {
     "logistic_regression": {
       "best_params": {
-        "C": 0.01,
+        "C": 0.5,
         "l1_ratio": 0.1
       },
-      "cv_accuracy": 0.388265043336175,
-      "train_accuracy": 0.4392059635983396,
-      "test_accuracy": 0.414520861567611,
-      "train_time_s": 100.26,
-      "artifact_path": "models/logistic_regression.pkl"
+      "cv_accuracy": 0.3885270140664961,
+      "train_accuracy": 0.43934676261867733,
+      "test_accuracy": 0.4146102379558298,
+      "train_time_s": 1428.69,
+      "artifact_path": "/kaggle/working/models/logistic_regression.pkl"
     },
     "decision_tree": {
       "best_params": {
-        "max_depth": 6,
-        "min_samples_leaf": 200
+        "max_depth": 8,
+        "min_samples_leaf": 100
       },
-      "cv_accuracy": 0.39137983091787437,
-      "train_accuracy": 0.4536587315198551,
-      "test_accuracy": 0.3881856817673452,
-      "train_time_s": 2.84,
-      "artifact_path": "models/decision_tree.pkl"
+      "cv_accuracy": 0.40478251989201475,
+      "train_accuracy": 0.47644602366387045,
+      "test_accuracy": 0.3981895094175773,
+      "train_time_s": 10.54,
+      "artifact_path": "/kaggle/working/models/decision_tree.pkl"
     },
     "adaboost": {
       "best_params": {
-        "learning_rate": 0.05,
+        "learning_rate": 0.1,
         "n_estimators": 300
       },
-      "cv_accuracy": 0.391715064649048,
-      "train_accuracy": 0.4558999095869472,
-      "test_accuracy": 0.4032578518703701,
-      "train_time_s": 1353.44,
-      "artifact_path": "models/adaboost.pkl"
+      "cv_accuracy": 0.3944324559533958,
+      "train_accuracy": 0.4803988824099451,
+      "test_accuracy": 0.41234712472780144,
+      "train_time_s": 4281.12,
+      "artifact_path": "/kaggle/working/models/adaboost.pkl"
     },
     "random_forest": {
       "best_params": {
-        "max_depth": 10,
+        "min_samples_leaf": 50,
         "max_samples": 0.7,
-        "min_samples_leaf": 100
+        "max_depth": 15
       },
-      "cv_accuracy": 0.39259866084114803,
-      "train_accuracy": 0.5789549050329933,
-      "test_accuracy": 0.42017210299864477,
-      "train_time_s": 237.05,
-      "artifact_path": "models/random_forest.pkl"
-    },
-    "lightgbm": {
-      "best_params": {
-        "learning_rate": 0.02,
-        "min_child_samples": 200,
-        "n_estimators": 1000,
-        "num_leaves": 48,
-        "reg_lambda": 0.5
-      },
-      "cv_accuracy": 0.3974984015345268,
-      "train_accuracy": 0.6085880744683863,
-      "test_accuracy": 0.4159024223365482,
-      "train_time_s": 432.91,
-      "artifact_path": "models/lightgbm.pkl"
-    },
-    "voting_classifier": {
-      "best_params": {
-        "estimators": [
-          "lightgbm",
-          "random_forest",
-          "adaboost"
-        ],
-        "voting": "soft"
-      },
-      "cv_accuracy": null,
-      "train_accuracy": 0.6011169258896029,
-      "test_accuracy": 0.41673135879791057,
-      "train_time_s": 801.75,
-      "artifact_path": "models/voting_classifier.pkl"
+      "cv_accuracy": 0.39782919508383063,
+      "train_accuracy": 0.6020966468968227,
+      "test_accuracy": 0.4212482648368782,
+      "train_time_s": 6109.9,
+      "artifact_path": "/kaggle/working/models/random_forest.pkl"
     }
   }
 }
