@@ -38,7 +38,7 @@ RUN az storage blob download-batch \
     --account-name "${AZURE_STORAGE_ACCOUNT}" \
     --account-key "${AZURE_STORAGE_KEY}" \
     --source models \
-    --destination /app/models/ \
+    --destination /app/models/
 
 RUN echo "=== /app/models/ ===" && ls -lh /app/models/*.pkl && \
     echo "=== /app/models/artifacts/ ===" && ls -lh /app/models/artifacts/
