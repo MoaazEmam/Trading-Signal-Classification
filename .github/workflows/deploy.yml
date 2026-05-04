@@ -44,9 +44,14 @@ jobs:
           containerAppName: trading-signal-api
           resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
           imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-          acrName: ${{ secrets.ACR_NAME }}
-          acrUsername: ${{ secrets.ACR_USERNAME }}
-          acrPassword: ${{ secrets.ACR_PASSWORD }}
+          targetPort: 8000
+
+      - name: Set API command
+        run: |
+            az containerapp update \
+              --name trading-signal-api \
+              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+              --command "uvicorn" "src.serving.api:app" "--host" "0.0.0.0" "--port" "8000" "--workers" "2"
 
       - name: Deploy to Azure Container Apps — Streamlit
         uses: azure/container-apps-deploy-action@v1
@@ -54,9 +59,13 @@ jobs:
           containerAppName: trading-signal-streamlit
           resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
           imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-          acrName: ${{ secrets.ACR_NAME }}
-          acrUsername: ${{ secrets.ACR_USERNAME }}
-          acrPassword: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Set Streamlit command
+        run: |
+            az containerapp update \
+              --name trading-signal-streamlit \
+              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+              --command "streamlit" "run" "app/streamlit_app.py" "--server.port" "8501" "--server.address" "0.0.0.0" "--server.headless" "true"
 
       - name: Deploy to Azure Container Apps — Scheduler
         uses: azure/container-apps-deploy-action@v1
@@ -64,6 +73,10 @@ jobs:
           containerAppName: trading-signal-scheduler
           resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
           imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
-          acrName: ${{ secrets.ACR_NAME }}
-          acrUsername: ${{ secrets.ACR_USERNAME }}
-          acrPassword: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Set Scheduler command
+        run: |
+            az containerapp update \
+              --name trading-signal-scheduler \
+              --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+              --command "/app/scheduler/entrypoint.sh"
