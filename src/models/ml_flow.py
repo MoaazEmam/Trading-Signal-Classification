@@ -27,6 +27,7 @@ from __future__ import annotations
 import json
 import logging
 import math
+import sqlite3
 from pathlib import Path
 from typing import Any
 
@@ -63,10 +64,29 @@ def run_mlflow_tracking() -> None:
 
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
     client = mlflow.tracking.MlflowClient()
+    desired_artifact_loc = settings.mlflow_artifact_root or str(
+        _PROJECT_ROOT / "mlruns"
+    )
     exp = client.get_experiment_by_name(EXPERIMENT_NAME)
     if exp is None:
-        artifact_loc = settings.mlflow_artifact_root or str(_PROJECT_ROOT / "mlruns")
-        mlflow.create_experiment(EXPERIMENT_NAME, artifact_location=artifact_loc)
+        mlflow.create_experiment(
+            EXPERIMENT_NAME, artifact_location=desired_artifact_loc
+        )
+    elif exp.artifact_location != desired_artifact_loc:
+        # MLflow has no public API to update artifact_location; patch the DB directly
+        db_path = settings.mlflow_tracking_uri.replace("sqlite:///", "")
+        if not Path(db_path).is_absolute():
+            db_path = str(_PROJECT_ROOT / db_path)
+        with sqlite3.connect(db_path) as conn:
+            conn.execute(
+                "UPDATE experiments SET artifact_location=? WHERE experiment_id=?",
+                (desired_artifact_loc, exp.experiment_id),
+            )
+        logger.info(
+            "Patched artifact_location from %s to %s",
+            exp.artifact_location,
+            desired_artifact_loc,
+        )
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     results_path = ARTIFACT_DIR / "training_results.json"
