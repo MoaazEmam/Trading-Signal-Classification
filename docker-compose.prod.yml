@@ -1,0 +1,68 @@
+services:
+  api:
+    image: ${ACR_LOGIN_SERVER}/trading-signal:${IMAGE_TAG:-latest}
+    command: uvicorn src.serving.api:app --host 0.0.0.0 --port 8000 --workers 2
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.prod
+    volumes:
+      - predictions:/app/predictions
+      - logs:/app/logs
+      - raw_data:/app/data/raw
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  streamlit:
+    image: ${ACR_LOGIN_SERVER}/trading-signal:${IMAGE_TAG:-latest}
+    command: streamlit run app/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env.prod
+    environment:
+      - API_URL=http://api:8000
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    volumes:
+      - predictions:/app/predictions
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  scheduler:
+    image: ${ACR_LOGIN_SERVER}/trading-signal:${IMAGE_TAG:-latest}
+    command: /app/scheduler/entrypoint.sh
+    env_file:
+      - .env.prod
+    volumes:
+      - predictions:/app/predictions
+      - logs:/app/logs
+      - raw_data:/app/data/raw
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:///mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    restart: unless-stopped
+
+volumes:
+  predictions:
+  logs:
+  raw_data:
+  mlflow_data:

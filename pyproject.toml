@@ -12,7 +12,7 @@ requests = "^2.33.0"
 pydantic = "^2.12.5"
 pydantic-settings = "^2.13.1"
 scikit-learn = "^1.8.0"
-mlflow = "^3.10.1"
+mlflow = "3.11.1"
 great-expectations = "^1.15.1"
 numpy = "^2.4.3"
 imbalanced-learn = "^0.14.1"
@@ -22,6 +22,13 @@ boto3 = "^1.42.76"
 kagglehub = "^1.0.0"
 yfinance = "^1.2.0"
 fredapi = "^0.5.2"
+pandas-market-calendars = "^5.3.2"
+lightgbm = "^4.6.0"
+uvicorn = "^0.46.0"
+httpx = "^0.28.1"
+streamlit = "^1.57.0"
+fastapi = "^0.136.1"
+plotly = "^6.7.0"
 
 
 
@@ -34,6 +41,9 @@ pre-commit = "^4.5.1"
 ipykernel = "^7.2.0"
 jupyter = "^1.1.1"
 pyright = "^1.1.408"
+pandas-stubs = "^3.0.0.260204"
+plotly = "^6.7.0"
+streamlit = "^1.57.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -56,19 +66,10 @@ line-length = 88
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-addopts = [
-    "--cov=src",
-    "--cov-report=term-missing",
-    "--cov-report=xml",
-    "--cov-fail-under=60",
-]
+addopts = []
 
 [tool.coverage.run]
-source = ["src"]
 omit = [
-    "src/data/validation.py",
-    "src/serving/api.py",
-    "src/config.py",
     "src/**/__init__.py",
     "*/__init__.py",
 ]

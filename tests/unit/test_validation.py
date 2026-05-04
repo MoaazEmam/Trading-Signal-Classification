@@ -87,7 +87,10 @@ class TestCheckCompanyRows:
     def test_flags_inconsistent_coverage(self, clean_validation_df):
         drop_date = clean_validation_df["Date"].iloc[0]
         df = clean_validation_df[
-            ~((clean_validation_df["Company"] == "AAPL") & (clean_validation_df["Date"] == drop_date))
+            ~(
+                (clean_validation_df["Company"] == "AAPL")
+                & (clean_validation_df["Date"] == drop_date)
+            )
         ]
         v = Validator(df)
         v.check_company_rows()
@@ -133,7 +136,11 @@ class TestCheckPriceSpikes:
         assert _issues_containing(v, "spike") == []
 
     def test_no_flag_when_split_present(self, clean_validation_df):
-        df = clean_validation_df.copy().sort_values(["Company", "Date"]).reset_index(drop=True)
+        df = (
+            clean_validation_df.copy()
+            .sort_values(["Company", "Date"])
+            .reset_index(drop=True)
+        )
         idx = df[df["Company"] == "AAPL"].index[10]
         df.loc[idx, "Close"] = 999.0
         df.loc[idx, "Stock Splits"] = 2.0  # split recorded — should NOT flag
@@ -231,7 +238,9 @@ class TestOnSampleDf:
         # Run only checks that don't require the label column if it's missing
         v = Validator(sample_df)
         if "label" not in sample_df.columns:
-            pytest.skip("Sample has no label column — re-run save_sample() after labeling.py")
+            pytest.skip(
+                "Sample has no label column — re-run save_sample() after labeling.py"
+            )
         issues = v.run_all()
         assert isinstance(issues, list)
 

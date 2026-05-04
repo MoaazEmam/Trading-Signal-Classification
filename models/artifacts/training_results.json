@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-03T15:50:43.337296+00:00",
+  "models": {
+    "logistic_regression": {
+      "best_params": {
+        "C": 0.5,
+        "l1_ratio": 0.1
+      },
+      "cv_accuracy": 0.3885270140664961,
+      "train_accuracy": 0.43934676261867733,
+      "test_accuracy": 0.4146102379558298,
+      "train_time_s": 1428.69,
+      "artifact_path": "/kaggle/working/models/logistic_regression.pkl"
+    },
+    "decision_tree": {
+      "best_params": {
+        "max_depth": 8,
+        "min_samples_leaf": 100
+      },
+      "cv_accuracy": 0.40478251989201475,
+      "train_accuracy": 0.47644602366387045,
+      "test_accuracy": 0.3981895094175773,
+      "train_time_s": 10.54,
+      "artifact_path": "/kaggle/working/models/decision_tree.pkl"
+    },
+    "adaboost": {
+      "best_params": {
+        "learning_rate": 0.1,
+        "n_estimators": 300
+      },
+      "cv_accuracy": 0.3944324559533958,
+      "train_accuracy": 0.4803988824099451,
+      "test_accuracy": 0.41234712472780144,
+      "train_time_s": 4281.12,
+      "artifact_path": "/kaggle/working/models/adaboost.pkl"
+    },
+    "random_forest": {
+      "best_params": {
+        "min_samples_leaf": 50,
+        "max_samples": 0.7,
+        "max_depth": 15
+      },
+      "cv_accuracy": 0.39782919508383063,
+      "train_accuracy": 0.6020966468968227,
+      "test_accuracy": 0.4212482648368782,
+      "train_time_s": 6109.9,
+      "artifact_path": "/kaggle/working/models/random_forest.pkl"
+    }
+  }
+}

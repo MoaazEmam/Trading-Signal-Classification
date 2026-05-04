@@ -1,0 +1,60 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.prod
+          push: true
+          tags: |
+            ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:latest
+            ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+          build-args: |
+            AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
+            AZURE_STORAGE_KEY=${{ secrets.AZURE_STORAGE_KEY }}
+
+      - name: Deploy to Azure Container Apps — API
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          containerAppName: trading-signal-api
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+
+      - name: Deploy to Azure Container Apps — Streamlit
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          containerAppName: trading-signal-streamlit
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
+
+      - name: Deploy to Azure Container Apps — Scheduler
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          containerAppName: trading-signal-scheduler
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/trading-signal:${{ github.sha }}
