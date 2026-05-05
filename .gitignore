@@ -241,3 +241,4 @@ notebooks/*
 /models/voting_classifier.pkl
 /.env.prod
 /graphify-out/
+/CMPS344_Final_Report.docx

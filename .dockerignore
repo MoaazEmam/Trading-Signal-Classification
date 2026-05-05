@@ -6,7 +6,6 @@ tests/
 __pycache__/
 .env
 .env.*
-mlflow.db
 mlruns/
 htmlcov/
 .coverage

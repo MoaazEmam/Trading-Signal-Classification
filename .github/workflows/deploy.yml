@@ -48,6 +48,20 @@ jobs:
             --overwrite true \
             || echo "No mlruns/ to upload, skipping"
 
+      - name: Upload MLflow DB to Azure Blob
+        run: |
+          if [ -f ./mlflow.db ]; then
+            az storage blob upload \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
+              --container-name mlflow \
+              --file ./mlflow.db \
+              --name mlflow.db \
+              --overwrite true
+          else
+            echo "No mlflow.db found, skipping"
+          fi
+
       - name: Deploy to Azure Container Apps — API
         uses: azure/CLI@v2
         with:
