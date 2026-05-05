@@ -83,7 +83,7 @@ validate:
 	poetry run python -m src.data.validation
 
 mlflow-log: models/artifacts/training_results.json
-	poetry run python -m src.models.ml_flow
+	MLFLOW_TRACKING_URI=sqlite:///mlflow.db MLFLOW_ARTIFACT_ROOT= poetry run python -m src.models.ml_flow
 
 mlflow-server:
 	poetry run mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000

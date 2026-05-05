@@ -84,12 +84,21 @@ class TestSafe:
 
 
 class TestRunMlflowTracking:
+    def _patch(self, tmp_path, monkeypatch, artifact_dir, models_dir):
+        """Redirect all MLflow I/O and settings to a tmp SQLite DB."""
+        import src.models.ml_flow as ml_flow_mod
+
+        uri = f"sqlite:///{tmp_path / 'mlflow.db'}"
+        mlflow.set_tracking_uri(uri)
+        monkeypatch.setattr(ml_flow_mod.settings, "mlflow_tracking_uri", uri)
+        monkeypatch.setattr(ml_flow_mod.settings, "mlflow_artifact_root", "")
+        monkeypatch.setattr("src.models.ml_flow.ARTIFACT_DIR", artifact_dir)
+        monkeypatch.setattr("src.models.ml_flow.MODELS_DIR", models_dir)
+
     def test_creates_experiment_with_correct_name(
         self, tmp_path, monkeypatch, training_json, artifact_dir, models_dir
     ):
-        mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow.db'}")
-        monkeypatch.setattr("src.models.ml_flow.ARTIFACT_DIR", artifact_dir)
-        monkeypatch.setattr("src.models.ml_flow.MODELS_DIR", models_dir)
+        self._patch(tmp_path, monkeypatch, artifact_dir, models_dir)
         run_mlflow_tracking()
         client = mlflow.tracking.MlflowClient()
         names = [e.name for e in client.search_experiments()]
@@ -98,9 +107,7 @@ class TestRunMlflowTracking:
     def test_creates_run_per_model(
         self, tmp_path, monkeypatch, training_json, artifact_dir, models_dir
     ):
-        mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow.db'}")
-        monkeypatch.setattr("src.models.ml_flow.ARTIFACT_DIR", artifact_dir)
-        monkeypatch.setattr("src.models.ml_flow.MODELS_DIR", models_dir)
+        self._patch(tmp_path, monkeypatch, artifact_dir, models_dir)
         run_mlflow_tracking()
         client = mlflow.tracking.MlflowClient()
         experiment = client.get_experiment_by_name("Trading-Signal-Classification")
@@ -124,17 +131,13 @@ class TestRunMlflowTracking:
             }
         }
         (artifact_dir / "training_results.json").write_text(json.dumps(data))
-        mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow.db'}")
-        monkeypatch.setattr("src.models.ml_flow.ARTIFACT_DIR", artifact_dir)
-        monkeypatch.setattr("src.models.ml_flow.MODELS_DIR", models_dir)
+        self._patch(tmp_path, monkeypatch, artifact_dir, models_dir)
         run_mlflow_tracking()
 
     def test_logs_train_and_test_accuracy(
         self, tmp_path, monkeypatch, training_json, artifact_dir, models_dir
     ):
-        mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow.db'}")
-        monkeypatch.setattr("src.models.ml_flow.ARTIFACT_DIR", artifact_dir)
-        monkeypatch.setattr("src.models.ml_flow.MODELS_DIR", models_dir)
+        self._patch(tmp_path, monkeypatch, artifact_dir, models_dir)
         run_mlflow_tracking()
         client = mlflow.tracking.MlflowClient()
         experiment = client.get_experiment_by_name("Trading-Signal-Classification")
