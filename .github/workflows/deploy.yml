@@ -40,6 +40,11 @@ jobs:
 
       - name: Upload MLflow artifacts to Azure Blob
         run: |
+          az storage container create \
+            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+            --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
+            --name mlruns \
+            --fail-on-exist false
           az storage blob upload-batch \
             --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
             --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
@@ -51,6 +56,11 @@ jobs:
       - name: Upload MLflow DB to Azure Blob
         run: |
           if [ -f ./mlflow.db ]; then
+            az storage container create \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
+              --name mlflow \
+              --fail-on-exist false
             az storage blob upload \
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
               --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
