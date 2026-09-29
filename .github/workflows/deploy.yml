@@ -1,8 +1,7 @@
 name: Deploy to Azure
 
+# The Azure deployment has been taken down; run manually if it is re-provisioned.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
