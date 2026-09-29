@@ -2,14 +2,35 @@
 
 **CMPS344 Applied Data Science — Spring 2026**
 
-A full ML pipeline that classifies daily stock movements as **Buy / Hold / Sell** for 491 large-cap equities. The project covers the complete data-science lifecycle: multi-source ingestion, cleaning, feature engineering, model training, MLflow experiment tracking, a FastAPI serving layer, a Streamlit dashboard, and deployment to Azure Container Apps via GitHub Actions CI/CD.
+A full ML pipeline that classifies daily stock movements as **Buy / Hold / Sell** for 491 large-cap equities. The project covers the complete data-science lifecycle: multi-source ingestion, cleaning, feature engineering, model training, MLflow experiment tracking, a FastAPI serving layer, a Streamlit dashboard, and deployment to Azure Container Apps via GitHub Actions CI/CD (since taken down).
+
+---
+
+## Results
+
+Six models were trained on a chronological split and evaluated on the held-out, most recent period. Each model's signals were then backtested ($500K starting capital).
+
+| Model | Test accuracy | CV accuracy | Overfit gap | Backtest return | Sharpe | Win rate |
+|---|---|---|---|---|---|---|
+| Logistic regression | 41.5% | 38.8% | 0.025 | −0.80% | 0.003 | 50.0% |
+| Decision tree | 39.2% | 40.2% | 0.088 | +6.64% | 0.468 | 51.3% |
+| AdaBoost | 40.5% | 39.5% | 0.062 | −0.12% | 0.036 | 50.7% |
+| Random forest | 42.2% | 39.6% | 0.157 | **+14.32%** | **1.030** | 50.5% |
+| **LightGBM** (selected) | 41.7% | 39.5% | 0.182 | +1.60% | 0.171 | 50.3% |
+| Voting ensemble | 41.9% | — | 0.174 | +2.48% | 0.245 | 50.2% |
+
+- **Selected model:** LightGBM, chosen on macro-F1: 0.407 F1, 0.105 MCC, 0.436 macro precision. A random 3-class guess scores about 33%.
+- **Classification vs. trading:** random forest had the best backtest (+14.3%, Sharpe 1.03) despite similar accuracy. Accuracy and trading value don't move together here.
+- **Overfitting:** every tree ensemble shows a 0.16–0.18 train/test gap, the main sign of distribution shift between the training years and the test period.
+
+Sources: `models/artifacts/model_comparison.csv`, `best_model.json`, `backtest_results.json`, and per-model confusion matrices in `models/artifacts/`.
 
 ---
 
 ## Table of Contents
 
+- [Results](#results)
 - [Project Structure](#project-structure)
-- [Team](8)
 - [Prerequisites](#prerequisites)
 - [Local Setup](#local-setup)
 - [Environment Variables](#environment-variables)
@@ -100,14 +121,6 @@ Trading-Signal-Classification/
 ├── docker-compose.prod.yml  # Local prod-image testing stack
 └── .env.example             # Template for required environment variables
 ```
-
----
-
-## Team
-
-| Name | Student ID | Email |
-|------|-----------|-------|
-| Moaaz Emam | — | moaaz.emam06@eng-st.cu.edu.eg |
 
 ---
 
@@ -351,9 +364,7 @@ The Docker image is built with `Dockerfile.prod` which:
 
 Models and the `mlruns/` artifact directory are stored in Azure Blob Storage (`tradingmodels` account). `mlflow.db` is baked into the image at build time via `COPY . .` (it is not excluded from `.dockerignore`).
 
-Live URLs:
-- **API**: `https://trading-signal-api.redgrass-d6b7e126.southafricanorth.azurecontainerapps.io`
-- **Streamlit**: deployed alongside the API on Azure Container Apps
+> **Status:** the Azure deployment has been taken down, and `deploy.yml` now runs only on manual dispatch. To run the full stack locally, see [Docker](#docker).
 
 ---
 
@@ -364,4 +375,4 @@ GitHub Actions workflows are in `.github/workflows/`:
 | Workflow | Trigger | Steps |
 |---------|---------|-------|
 | `ci.yml` | Push / PR to `main` or `dev` | Lint (ruff), format check (black), unit tests, full test suite with coverage gate (≥ 60%) |
-| `deploy.yml` | Push to `main` | Build Docker image, push to Azure Container Registry, upload MLflow artifacts to Azure Blob, deploy all three container apps |
+| `deploy.yml` | Manual (`workflow_dispatch`) | Build Docker image, push to Azure Container Registry, upload MLflow artifacts to Azure Blob, deploy all three container apps |
