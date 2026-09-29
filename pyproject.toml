@@ -74,6 +74,9 @@ addopts = []
 omit = [
     "src/**/__init__.py",
     "*/__init__.py",
+    # CLI entry points that only wire the pipeline together
+    "src/pipelines/train.py",
+    "src/features/selection_runner.py",
 ]
 
 [tool.coverage.report]
